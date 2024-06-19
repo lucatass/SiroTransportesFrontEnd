@@ -1,0 +1,78 @@
+.pagoEn {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+.costos {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.costos input {
+    max-width: 100px;
+    flex:1;
+}
+
+.contrareembolso {
+    display: flex;
+
+    margin-bottom: 10px;
+}
+    
+label {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+select {
+    flex: 1;
+    min-width: 145px;
+    max-width: max-content;
+}
+
+button {
+    margin-right: 63px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(2px) ;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+}
+
+.agregar {
+    color: #41ff07 !important;
+    background-color: white;
+    transition: text-shadow 0.2s, box-shadow 0.2s;
+}
+
+.agregar:hover {
+    text-shadow: 0 0 1px #41ff07;
+    box-shadow: 0 0 5px #41ff07;
+}
+
+.cancelar {
+    color: #ff9b07 !important;
+    background-color: white;
+    transition: text-shadow 0.2s, box-shadow 0.2s;
+}
+
+.cancelar:hover {
+    text-shadow: 0 0 1px #ff9b07;
+    box-shadow: 0 0 5px #ff9b07;
+}
+
+.cerrar {
+    color: #ff0707 !important;
+    background-color: white;
+    transition: text-shadow 0.2s, box-shadow 0.2s;
+}
+
+.cerrar:hover {
+    text-shadow: 0 0 1px #ff0707;
+    box-shadow: 0 0 5px #ff0707;
+}
