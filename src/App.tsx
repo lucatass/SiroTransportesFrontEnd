@@ -1,10 +1,11 @@
 import { RemitosForm } from "./components/RemitosForm";
+import RemitoParent from "./components/RemitoParent";
 import './App.css';
 
 function App(){
   return (
     <div>
-      <RemitosForm />
+      <RemitoParent />
     </div>
   )
 }
