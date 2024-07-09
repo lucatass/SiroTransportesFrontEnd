@@ -27,7 +27,12 @@ const RemitoForm: React.FC = () => {
   const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<IFormInput>({
     defaultValues: {
       remitenteNombre: '',
-      destinatarioNombre: ''
+      destinatarioNombre: '',
+      recolección: 0,
+      bultos: 0,
+      peso: 0,
+      valorDeclarado: 0,
+      contrareembolso: 0,
     }
   });
   const [clientes, setClientes] = useState<Cliente[]>([]);
@@ -49,11 +54,13 @@ const RemitoForm: React.FC = () => {
     const destinatario = clientes.find(cliente => cliente.id === data.destinatarioId);
     const pagoEn = data.pagoEn;
     const unidad = data.unidad;
-    const recoleccion = data.recolección;
-    const bultos = data.bultos;
-    const peso = data.peso;
-    const valorDeclarado = data.valorDeclarado;
-    const contrareembolso = data.contrareembolso;
+
+    const recoleccion = isNaN(data.recolección) ? 0 : data.recolección;
+    const bultos = isNaN(data.bultos) ? 0 : data.bultos;
+    const peso = isNaN(data.peso) ? 0 : data.peso;
+    const valorDeclarado = isNaN(data.valorDeclarado) ? 0 : data.valorDeclarado;
+    const contrareembolso = isNaN(data.contrareembolso) ? 0 : data.contrareembolso;
+
     console.log('Form Data:', {
       fecha: data.fecha,
       remitente: remitente ? { id: remitente.id, nombre: remitente.nombre, cuit: remitente.cuit } : null,
