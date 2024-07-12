@@ -61,6 +61,8 @@ const RemitoForm: React.FC = () => {
     const valorDeclarado = isNaN(data.valorDeclarado) ? 0 : data.valorDeclarado;
     const contrareembolso = isNaN(data.contrareembolso) ? 0 : data.contrareembolso;
 
+
+   
     console.log('Form Data:', {
       fecha: data.fecha,
       remitente: remitente ? { id: remitente.id, nombre: remitente.nombre, cuit: remitente.cuit } : null,

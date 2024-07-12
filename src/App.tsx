@@ -1,10 +1,11 @@
 import './App.css';
+import HrutaForm from './components/HRuta';
 import RemitoForm from './components/RemitoForm';
 
 function App(){
   return (
     <div>
-      <RemitoForm />  {/* Formulario para ingresar los datos del remito */}
+      <HrutaForm />  {/* Formulario para ingresar los datos del remito */}
     </div>
   )
 }
