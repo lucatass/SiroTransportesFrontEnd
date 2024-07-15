@@ -1,58 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 type FormInput = {
   codigo: number;
-  sucursal: string;
-  transportes: number;
+  origen: string;
+  destino: string;
+  transporteId: number;
+  personalId: number;
+  maquinariaId: number;
   salida: string;
   llegada: string;
   cerrada: boolean;
+  unidad: string;
+  tracking: string;
 };
 
 const HrutaList: React.FC = () => {
-  const { register, handleSubmit, control } = useForm<FormInput>({
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormInput>({
     defaultValues: {
       codigo: 0,
-      sucursal: '',
-      transportes: 0,
       salida: '',
       llegada: '',
+      origen: 'BAS',
+      destino: '',
+      transporteId: 0,
+      personalId: 0,
+      maquinariaId: 0,
       cerrada: false,
+      unidad: 'kg',
+      tracking: '',
     },
   });
 
+  const [formData, setFormData] = useState<FormInput | null>(null);
+
   const onSubmit = (data: FormInput) => {
     console.log('Form Data:', data);
+    setFormData(data); // Store the form data in state
   };
+
+  // Watch the 'salida' field to use its value for validation
+  const salidaValue = watch('salida');
 
   return (
     <div>
-            <table>
+      <table>
         <thead>
           <tr>
             <th>Código</th>
-            <th>Sucursal</th>
+            <th>Sucursal Origen</th>
+            <th>Sucursal Destino</th>
             <th>Transportes</th>
             <th>Fecha Salida</th>
             <th>Fecha Llegada</th>
             <th>Cerrada</th>
+            <th>Unidad</th>
+            <th>Tracking</th>
           </tr>
         </thead>
         <tbody>
-          {[
-            { codigo: 1, sucursal: 'Suc1', transportes: 10, salida: '2023-01-01', llegada: '2023-01-03', cerrada: false },
-            { codigo: 2, sucursal: 'Suc2', transportes: 20, salida: '2023-01-02', llegada: '2023-01-04', cerrada: false },
-          ].map((item) => (
-            <tr key={item.codigo}>
-              <td>{item.codigo}</td>
-              <td>{item.sucursal}</td>
-              <td>{item.transportes}</td>
-              <td>{item.salida}</td>
-              <td>{item.llegada}</td>
-              <td>{item.cerrada ? 'Si' : 'No'}</td>
+          {formData ? (
+            <tr>
+              <td>{formData.codigo}</td>
+              <td>{formData.origen}</td>
+              <td>{formData.destino}</td>
+              <td>{formData.transporteId}</td>
+              <td>{formData.salida}</td>
+              <td>{formData.llegada}</td>
+              <td>{formData.cerrada ? 'Si' : 'No'}</td>
+              <td>{formData.unidad}</td>
+              <td>{formData.tracking}</td>
             </tr>
-          ))}
+          ) : (
+            <tr>
+              <td colSpan={9}>No hay datos</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,40 +84,94 @@ const HrutaList: React.FC = () => {
           <input type="number" {...register('codigo')} />
         </label>
         <label>
-          Sucursal:
-          <input type="text" {...register('sucursal')} />
-        </label>
-        <label>
-          Transportes:
-          <input type="number" {...register('transportes')} />
-        </label>
-        <label>
           Fecha Salida:
           <input type="date" {...register('salida')} />
         </label>
         <label>
           Fecha Llegada:
-          <input type="date" {...register('llegada')} />
+          <input type="date" {...register('llegada', {
+            validate: value =>
+              !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
+          })} />
+          {errors.llegada && <p>{errors.llegada.message}</p>}
+        </label>
+        <label>
+          Sucursal origen:
+          <select {...register('origen')}>
+            <option value="BAS">BS AS</option>
+            <option value="SNZ">SAENZ PEÑA</option>
+            <option value="RST">RESISTENCIA</option>
+          </select>
+          Sucursal destino:
+          <select {...register('destino')}>
+            <option value="BAS">BS AS</option>
+            <option value="SNZ">SAENZ PEÑA</option>
+            <option value="RST">RESISTENCIA</option>
+          </select>
+        </label>
+        <label>
+          Transportes:
+          <input type="number" {...register('transporteId')} />
+        </label>
+        <label>
+          Persona:
+          <input type="number" {...register('personalId')} />
+          Camion
+          <input type="number" {...register('maquinariaId')} />
+        </label>
+        <label>
+          Unidad:
+          <select {...register('unidad')}>
+            <option value="kG">Kg</option>
+            <option value="TN">Tn</option>
+            <option value="PC">%</option>
+            <option value="M3">m³</option>
+          </select>
+        </label>
+        <label>
+          Estado:
+          <select {...register('tracking')}>
+            <option value="PLANTA">En Planta</option>
+            <option value="TRANSITO">En Transito</option>
+            <option value="PENDIENTE_REPARTO">Pendiente</option>
+            <option value="ENTREGADO">Entregado</option>
+          </select>
         </label>
         <label>
           Cerrada:
           <input type="checkbox" {...register('cerrada')} />
         </label>
+
         <button type="submit">Enviar</button>
       </form>
       <table>
         <thead>
           <tr>
             <th>Código</th>
-            <th>Sucursal</th>
+            <th>Sucursal Origen</th>
+            <th>Sucursal Destino</th>
             <th>Transportes</th>
+            <th>Unidad</th>
             <th>Fecha Salida</th>
             <th>Fecha Llegada</th>
+            <th>Estado</th>
             <th>Cerrada</th>
           </tr>
         </thead>
         <tbody>
-
+          {formData && (
+            <tr>
+              <td>{formData.codigo}</td>
+              <td>{formData.origen}</td>
+              <td>{formData.destino}</td>
+              <td>{formData.transporteId}</td>
+              <td>{formData.unidad}</td>
+              <td>{formData.salida}</td>
+              <td>{formData.llegada}</td>
+              <td>{formData.tracking}</td>
+              <td>{formData.cerrada ? 'Si' : 'No'}</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
@@ -102,4 +179,5 @@ const HrutaList: React.FC = () => {
 };
 
 export default HrutaList;
+
 
