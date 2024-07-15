@@ -5,9 +5,9 @@ type FormInput = {
   codigo: number;
   origen: string;
   destino: string;
-  transporteId: number;
-  personalId: number;
-  maquinariaId: number;
+  transporteId: string;
+  personalId: string;
+  maquinariaId: string;
   salida: string;
   llegada: string;
   cerrada: boolean;
@@ -16,16 +16,16 @@ type FormInput = {
 };
 
 const HrutaList: React.FC = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormInput>({
+  const { register, handleSubmit, watch, setError, clearErrors, formState: { errors } } = useForm<FormInput>({
     defaultValues: {
       codigo: 0,
       salida: '',
       llegada: '',
       origen: 'BAS',
       destino: '',
-      transporteId: 0,
-      personalId: 0,
-      maquinariaId: 0,
+      transporteId: '',
+      personalId: '',
+      maquinariaId: '',
       cerrada: false,
       unidad: 'kg',
       tracking: '',
@@ -35,12 +35,38 @@ const HrutaList: React.FC = () => {
   const [formData, setFormData] = useState<FormInput | null>(null);
 
   const onSubmit = (data: FormInput) => {
+
+    if (data.transporteId){
+      data.personalId = null as any;
+      data.maquinariaId = null as any;
+    } else {
+      data.transporteId = null as any;
+    }
+
     console.log('Form Data:', data);
-    setFormData(data); // Store the form data in state
+
+    setFormData(data); 
+
   };
 
-  // Watch the 'salida' field to use its value for validation
+  const transporteIdValue = watch('transporteId');
+  const personalIdValue = watch('personalId');
+  const maquinariaIdValue = watch('maquinariaId');
   const salidaValue = watch('salida');
+
+  const validateIds = () => {
+    if (transporteIdValue && (personalIdValue || maquinariaIdValue)) {
+      setError('transporteId', { type: 'manual', message: 'No puede seleccionar Transporte y Persona/Camion simultáneamente' });
+      setError('personalId', { type: 'manual', message: 'No puede seleccionar Persona y Transporte simultáneamente' });
+      setError('maquinariaId', { type: 'manual', message: 'No puede seleccionar Camion y Transporte simultáneamente' });
+    } else if (!transporteIdValue && (!personalIdValue || !maquinariaIdValue)) {
+      setError('transporteId', { type: 'manual', message: 'Debe seleccionar Transporte o Persona y Camion' });
+      setError('personalId', { type: 'manual', message: 'Debe seleccionar Transporte o Persona y Camion' });
+      setError('maquinariaId', { type: 'manual', message: 'Debe seleccionar Transporte o Persona y Camion' });
+    } else {
+      clearErrors(['transporteId', 'personalId', 'maquinariaId']);
+    }
+  };
 
   return (
     <div>
@@ -102,6 +128,8 @@ const HrutaList: React.FC = () => {
             <option value="SNZ">SAENZ PEÑA</option>
             <option value="RST">RESISTENCIA</option>
           </select>
+        </label>
+        <label>
           Sucursal destino:
           <select {...register('destino')}>
             <option value="BAS">BS AS</option>
@@ -111,13 +139,18 @@ const HrutaList: React.FC = () => {
         </label>
         <label>
           Transportes:
-          <input type="number" {...register('transporteId')} />
+          <input type="string" {...register('transporteId')} onChange={validateIds} />
+          {errors.transporteId && <p>{errors.transporteId.message}</p>}
         </label>
         <label>
           Persona:
-          <input type="number" {...register('personalId')} />
-          Camion
-          <input type="number" {...register('maquinariaId')} />
+          <input type="string" {...register('personalId')} onChange={validateIds} />
+          {errors.personalId && <p>{errors.personalId.message}</p>}
+        </label>
+        <label>
+          Maquinaria:
+          <input type="string" {...register('maquinariaId')} onChange={validateIds} />
+          {errors.maquinariaId && <p>{errors.maquinariaId.message}</p>}
         </label>
         <label>
           Unidad:
@@ -179,5 +212,3 @@ const HrutaList: React.FC = () => {
 };
 
 export default HrutaList;
-
-
