@@ -16,11 +16,11 @@ type FormInput = {
 };
 
 const HrutaList: React.FC = () => {
-  const [codigo, ] = useState<number | null>(null);
+  const [codigo, setCodigo] = useState<number | null>(null);
   const [isTransportesChecked, setIsTransportesChecked] = useState(false);
   const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
 
-  const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<FormInput>({
+  const { register, handleSubmit, watch, setError, clearErrors, formState: { errors }, reset, setValue } = useForm<FormInput>({
     defaultValues: {
       salida: '',
       llegada: '',
@@ -62,11 +62,22 @@ const HrutaList: React.FC = () => {
   const handleTransportesChange = () => {
     setIsTransportesChecked(!isTransportesChecked);
     setIsPersonaMaquinariaChecked(false);
+    clearPersonaMaquinariaFields();
   };
 
   const handlePersonaMaquinariaChange = () => {
     setIsPersonaMaquinariaChecked(!isPersonaMaquinariaChecked);
     setIsTransportesChecked(false);
+    clearTransporteField();
+  };
+
+  const clearTransporteField = () => {
+    setValue('transporteId', '');
+  };
+
+  const clearPersonaMaquinariaFields = () => {
+    setValue('personalId', '');
+    setValue('maquinariaId', '');
   };
 
   const salidaValue = watch('salida');
@@ -152,7 +163,7 @@ const HrutaList: React.FC = () => {
         </label>
         <label>
           <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} />
-          Transporte:
+          Transportes:
           <input type="string" {...register('transporteId')} disabled={!isTransportesChecked} />
           {errors.transporteId && <p>{errors.transporteId.message}</p>}
         </label>
@@ -161,7 +172,7 @@ const HrutaList: React.FC = () => {
           Persona:
           <input type="string" {...register('personalId')} disabled={!isPersonaMaquinariaChecked} />
           {errors.personalId && <p>{errors.personalId.message}</p>}
-          Camión:
+          Maquinaria:
           <input type="string" {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked} />
           {errors.maquinariaId && <p>{errors.maquinariaId.message}</p>}
         </label>
