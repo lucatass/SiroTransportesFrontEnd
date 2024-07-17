@@ -17,6 +17,8 @@ type FormInput = {
 
 const HrutaList: React.FC = () => {
   const [codigo, setCodigo] = useState<number | null>(null);
+  const [isTransportesChecked, setIsTransportesChecked] = useState(false);
+  const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
 
   const { register, handleSubmit, watch, setError, clearErrors, formState: { errors }, reset } = useForm<FormInput>({
     defaultValues: {
@@ -34,11 +36,11 @@ const HrutaList: React.FC = () => {
   });
 
   useEffect(() => {
-    fetch('./src/components/codigoRuta.json') 
+    fetch('./src/components/codigoRuta.json')
       .then((response) => response.json())
       .then((data) => {
-        console.log('Fetched data:', data); 
-        reset({ codigo: data[0].codigo }); // Setea el valor de código
+        console.log('Fetched data:', data);
+        reset({ codigo: data[0].codigo });
       })
       .catch((error) => console.error('Error fetching codigo data:', error));
   }, [reset]);
@@ -46,10 +48,10 @@ const HrutaList: React.FC = () => {
   const [formData, setFormData] = useState<FormInput | null>(null);
 
   const onSubmit = (data: FormInput) => {
-    if (data.transporteId) {
+    if (isTransportesChecked) {
       data.personalId = null as any;
       data.maquinariaId = null as any;
-    } else {
+    } else if (isPersonaMaquinariaChecked) {
       data.transporteId = null as any;
     }
 
@@ -57,24 +59,17 @@ const HrutaList: React.FC = () => {
     setFormData(data);
   };
 
-  const transporteIdValue = watch('transporteId');
-  const personalIdValue = watch('personalId');
-  const maquinariaIdValue = watch('maquinariaId');
-  const salidaValue = watch('salida');
-
-  const validateIds = () => {
-    if (transporteIdValue && (personalIdValue || maquinariaIdValue)) {
-      setError('transporteId', { type: 'manual', message: 'No puede seleccionar Transporte y Persona/Camion simultáneamente' });
-      setError('personalId', { type: 'manual', message: 'No puede seleccionar Persona y Transporte simultáneamente' });
-      setError('maquinariaId', { type: 'manual', message: 'No puede seleccionar Camion y Transporte simultáneamente' });
-    } else if (!transporteIdValue && (!personalIdValue || !maquinariaIdValue)) {
-      setError('transporteId', { type: 'manual', message: 'Debe seleccionar Transporte o Persona y Camion' });
-      setError('personalId', { type: 'manual', message: 'Debe seleccionar Transporte o Persona y Camion' });
-      setError('maquinariaId', { type: 'manual', message: 'Debe seleccionar Transporte o Persona y Camion' });
-    } else {
-      clearErrors(['transporteId', 'personalId', 'maquinariaId']);
-    }
+  const handleTransportesChange = () => {
+    setIsTransportesChecked(!isTransportesChecked);
+    setIsPersonaMaquinariaChecked(false);
   };
+
+  const handlePersonaMaquinariaChange = () => {
+    setIsPersonaMaquinariaChecked(!isPersonaMaquinariaChecked);
+    setIsTransportesChecked(false);
+  };
+
+  const salidaValue = watch('salida');
 
   return (
     <div>
@@ -118,14 +113,15 @@ const HrutaList: React.FC = () => {
           Código:
           <input type="number" value={codigo !== null ? codigo : ''} className="greyed-out" readOnly {...register('codigo')} />
         </label>
-        
-        <style >{`
+
+        <style>{`
           .greyed-out {
             color: grey !important;
             background-color: #f7f7f7;
             border-color: #ccc;
           }
         `}</style>
+
         <label>
           Fecha Salida:
           <input type="date" {...register('salida')} />
@@ -155,19 +151,19 @@ const HrutaList: React.FC = () => {
           </select>
         </label>
         <label>
-          Transportes:
-          <input type="string" {...register('transporteId')} onChange={validateIds} />
+          <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} />
+          Transporte:
+          <input type="string" {...register('transporteId')} disabled={!isTransportesChecked} />
           {errors.transporteId && <p>{errors.transporteId.message}</p>}
-          {/* add checkbox here to enable Transportes and disable Personas and Maquinaria */}
         </label>
         <label>
+          <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} />
           Persona:
-          <input type="string" {...register('personalId')} onChange={validateIds} />
+          <input type="string" {...register('personalId')} disabled={!isPersonaMaquinariaChecked} />
           {errors.personalId && <p>{errors.personalId.message}</p>}
-          Maquinaria:
-          <input type="string" {...register('maquinariaId')} onChange={validateIds} />
+          Camión:
+          <input type="string" {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked} />
           {errors.maquinariaId && <p>{errors.maquinariaId.message}</p>}
-          {/* add checkbox here to enable Personas and Maquinaria and disable Transportes */}
         </label>
         <label>
           Unidad:
