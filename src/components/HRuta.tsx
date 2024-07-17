@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 type FormInput = {
@@ -16,9 +16,10 @@ type FormInput = {
 };
 
 const HrutaList: React.FC = () => {
-  const { register, handleSubmit, watch, setError, clearErrors, formState: { errors } } = useForm<FormInput>({
+  const [codigo, setCodigo] = useState<number | null>(null);
+
+  const { register, handleSubmit, watch, setError, clearErrors, formState: { errors }, reset } = useForm<FormInput>({
     defaultValues: {
-      codigo: 0,
       salida: '',
       llegada: '',
       origen: 'BAS',
@@ -32,11 +33,20 @@ const HrutaList: React.FC = () => {
     },
   });
 
+  useEffect(() => {
+    fetch('./src/components/codigoRuta.json') 
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Fetched data:', data); 
+        reset({ codigo: data[0].codigo }); // Setea el valor de código
+      })
+      .catch((error) => console.error('Error fetching codigo data:', error));
+  }, [reset]);
+
   const [formData, setFormData] = useState<FormInput | null>(null);
 
   const onSubmit = (data: FormInput) => {
-
-    if (data.transporteId){
+    if (data.transporteId) {
       data.personalId = null as any;
       data.maquinariaId = null as any;
     } else {
@@ -44,9 +54,7 @@ const HrutaList: React.FC = () => {
     }
 
     console.log('Form Data:', data);
-
-    setFormData(data); 
-
+    setFormData(data);
   };
 
   const transporteIdValue = watch('transporteId');
@@ -104,11 +112,20 @@ const HrutaList: React.FC = () => {
           )}
         </tbody>
       </table>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Código:
-          <input type="number" {...register('codigo')} />
+          <input type="number" value={codigo !== null ? codigo : ''} className="greyed-out" readOnly {...register('codigo')} />
         </label>
+        
+        <style >{`
+          .greyed-out {
+            color: grey !important;
+            background-color: #f7f7f7;
+            border-color: #ccc;
+          }
+        `}</style>
         <label>
           Fecha Salida:
           <input type="date" {...register('salida')} />
@@ -141,16 +158,16 @@ const HrutaList: React.FC = () => {
           Transportes:
           <input type="string" {...register('transporteId')} onChange={validateIds} />
           {errors.transporteId && <p>{errors.transporteId.message}</p>}
+          {/* add checkbox here to enable Transportes and disable Personas and Maquinaria */}
         </label>
         <label>
           Persona:
           <input type="string" {...register('personalId')} onChange={validateIds} />
           {errors.personalId && <p>{errors.personalId.message}</p>}
-        </label>
-        <label>
           Maquinaria:
           <input type="string" {...register('maquinariaId')} onChange={validateIds} />
           {errors.maquinariaId && <p>{errors.maquinariaId.message}</p>}
+          {/* add checkbox here to enable Personas and Maquinaria and disable Transportes */}
         </label>
         <label>
           Unidad:
@@ -177,36 +194,6 @@ const HrutaList: React.FC = () => {
 
         <button type="submit">Enviar</button>
       </form>
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Sucursal Origen</th>
-            <th>Sucursal Destino</th>
-            <th>Transportes</th>
-            <th>Unidad</th>
-            <th>Fecha Salida</th>
-            <th>Fecha Llegada</th>
-            <th>Estado</th>
-            <th>Cerrada</th>
-          </tr>
-        </thead>
-        <tbody>
-          {formData && (
-            <tr>
-              <td>{formData.codigo}</td>
-              <td>{formData.origen}</td>
-              <td>{formData.destino}</td>
-              <td>{formData.transporteId}</td>
-              <td>{formData.unidad}</td>
-              <td>{formData.salida}</td>
-              <td>{formData.llegada}</td>
-              <td>{formData.tracking}</td>
-              <td>{formData.cerrada ? 'Si' : 'No'}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
     </div>
   );
 };
