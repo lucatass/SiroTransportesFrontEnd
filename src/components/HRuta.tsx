@@ -16,11 +16,11 @@ type FormInput = {
 };
 
 const HrutaList: React.FC = () => {
-  const [codigo, setCodigo] = useState<number | null>(null);
+  const [codigo, ] = useState<number | null>(null);
   const [isTransportesChecked, setIsTransportesChecked] = useState(false);
   const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
 
-  const { register, handleSubmit, watch, setError, clearErrors, formState: { errors }, reset } = useForm<FormInput>({
+  const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<FormInput>({
     defaultValues: {
       salida: '',
       llegada: '',
