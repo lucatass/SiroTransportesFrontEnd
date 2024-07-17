@@ -164,17 +164,24 @@ const HrutaList: React.FC = () => {
         <label>
           <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} />
           Transportes:
-          <input type="string" {...register('transporteId')} disabled={!isTransportesChecked} />
-          {errors.transporteId && <p>{errors.transporteId.message}</p>}
+          <select {...register('transporteId')} disabled={!isTransportesChecked}>
+            <option value= "transporte1" >transporte1</option>
+            <option value= "transporte2" >transporte2</option>
+          </select>
         </label>
         <label>
           <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} />
           Persona:
-          <input type="string" {...register('personalId')} disabled={!isPersonaMaquinariaChecked} />
+          <select {...register('personalId')} disabled={!isPersonaMaquinariaChecked}>
+            <option value= "persona1" >persona1</option>
+            <option value= "persona2" >persona2</option>
+          </select>
           {errors.personalId && <p>{errors.personalId.message}</p>}
           Maquinaria:
-          <input type="string" {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked} />
-          {errors.maquinariaId && <p>{errors.maquinariaId.message}</p>}
+          <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked} >
+            <option value= "maquinaria1" >camion1</option>
+            <option value= "maquinaria2" >camion2</option>
+          </select>
         </label>
         <label>
           Unidad:
