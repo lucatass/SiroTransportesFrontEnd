@@ -177,7 +177,7 @@ const HrutaList: React.FC = () => {
             <option value= "persona2" >persona2</option>
           </select>
           {errors.personalId && <p>{errors.personalId.message}</p>}
-          Maquinaria:
+          Camión:
           <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked} >
             <option value= "maquinaria1" >camion1</option>
             <option value= "maquinaria2" >camion2</option>
@@ -192,15 +192,7 @@ const HrutaList: React.FC = () => {
             <option value="M3">m³</option>
           </select>
         </label>
-        <label>
-          Estado:
-          <select {...register('tracking')}>
-            <option value="PLANTA">En Planta</option>
-            <option value="TRANSITO">En Transito</option>
-            <option value="PENDIENTE_REPARTO">Pendiente</option>
-            <option value="ENTREGADO">Entregado</option>
-          </select>
-        </label>
+
         <label>
           Cerrada:
           <input type="checkbox" {...register('cerrada')} />
