@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
+// Definición del tipo de entrada del formulario
 type FormInput = {
   codigo: number;
   origen: string;
@@ -12,15 +13,20 @@ type FormInput = {
   llegada: string;
   cerrada: boolean;
   unidad: string;
-  tracking: string;
+  remitosId: number | null;
 };
 
+// Componente principal HrutaList
 const HrutaList: React.FC = () => {
-  const [codigo, setCodigo] = useState<number | null>(null);
+  // Estado para gestionar la selección de checkbox y datos de los remitos
+  const [isCerradaChecked, setIsCerradaChecked] = useState(false);
   const [isTransportesChecked, setIsTransportesChecked] = useState(false);
   const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
+  const [remitos, setRemitos] = useState<{ Remitosid: number; nombre: string }[]>([]);
+  const [selectedRemitoId, setSelectedRemitoId] = useState<number | null>(null);
 
-  const { register, handleSubmit, watch, setError, clearErrors, formState: { errors }, reset, setValue } = useForm<FormInput>({
+  // Uso del hook useForm para manejar el formulario
+  const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<FormInput>({
     defaultValues: {
       salida: '',
       llegada: '',
@@ -31,23 +37,44 @@ const HrutaList: React.FC = () => {
       maquinariaId: '',
       cerrada: false,
       unidad: 'kg',
-      tracking: '',
+      remitosId: null,
     },
   });
 
+  // Fetch para obtener el código desde un archivo JSON al cargar el componente
   useEffect(() => {
     fetch('./src/components/codigoRuta.json')
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched data:', data);
-        reset({ codigo: data[0].codigo });
+        setValue('codigo', data[0].codigo);
       })
       .catch((error) => console.error('Error fetching codigo data:', error));
-  }, [reset]);
+  }, [setValue]);
 
+  // Función para traer remitos desde un archivo JSON
+  const fetchRemitos = () => {
+    fetch('./src/components/remitosId.json')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Fetched remitos:', data);
+        setRemitos(data);
+      })
+      .catch((error) => console.error('Error fetching remitos data:', error));
+  };
+
+  // Maneja el clic en un remito y lo selecciona
+  const handleRemitoClick = (id: number) => {
+    setSelectedRemitoId(id);
+    setValue('remitosId', id);
+  };
+
+  // Estado para los datos del formulario
   const [formData, setFormData] = useState<FormInput | null>(null);
 
+  // Maneja el envío del formulario
   const onSubmit = (data: FormInput) => {
+    // Ajusta los campos según los checkboxes seleccionados
     if (isTransportesChecked) {
       data.personalId = null as any;
       data.maquinariaId = null as any;
@@ -59,12 +86,19 @@ const HrutaList: React.FC = () => {
     setFormData(data);
   };
 
+  // Maneja el cambio en el checkbox de 'cerrada'
+  const handleCerradaChange = () => {
+    setIsCerradaChecked(!isCerradaChecked);
+  };
+
+  // Maneja el cambio en el checkbox de 'transportes'
   const handleTransportesChange = () => {
     setIsTransportesChecked(!isTransportesChecked);
     setIsPersonaMaquinariaChecked(false);
     clearPersonaMaquinariaFields();
   };
 
+  // Maneja el cambio en el checkbox de 'persona/maquinaria'
   const handlePersonaMaquinariaChange = () => {
     setIsPersonaMaquinariaChecked(!isPersonaMaquinariaChecked);
     setIsTransportesChecked(false);
@@ -74,6 +108,7 @@ const HrutaList: React.FC = () => {
   const clearTransporteField = () => {
     setValue('transporteId', '');
   };
+
 
   const clearPersonaMaquinariaFields = () => {
     setValue('personalId', '');
@@ -95,7 +130,6 @@ const HrutaList: React.FC = () => {
             <th>Fecha Llegada</th>
             <th>Cerrada</th>
             <th>Unidad</th>
-            <th>Tracking</th>
           </tr>
         </thead>
         <tbody>
@@ -109,7 +143,6 @@ const HrutaList: React.FC = () => {
               <td>{formData.llegada}</td>
               <td>{formData.cerrada ? 'Si' : 'No'}</td>
               <td>{formData.unidad}</td>
-              <td>{formData.tracking}</td>
             </tr>
           ) : (
             <tr>
@@ -122,7 +155,7 @@ const HrutaList: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Código:
-          <input type="number" value={codigo !== null ? codigo : ''} className="greyed-out" readOnly {...register('codigo')} />
+          <input type="number" className="greyed-out" readOnly {...register('codigo')} />
         </label>
 
         <style>{`
@@ -135,19 +168,19 @@ const HrutaList: React.FC = () => {
 
         <label>
           Fecha Salida:
-          <input type="date" {...register('salida')} />
+          <input type="date" {...register('salida')} disabled={isCerradaChecked} />
         </label>
         <label>
           Fecha Llegada:
           <input type="date" {...register('llegada', {
             validate: value =>
               !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
-          })} />
+          })} disabled={isCerradaChecked} />
           {errors.llegada && <p>{errors.llegada.message}</p>}
         </label>
         <label>
           Sucursal origen:
-          <select {...register('origen')}>
+          <select {...register('origen')} disabled={isCerradaChecked}>
             <option value="BAS">BS AS</option>
             <option value="SNZ">SAENZ PEÑA</option>
             <option value="RST">RESISTENCIA</option>
@@ -155,37 +188,36 @@ const HrutaList: React.FC = () => {
         </label>
         <label>
           Sucursal destino:
-          <select {...register('destino')}>
+          <select {...register('destino')} disabled={isCerradaChecked}>
             <option value="BAS">BS AS</option>
             <option value="SNZ">SAENZ PEÑA</option>
             <option value="RST">RESISTENCIA</option>
           </select>
         </label>
         <label>
-          <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} />
+          <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} disabled={isCerradaChecked} />
           Transportes:
-          <select {...register('transporteId')} disabled={!isTransportesChecked}>
-            <option value= "transporte1" >transporte1</option>
-            <option value= "transporte2" >transporte2</option>
+          <select {...register('transporteId')} disabled={!isTransportesChecked || isCerradaChecked}>
+            <option value="transporte1">transporte1</option>
+            <option value="transporte2">transporte2</option>
           </select>
         </label>
         <label>
-          <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} />
+          <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
           Persona:
-          <select {...register('personalId')} disabled={!isPersonaMaquinariaChecked}>
-            <option value= "persona1" >persona1</option>
-            <option value= "persona2" >persona2</option>
+          <select {...register('personalId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
+            <option value="persona1">persona1</option>
+            <option value="persona2">persona2</option>
           </select>
-          {errors.personalId && <p>{errors.personalId.message}</p>}
           Camión:
-          <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked} >
-            <option value= "maquinaria1" >camion1</option>
-            <option value= "maquinaria2" >camion2</option>
+          <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
+            <option value="maquinaria1">camion1</option>
+            <option value="maquinaria2">camion2</option>
           </select>
         </label>
         <label>
           Unidad:
-          <select {...register('unidad')}>
+          <select {...register('unidad')} disabled={isCerradaChecked}>
             <option value="kG">Kg</option>
             <option value="TN">Tn</option>
             <option value="PC">%</option>
@@ -195,11 +227,21 @@ const HrutaList: React.FC = () => {
 
         <label>
           Cerrada:
-          <input type="checkbox" {...register('cerrada')} />
+          <input type="checkbox" {...register('cerrada')} checked={isCerradaChecked} onChange={handleCerradaChange} />
         </label>
 
-        <button type="submit">Enviar</button>
+        <button type="submit" disabled={isCerradaChecked}>Enviar</button>
       </form>
+
+      <button onClick={fetchRemitos}>Traer remitos</button>
+
+      <ul>
+        {remitos.map(remito => (
+          <li key={remito.Remitosid} onClick={() => handleRemitoClick(remito.Remitosid)}>
+            {remito.nombre}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
