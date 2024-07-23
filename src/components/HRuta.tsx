@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 // Definición del tipo de entrada del formulario
 type FormInput = {
-  codigo: number;
+  codigo: string;
   origen: string;
   destino: string;
   transporteId: string;
@@ -13,7 +13,7 @@ type FormInput = {
   llegada: string;
   cerrada: boolean;
   unidad: string;
-  remitosId: number | null;
+  remitosId: string[];
 };
 
 // Componente principal HrutaList
@@ -22,8 +22,8 @@ const HrutaList: React.FC = () => {
   const [isCerradaChecked, setIsCerradaChecked] = useState(false);
   const [isTransportesChecked, setIsTransportesChecked] = useState(false);
   const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
-  const [remitos, setRemitos] = useState<{ Remitosid: number; nombre: string }[]>([]);
-  const [selectedRemitoId, setSelectedRemitoId] = useState<number | null>(null);
+  const [remitos, setRemitos] = useState<{ Remitosid: string; nombre: string }[]>([]);
+  const [selectedRemitoIds, setSelectedRemitoIds] = useState<string[]>([]);
 
   // Uso del hook useForm para manejar el formulario
   const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<FormInput>({
@@ -37,7 +37,7 @@ const HrutaList: React.FC = () => {
       maquinariaId: '',
       cerrada: false,
       unidad: 'kg',
-      remitosId: null,
+      remitosId: [],
     },
   });
 
@@ -64,9 +64,12 @@ const HrutaList: React.FC = () => {
   };
 
   // Maneja el clic en un remito y lo selecciona
-  const handleRemitoClick = (id: number) => {
-    setSelectedRemitoId(id);
-    setValue('remitosId', id);
+  const handleRemitoClick = (id: string) => {
+    const updatedIds = selectedRemitoIds.includes(id)
+      ? selectedRemitoIds.filter(remitoId => remitoId !== id)
+      : [...selectedRemitoIds, id];
+    setSelectedRemitoIds(updatedIds);
+    setValue('remitosId', updatedIds);
   };
 
   // Estado para los datos del formulario
@@ -155,7 +158,7 @@ const HrutaList: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label>
           Código:
-          <input type="number" className="greyed-out" readOnly {...register('codigo')} />
+          <input type="string" className="greyed-out" readOnly {...register('codigo')} />
         </label>
 
         <style>{`
