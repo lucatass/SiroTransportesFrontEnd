@@ -170,12 +170,12 @@ const HrutaList: React.FC = () => {
 
       <label>
         Fecha Salida:
-        <input type="date" {...register('salida', { required: true })} disabled={isCerradaChecked} />
+        <input type="date" {...register('salida', { required: "Este campo es requerido" })} disabled={isCerradaChecked} />
       </label>
       <label>
         Fecha Llegada:
         <input type="date" {...register('llegada', {
-          required: true,
+          required: "Este campo es requerido",
           validate: value =>
             !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
         })} disabled={isCerradaChecked} />
@@ -183,7 +183,7 @@ const HrutaList: React.FC = () => {
       </label>
       <label>
         Sucursal origen:
-        <select {...register('origen', { required: true })} disabled={isCerradaChecked}>
+        <select {...register('origen', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
           <option value="BAS">BS AS</option>
           <option value="SNZ">SAENZ PEÑA</option>
           <option value="RST">RESISTENCIA</option>
@@ -191,7 +191,7 @@ const HrutaList: React.FC = () => {
       </label>
       <label>
         Sucursal destino:
-        <select {...register('destino', { required: true })} disabled={isCerradaChecked}>
+        <select {...register('destino', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
           <option value="BAS">BS AS</option>
           <option value="SNZ">SAENZ PEÑA</option>
           <option value="RST">RESISTENCIA</option>
@@ -208,7 +208,7 @@ const HrutaList: React.FC = () => {
       <label>
         <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
         Persona:
-        <select {...register('personalId', { required: isPersonaMaquinariaChecked })} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
+        <select {...register('personalId', { required: isPersonaMaquinariaChecked  })} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
           <option value="persona1">persona1</option>
           <option value="persona2">persona2</option>
         </select>
