@@ -270,4 +270,3 @@ const RemitoForm: React.FC = () => {
 };
 
 export default RemitoForm;
-

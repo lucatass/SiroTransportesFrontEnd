@@ -132,7 +132,6 @@ const HrutaList: React.FC = () => {
             <th>Fecha Salida</th>
             <th>Fecha Llegada</th>
             <th>Cerrada</th>
-            <th>Unidad</th>
           </tr>
         </thead>
         <tbody>
@@ -156,97 +155,92 @@ const HrutaList: React.FC = () => {
       </table>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          Código:
-          <input type="string" className="greyed-out" readOnly {...register('codigo')} />
-        </label>
+      <label>
+        Código:
+        <input type="string" className="greyed-out" readOnly {...register('codigo', { required: true })} />
+      </label>
 
-        <style>{`
-          .greyed-out {
-            color: grey !important;
-            background-color: #f7f7f7;
-            border-color: #ccc;
-          }
-        `}</style>
+      <style>{`
+        .greyed-out {
+          color: grey !important;
+          background-color: #f7f7f7;
+          border-color: #ccc;
+        }
+      `}</style>
 
-        <label>
-          Fecha Salida:
-          <input type="date" {...register('salida')} disabled={isCerradaChecked} />
-        </label>
-        <label>
-          Fecha Llegada:
-          <input type="date" {...register('llegada', {
-            validate: value =>
-              !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
-          })} disabled={isCerradaChecked} />
-          {errors.llegada && <p>{errors.llegada.message}</p>}
-        </label>
-        <label>
-          Sucursal origen:
-          <select {...register('origen')} disabled={isCerradaChecked}>
-            <option value="BAS">BS AS</option>
-            <option value="SNZ">SAENZ PEÑA</option>
-            <option value="RST">RESISTENCIA</option>
-          </select>
-        </label>
-        <label>
-          Sucursal destino:
-          <select {...register('destino')} disabled={isCerradaChecked}>
-            <option value="BAS">BS AS</option>
-            <option value="SNZ">SAENZ PEÑA</option>
-            <option value="RST">RESISTENCIA</option>
-          </select>
-        </label>
-        <label>
-          <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} disabled={isCerradaChecked} />
-          Transportes:
-          <select {...register('transporteId')} disabled={!isTransportesChecked || isCerradaChecked}>
-            <option value="transporte1">transporte1</option>
-            <option value="transporte2">transporte2</option>
-          </select>
-        </label>
-        <label>
-          <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
-          Persona:
-          <select {...register('personalId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
-            <option value="persona1">persona1</option>
-            <option value="persona2">persona2</option>
-          </select>
-          Camión:
-          <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
-            <option value="maquinaria1">camion1</option>
-            <option value="maquinaria2">camion2</option>
-          </select>
-        </label>
-        <label>
-          Unidad:
-          <select {...register('unidad')} disabled={isCerradaChecked}>
-            <option value="kG">Kg</option>
-            <option value="TN">Tn</option>
-            <option value="PC">%</option>
-            <option value="M3">m³</option>
-          </select>
-        </label>
+      <label>
+        Fecha Salida:
+        <input type="date" {...register('salida', { required: true })} disabled={isCerradaChecked} />
+      </label>
+      <label>
+        Fecha Llegada:
+        <input type="date" {...register('llegada', {
+          required: true,
+          validate: value =>
+            !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
+        })} disabled={isCerradaChecked} />
+        {errors.llegada && <p>{errors.llegada.message}</p>}
+      </label>
+      <label>
+        Sucursal origen:
+        <select {...register('origen', { required: true })} disabled={isCerradaChecked}>
+          <option value="BAS">BS AS</option>
+          <option value="SNZ">SAENZ PEÑA</option>
+          <option value="RST">RESISTENCIA</option>
+        </select>
+      </label>
+      <label>
+        Sucursal destino:
+        <select {...register('destino', { required: true })} disabled={isCerradaChecked}>
+          <option value="BAS">BS AS</option>
+          <option value="SNZ">SAENZ PEÑA</option>
+          <option value="RST">RESISTENCIA</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} disabled={isCerradaChecked} />
+        Transportes:
+        <select {...register('transporteId', { required: isTransportesChecked })} disabled={!isTransportesChecked || isCerradaChecked}>
+          <option value="transporte1">transporte1</option>
+          <option value="transporte2">transporte2</option>
+        </select>
+      </label>
+      <label>
+        <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
+        Persona:
+        <select {...register('personalId', { required: isPersonaMaquinariaChecked })} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
+          <option value="persona1">persona1</option>
+          <option value="persona2">persona2</option>
+        </select>
+        Camión:
+        <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
+          <option value="maquinaria1">camion1</option>
+          <option value="maquinaria2">camion2</option>
+    
+        </select>
+      </label>
 
-        <label>
-          Cerrada:
-          <input type="checkbox" {...register('cerrada')} checked={isCerradaChecked} onChange={handleCerradaChange} />
-        </label>
+      <label>
+        Cerrada:
+        <input type="checkbox" {...register('cerrada')} checked={isCerradaChecked} onChange={handleCerradaChange} />
+      </label>
 
-        <button type="submit" disabled={isCerradaChecked}>Enviar</button>
-      </form>
+      <button type="submit" disabled={isCerradaChecked || remitos.length === 0}>Enviar</button>
+    </form>
 
-      <button onClick={fetchRemitos}>Traer remitos</button>
+    <button onClick={fetchRemitos}>Remitos</button>
 
-      <ul>
-        {remitos.map(remito => (
-          <li key={remito.Remitosid} onClick={() => handleRemitoClick(remito.Remitosid)}>
-            {remito.nombre}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    <ul>
+      {remitos.map(remito => (
+        <li key={remito.Remitosid} style={selectedRemitoIds.includes(remito.Remitosid) ? {border: '2px solid blue', borderRadius: '5px'} : {}} onClick={() => handleRemitoClick(remito.Remitosid)}>
+          {remito.nombre}
+        </li>
+      ))}
+    </ul>
+
+  </div>
+);
+
 };
 
 export default HrutaList;
