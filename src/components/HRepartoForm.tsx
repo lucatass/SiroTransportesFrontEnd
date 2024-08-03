@@ -14,7 +14,7 @@ type FormInput = {
   unidad: string;
 };
 
-const HrutaList: React.FC = () => {
+const HRepartoForm: React.FC = () => {
   const [isCerradaChecked, setIsCerradaChecked] = useState(false);
   const [isTransportesChecked, setIsTransportesChecked] = useState(false);
   const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
@@ -99,38 +99,10 @@ const HrutaList: React.FC = () => {
 
   return (
     <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Sucursal Origen</th>
-            <th>Sucursal Destino</th>
-            <th>Transportes</th>
-            <th>Fecha Salida</th>
-            <th>Fecha Llegada</th>
-            <th>Cerrada</th>
-          </tr>
-        </thead>
-        <tbody>
-          {formData ? (
-            <tr>
-              <td>{formData.codigo}</td>
-              <td>{formData.origen}</td>
-              <td>{formData.destino}</td>
-              <td>{formData.transporteId}</td>
-              <td>{formData.salida}</td>
-              <td>{formData.llegada}</td>
-              <td>{formData.cerrada ? 'Si' : 'No'}</td>
-            </tr>
-          ) : (
-            <tr>
-              <td colSpan={7}>No hay datos</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
 
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h2>Hoja de Reparto</h2>
+
         <label>
           Código:
           <input type="string" className="greyed-out" readOnly {...register('codigo', { required: true })} />
@@ -144,19 +116,27 @@ const HrutaList: React.FC = () => {
           }
         `}</style>
 
-        <label>
-          Fecha Salida:
-          <input type="date" {...register('salida', { required: "Este campo es requerido" })} disabled={isCerradaChecked} />
-        </label>
-        <label>
-          Fecha Llegada:
-          <input type="date" {...register('llegada', {
-            required: "Este campo es requerido",
-            validate: value =>
-              !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
-          })} disabled={isCerradaChecked} />
-          {errors.llegada && <p>{errors.llegada.message}</p>}
-        </label>
+<label>
+  Salida:
+  <input
+    type="datetime-local"
+    {...register('salida', { required: "Este campo es requerido" })}
+    disabled={isCerradaChecked}
+  />
+</label>
+<label>
+  Llegada:
+  <input
+    type="datetime-local"
+    {...register('llegada', {
+      required: "Este campo es requerido",
+      validate: value => 
+        !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
+    })}
+    disabled={isCerradaChecked}
+  />
+  {errors.llegada && <p>{errors.llegada.message}</p>}
+</label>
         <label>
           Sucursal origen:
           <select {...register('origen', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
@@ -174,16 +154,7 @@ const HrutaList: React.FC = () => {
           </select>
         </label>
         <label>
-          <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} disabled={isCerradaChecked} />
-          Transportes:
-          <select {...register('transporteId', { required: isTransportesChecked })} disabled={!isTransportesChecked || isCerradaChecked}>
-            <option value="transporte1">transporte1</option>
-            <option value="transporte2">transporte2</option>
-          </select>
-        </label>
-        <label>
-          <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
-          Persona:
+          Fletero:
           <select {...register('personalId', { required: isPersonaMaquinariaChecked })} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
             <option value="persona1">persona1</option>
             <option value="persona2">persona2</option>
@@ -215,19 +186,11 @@ const HrutaList: React.FC = () => {
             </ul>
         </>)}
       
-      {/* Listado de remitos 
-         <ul> 
-           {remitos.map(remito => ( 
-             <li key={remito.Remitosid} style={selectedRemitoIds.includes(remito.Remitosid) ? {border: '2px solid blue', borderRadius: '5px'} : {}} onClick={() => handleRemitoClick(remito.Remitosid)}> 
-               {remito.nombre} 
-             </li> 
-           ))} 
-         </ul> 
-       <button onClick={handleRemitoClick}>Remito</button> */}
+
 
     </div>
 );
 
 };
 
-export default HrutaList;
+export default HRepartoForm;
