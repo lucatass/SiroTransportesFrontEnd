@@ -1,7 +1,7 @@
 import './App.css';
 import HrutaForm from './components/HRuta';
 import RemitoForm from './components/RemitoForm';
-import HRepartoForm from './components/HRepartoForm';
+import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
 
 function App(){
   return (
