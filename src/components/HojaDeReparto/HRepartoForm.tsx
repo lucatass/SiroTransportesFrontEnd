@@ -10,7 +10,8 @@ type FormInput = {
   salida: string;
   llegada: string;
   cerrada: boolean;
-  unidad: string;
+  kms: number;
+  gastos: number;
 };
 
 const HRepartoForm: React.FC = () => {
@@ -29,11 +30,11 @@ const HRepartoForm: React.FC = () => {
       personalId: '',
       maquinariaId: '',
       cerrada: false,
-      unidad: 'kg',
+      kms: 0,
+      gastos: 0,
     },
   });
 
-  //fetch códigos	
   useEffect(() => {
     fetch('./src/components/codigoRuta.json')
       .then((response) => {
@@ -49,7 +50,6 @@ const HRepartoForm: React.FC = () => {
       .catch((error) => console.error('Error fetching codigo data:', error));
   }, [setValue]);
 
-  //fetch camiones
   useEffect(() => {
     fetch('./src/components/HojaDeReparto/camionesReparto.json')
       .then((response) => {
@@ -65,7 +65,6 @@ const HRepartoForm: React.FC = () => {
       .catch((error) => console.error('Error fetching camiones data:', error));
   }, []);
 
-  //fetch fleteros
   useEffect(() => {
     fetch('./src/components/HojaDeReparto/fleterosReparto.json')
       .then((response) => {
@@ -111,12 +110,12 @@ const HRepartoForm: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h2>Hoja de Reparto</h2>
-
+  
         <label>
           Código:
           <input type="text" className="greyed-out" readOnly {...register('codigo', { required: true })} />
         </label>
-
+  
         <style>{`
           .greyed-out {
             color: grey !important;
@@ -124,7 +123,7 @@ const HRepartoForm: React.FC = () => {
             border-color: #ccc;
           }
         `}</style>
-
+  
         <label>
           Salida:
           <input
@@ -162,32 +161,57 @@ const HRepartoForm: React.FC = () => {
             <option value="RST">RESISTENCIA</option>
           </select>
         </label>
+  
         <label>
-
           Fletero:
           <select {...register('personalId', { required: true })} disabled={isCerradaChecked}>
             {fleteros.map(fletero => (
-              <option key={fletero.id} value={fletero.id}>{fletero.nombre}</option>
+              <option key={"f"+fletero.id} value={fletero.id}>{fletero.nombre}</option>
             ))}
           </select>
-
+  
           Camión:
           <select {...register('maquinariaId', { required: true })} disabled={isCerradaChecked}>
             {camiones.map(camion => (
               <option key={camion.id} value={camion.id}>{camion.nombre}</option>
             ))}
           </select>
-
         </label>
-
+  
+        <div>
+          <h3>Kilometraje</h3>
+          <label>
+            Kilómetros:
+            <input
+              type="number"
+              {...register('kms', { required: "Este campo es requerido", valueAsNumber: true })}
+              disabled={isCerradaChecked}
+            />
+            {errors.kms && <p>{errors.kms.message}</p>}
+          </label>
+        </div>
+        
+        <div>
+          <h3>Gastos Totales</h3>
+          <label>
+            Gastos:
+            <input
+              type="number"
+              {...register('gastos', { required: "Este campo es requerido", valueAsNumber: true })}
+              disabled={isCerradaChecked}
+            />
+            {errors.gastos && <p>{errors.gastos.message}</p>}
+          </label>
+        </div>
+  
         <label>
           Cerrada:
           <input type="checkbox" {...register('cerrada')} checked={isCerradaChecked} onChange={handleCerradaChange} />
         </label>
-
+  
         <button type="submit" disabled={isCerradaChecked}>Enviar</button>
       </form>
-
+  
       {isFormSubmitted && (
         <>
           <button onClick={fetchRemitos}>Remitos</button>
@@ -202,6 +226,6 @@ const HRepartoForm: React.FC = () => {
       )}
     </div>
   );
-};
+}  
 
 export default HRepartoForm;

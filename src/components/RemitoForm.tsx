@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import clientesData from './clientes.json';
+import clientesData from './remitosId.json';
 
 interface IFormInput {
   fecha: string;
