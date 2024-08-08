@@ -1,7 +1,35 @@
-#root {
+/* App.css */
+.app {
+  display: flex;
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  position: relative;
+}
+
+.sidebar {
+  width: 60px;
+  background-color: #333;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: width 0.3s ease;
+  z-index: 10;
+}
+
+.sidebar:hover {
+  width: 200px;
+}
+
+.content {
+  flex-grow: 1;
+  padding-left: 80px;
   text-align: center;
 }
 
@@ -25,4 +53,48 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 20px;
+}
+
+.sidebar-item {
+  width: 100%;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center; /* Keep icon and text aligned */
+  justify-content: center;
+}
+
+.sidebar-item span {
+  margin-left: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .sidebar-item span {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sidebar-item:hover {
+  background-color: #444;
+  margin-left: 0px;
+}
+
+/* Keep icon position fixed */
+.sidebar-item .icon {
+  flex-shrink: 0; /* Prevent the icon from shrinking */
+  margin-left: 17px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+.sidebar-item .text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
