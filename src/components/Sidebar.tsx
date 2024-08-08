@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaTruck, FaFileAlt, FaMapMarkedAlt } from 'react-icons/fa';
+import SidebarButton from './SidebarButton';
 
 interface SidebarProps {
   onSelect: (component: string) => void;
@@ -8,18 +9,21 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
   return (
     <div className="sidebar">
-      <div className="sidebar-item" onClick={() => onSelect('HrutaForm')}>
-        <div className="icon"><FaTruck /></div>
-        <span className="text">HRuta</span>
-      </div>
-      <div className="sidebar-item" onClick={() => onSelect('RemitoForm')}>
-        <div className="icon"><FaFileAlt /></div>
-        <span className="text">Remito</span>
-      </div>
-      <div className="sidebar-item" onClick={() => onSelect('HRepartoForm')}>
-        <div className="icon"><FaMapMarkedAlt /></div>
-        <span className="text">HReparto</span>
-      </div>
+      <SidebarButton
+        icon={<FaTruck />}
+        label="HRuta"
+        onClick={() => onSelect('HrutaForm')}
+      />
+      <SidebarButton
+        icon={<FaFileAlt />}
+        label="Remito"
+        onClick={() => onSelect('RemitoForm')}
+      />
+      <SidebarButton
+        icon={<FaMapMarkedAlt />}
+        label="HReparto"
+        onClick={() => onSelect('HRepartoForm')}
+      />
     </div>
   );
 };
