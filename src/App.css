@@ -98,3 +98,25 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* App.css */
+.sidebar-section {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.section-label {
+  font-weight: bold;
+  padding: 10px;
+  background-color: #444;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.section-content {
+  padding: 10px;
+  display: none; /* Hide the buttons initially */
+}
+
+.sidebar-section:hover .section-content {
+  display: block; /* Show the buttons when hovering over the section */
+}

@@ -1,29 +1,14 @@
 import React from 'react';
-import { FaTruck, FaFileAlt, FaMapMarkedAlt } from 'react-icons/fa';
-import SidebarButton from './SidebarButton';
 
 interface SidebarProps {
   onSelect: (component: string) => void;
+  children: React.ReactNode;  // Allow children to be passed in
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onSelect }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onSelect, children }) => {
   return (
     <div className="sidebar">
-      <SidebarButton
-        icon={<FaTruck />}
-        label="HRuta"
-        onClick={() => onSelect('HrutaForm')}
-      />
-      <SidebarButton
-        icon={<FaFileAlt />}
-        label="Remito"
-        onClick={() => onSelect('RemitoForm')}
-      />
-      <SidebarButton
-        icon={<FaMapMarkedAlt />}
-        label="HReparto"
-        onClick={() => onSelect('HRepartoForm')}
-      />
+      {children}  {/* Render the children here */}
     </div>
   );
 };
