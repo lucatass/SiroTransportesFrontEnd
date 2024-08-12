@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import Sidebar from './components/Sidebar';
-import SidebarSection from './components/SidebarSelection';
+import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
 import HrutaForm from './components/HRuta';
 import RemitoForm from './components/RemitoForm';
@@ -26,7 +25,7 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
-      <Sidebar onSelect={setSelectedComponent}>
+      <div className="sidebar">
         <SidebarSection label="Forms">
           <SidebarButton
             icon={<FaTruck />}
@@ -44,7 +43,7 @@ const App: React.FC = () => {
             onClick={() => setSelectedComponent('HRepartoForm')}
           />
         </SidebarSection>
-      </Sidebar>
+      </div>
       <div className="content">
         {renderComponent()}
       </div>

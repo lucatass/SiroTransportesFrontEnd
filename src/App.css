@@ -8,85 +8,71 @@
 }
 
 .sidebar {
-  width: 60px;
+  width: 200px; /* Fixed width for the sidebar */
   background-color: #333;
   color: white;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Align items to the start */
   padding-top: 20px;
-  position: absolute;
+  position: fixed; /* Keep the sidebar fixed on the left */
   left: 0;
   top: 0;
-  transition: width 0.3s ease;
   z-index: 10;
-}
-
-.sidebar:hover {
-  width: 200px;
 }
 
 .content {
   flex-grow: 1;
-  padding-left: 80px;
+  padding-left: 220px; /* Add padding to account for the sidebar */
   text-align: center;
 }
 
-label {
-  font-weight: bold;
-  display: flex;
-  margin-bottom: 5px;
+.sidebar-section {
+  width: 100%; /* Full width for each section */
+  margin-bottom: 20px;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="date"],
-select {
-  display: block;
-  width: 400px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 20px;
+.section-label {
+  width: 100%; /* Full width for the section label */
+  font-weight: bold;
+  padding: 10px;
+  background-color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-content {
+  width: 100%; /* Full width for the section content */
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+}
+
+.sidebar-section.open .section-content {
+  display: flex;
 }
 
 .sidebar-item {
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   text-align: left;
   cursor: pointer;
   position: relative;
   display: flex;
-  align-items: center; /* Keep icon and text aligned */
-  justify-content: center;
-}
-
-.sidebar-item span {
-  margin-left: 10px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-}
-
-.sidebar:hover .sidebar-item span {
-  visibility: visible;
-  opacity: 1;
+  align-items: center;
+  justify-content: start;
 }
 
 .sidebar-item:hover {
   background-color: #444;
-  margin-left: 0px;
 }
 
-/* Keep icon position fixed */
 .sidebar-item .icon {
-  flex-shrink: 0; /* Prevent the icon from shrinking */
-  margin-left: 17px;
+  flex-shrink: 0;
+  margin-right: 10px;
   width: 24px;
   height: 24px;
   text-align: center;
@@ -97,26 +83,4 @@ select {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-/* App.css */
-.sidebar-section {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.section-label {
-  font-weight: bold;
-  padding: 10px;
-  background-color: #444;
-  border-bottom: 1px solid #ccc;
-  cursor: pointer;
-}
-
-.section-content {
-  padding: 10px;
-  display: none; /* Hide the buttons initially */
-}
-
-.sidebar-section:hover .section-content {
-  display: block; /* Show the buttons when hovering over the section */
 }
