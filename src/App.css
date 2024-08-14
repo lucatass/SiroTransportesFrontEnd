@@ -31,6 +31,7 @@
 .sidebar-section {
   width: 100%; /* Full width for each section */
   margin-bottom: 20px;
+  position: relative;
 }
 
 .section-label {
@@ -45,10 +46,14 @@
 }
 
 .section-content {
-  width: 100%; /* Full width for the section content */
   padding: 10px;
   display: none;
+  position: absolute; /* Position the content absolutely */
+  left: 200px; /* Position the buttons to the right of the sidebar */
+  top: 0;
+  background-color: #333; /* Match the sidebar background */
   flex-direction: column;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add some shadow for visibility */
 }
 
 .sidebar-section.open .section-content {
