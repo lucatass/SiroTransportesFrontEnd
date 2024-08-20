@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './App.css';
 import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
-import HrutaForm from './components/HRuta';
+import HrutaForm from './components/HRutaForm';
 import RemitoForm from './components/RemitoForm';
 import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
-import { FaTruck, FaFileAlt, FaMapMarkedAlt } from 'react-icons/fa';
+import { FaTruck, FaFileAlt, FaMapMarkedAlt, FaEdit } from 'react-icons/fa';
 
 const App: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('HRepartoForm');
@@ -26,21 +26,21 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <div className="sidebar">
-        <SidebarSection label="Forms">
+        <SidebarSection label="Facturación" icon={<FaFileAlt  />}>
           <SidebarButton
             icon={<FaTruck />}
+            label="HReparto"
+            onClick={() => setSelectedComponent('HRepartoForm')}
+          />
+          <SidebarButton
+            icon={<FaMapMarkedAlt />}
             label="HRuta"
             onClick={() => setSelectedComponent('HrutaForm')}
           />
           <SidebarButton
-            icon={<FaFileAlt />}
+            icon={<FaEdit />}
             label="Remito"
             onClick={() => setSelectedComponent('RemitoForm')}
-          />
-          <SidebarButton
-            icon={<FaMapMarkedAlt />}
-            label="HReparto"
-            onClick={() => setSelectedComponent('HRepartoForm')}
           />
         </SidebarSection>
       </div>

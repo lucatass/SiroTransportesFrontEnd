@@ -203,22 +203,25 @@ const RemitoForm: React.FC = () => {
           <p><strong>CUIT:</strong> {selectedDestinatario.cuit}</p>
         </div>
       )}
-          <label htmlFor="pagoEn">Pago en</label>
-          <select id="pagoEn"{...register("pagoEn")}>
-              <option value="destino">Destino</option>
-              <option value="origen">Origen</option>
+  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+        <div style={{ flex: '1', marginRight: '10px' }}>
+          <label htmlFor="pagoEn" style={{ marginRight: '10px' }}>Pago en:</label>
+          <select id="pagoEn" {...register("pagoEn")} style={{ width: '100%' }}>
+            <option value="destino">Destino</option>
+            <option value="origen">Origen</option>
           </select>
-
-          <label htmlFor="unidad">Unidad</label>
-          <select id="unidad" {...register("unidad")}>
-              <option value="kg">Kg</option>
-              <option value="tn">Tn</option>
-              <option value="bu">Bulto</option>
-              <option value="pc">%</option>
-              <option value="m3">m³</option>
+        </div>
+        <div style={{ flex: '1', marginLeft: '10px' }}>
+          <label htmlFor="unidad" style={{ marginRight: '10px' }}>Unidad:</label>
+          <select id="unidad" {...register("unidad")} style={{ width: '100%' }}>
+            <option value="kg">Kg</option>
+            <option value="tn">Tn</option>
+            <option value="bu">Bulto</option>
+            <option value="pc">%</option>
+            <option value="m3">m³</option>
           </select>
-      
-
+        </div>
+      </div>
       <div>
           <label htmlFor="recolección">Recolección</label>
           <input 

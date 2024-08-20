@@ -14,7 +14,7 @@ type FormInput = {
   unidad: string;
 };
 
-const HrutaList: React.FC = () => {
+const HRutaForm: React.FC = () => {
   const [isCerradaChecked, setIsCerradaChecked] = useState(false);
   const [isTransportesChecked, setIsTransportesChecked] = useState(false);
   const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
@@ -230,4 +230,4 @@ const HrutaList: React.FC = () => {
 
 };
 
-export default HrutaList;
+export default HRutaForm;
