@@ -1,41 +1,79 @@
-/* App.css */
-.app {
+/* Existing Styles */
+
+.dropdown-toggle {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
   display: flex;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-dropdown {
+  display: none;
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  z-index: 90;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 220px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-dropdown.open {
+  display: block;
+}
+
+.nested-dropdown {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 230px; /* Positioned to the right of the "Facturación" button */
+  z-index: 80;
+  background-color: #444;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  width: 180px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-section.open .nested-dropdown {
+  display: block;
 }
 
 .sidebar {
-  width: 200px; /* Fixed width for the sidebar */
   background-color: #333;
   color: white;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the start */
+  align-items: flex-start;
   padding-top: 20px;
-  position: fixed; /* Keep the sidebar fixed on the left */
-  left: 0;
-  top: 0;
-  z-index: 10;
+  width: 200px;
 }
 
 .content {
   flex-grow: 1;
-  padding-left: 220px; /* Add padding to account for the sidebar */
   text-align: center;
+  margin-top: 70px;
 }
 
 .sidebar-section {
-  width: 100%; /* Full width for each section */
+  width: 100%;
   margin-bottom: 20px;
-  position: relative;
 }
 
 .section-label {
-  width: calc(100%); /* Full width minus padding */
+  width: 100%;
   font-weight: bold;
   padding: 10px;
   background-color: #444;
@@ -43,20 +81,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  box-sizing: border-box;
 }
 
 .section-content {
   padding: 7px;
   display: none;
-  flex-direction: column; /* Stack items in a column */
-  background-color: #444; /* Match the sidebar background */
-  
-  position: absolute;
-  left: 190px; /* Position to the right of the section label */
-  top: 0;
-  width: 150px; /* Set width of the dropdown */
-  z-index: 20; /* Ensure it stays on top of other elements */
+  flex-direction: column;
+  background-color: #444;
 }
 
 .sidebar-section.open .section-content {
@@ -95,6 +127,6 @@
 form {
   background-color: aliceblue;
   padding: 20px;
-  border-radius:50px;
-  border: 1px solid #034c6e 
-  }
+  border-radius: 50px;
+  border: 1px solid #034c6e;
+}
