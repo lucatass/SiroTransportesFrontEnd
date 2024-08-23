@@ -10,7 +10,6 @@ import { FaTruck, FaFileAlt, FaMapMarkedAlt, FaEdit, FaBars } from 'react-icons/
 const App: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('HRepartoForm');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [isNestedDropdownOpen, setIsNestedDropdownOpen] = useState<boolean>(false);
 
   const renderComponent = () => {
     switch (selectedComponent) {
@@ -34,37 +33,31 @@ const App: React.FC = () => {
         <FaBars />
       </div>
       <div className={`sidebar-dropdown ${isDropdownOpen ? 'open' : ''}`}>
-        <SidebarSection
-          label="Facturación"
-          icon={<FaFileAlt />}
-          onClick={() => setIsNestedDropdownOpen(!isNestedDropdownOpen)}
-        >
-          <div className={`nested-dropdown ${isNestedDropdownOpen ? 'open' : ''}`}>
-            <SidebarButton
-              icon={<FaTruck />}
-              label="HReparto"
-              onClick={() => {
-                setSelectedComponent('HRepartoForm');
-                setIsNestedDropdownOpen(false);
-              }}
-            />
-            <SidebarButton
-              icon={<FaMapMarkedAlt />}
-              label="HRuta"
-              onClick={() => {
-                setSelectedComponent('HrutaForm');
-                setIsNestedDropdownOpen(false);
-              }}
-            />
-            <SidebarButton
-              icon={<FaEdit />}
-              label="Remito"
-              onClick={() => {
-                setSelectedComponent('RemitoForm');
-                setIsNestedDropdownOpen(false);
-              }}
-            />
-          </div>
+        <SidebarSection label="Facturación" icon={<FaFileAlt />}>
+          <SidebarButton
+            icon={<FaTruck />}
+            label="HReparto"
+            onClick={() => {
+              setSelectedComponent('HRepartoForm');
+              setIsDropdownOpen(false);
+            }}
+          />
+          <SidebarButton
+            icon={<FaMapMarkedAlt />}
+            label="HRuta"
+            onClick={() => {
+              setSelectedComponent('HrutaForm');
+              setIsDropdownOpen(false);
+            }}
+          />
+          <SidebarButton
+            icon={<FaEdit />}
+            label="Remito"
+            onClick={() => {
+              setSelectedComponent('RemitoForm');
+              setIsDropdownOpen(false);
+            }}
+          />
         </SidebarSection>
       </div>
       <div className="content">{renderComponent()}</div>
