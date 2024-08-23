@@ -14,55 +14,35 @@ class AfipClient implements IAfipClient {
 
   constructor() {}
 
-  private async getToken() {
+  public async getToken(environment: string, taxId: string, wsid: string): Promise<AuthResponse> {
     const response = await axios.post(`${this.baseURL}/auth`, {
-      environment: 'dev',
-      tax_id: '20409378472',
-      wsid: 'wsfe'
+      environment,
+      tax_id: taxId,
+      wsid,
     });
-
+  
     const { token, sign, expiration } = response.data;
-
+  
     // Almacena el token en el store
     const setAuthData = useAuthStore.getState().setAuthData;
-    setAuthData(token, sign, expiration);
+  
+    // Return the AuthResponse
+    return { token, sign, expiration };
   }
+  
 
   private async ensureTokenValid() {
     const isTokenExpired = useAuthStore.getState().isTokenExpired();
 
     if (isTokenExpired) {
-      await this.getToken();
+      await this.getToken('enviroment', 'taxId', 'wsid');
     }
   }
 
-  public async getUltimoComprobanteEmitido() {
+  public async getUltimoComprobanteEmitido(auth: AuthParams, ptoVta: number, cbteTipo: number) {
     await this.ensureTokenValid();
-
-    const { token, sign } = useAuthStore.getState();
-
-    const response = await axios.post(`${this.baseURL}/requests`, {
-      environment: 'dev',
-      method: 'FECompUltimoAutorizado',
-      wsid: 'wsfe',
-      params: {
-        Auth: { 
-          Token: token,
-          Sign: sign,
-          Cuit: '20409378472'
-        },
-        PtoVta: 1,
-        CbteTipo: 1
-      }
-    });
-
-    return response.data;
-  }
   
-
-  // Método para obtener el último comprobante emitido
-  async getUltimoComprobanteEmitido(auth: AuthParams, ptoVta: number, cbteTipo: number): Promise<UltimoComprobanteResponse> {
-    const response = await axios.post<UltimoComprobanteResponse>(`${this.baseURL}/requests`, {
+    const response = await axios.post(`${this.baseURL}/requests`, {
       environment: 'dev',
       method: 'FECompUltimoAutorizado',
       wsid: 'wsfe',
@@ -72,8 +52,11 @@ class AfipClient implements IAfipClient {
         CbteTipo: cbteTipo
       }
     });
+  
     return response.data;
-  }
+  }  
+
+
 
   // Método para solicitar un nuevo CAE
   async solicitarCae(auth: AuthParams, ultimoCpteEmitido: number, feDetRequest: FeDetRequest): Promise<any> {
@@ -151,14 +134,12 @@ interface FeDetRequest {
   // Obtención del token
   const authResponse = await afipClient.getToken('dev', '20409378472', 'wsfe');
 
-  // Parámetros de autenticación para las siguientes solicitudes
   const authParams: AuthParams = {
     Token: authResponse.token,
     Sign: authResponse.sign,
     Cuit: '20409378472'
   };
 
-  // Obtener último comprobante emitido
   const ultimoComprobante = await afipClient.getUltimoComprobanteEmitido(authParams, 1, 1);
 
   // Solicitar CAE usando el último comprobante emitido
