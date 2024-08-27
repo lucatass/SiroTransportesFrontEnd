@@ -9,7 +9,7 @@ interface IAfipClient {
 }
 
 // Implementación del cliente AFIP
-class AfipClient implements IAfipClient {
+export class AfipClient implements IAfipClient {
   private baseURL: string = 'https://app.afipsdk.com/api/v1/afip';
 
   constructor() {}
@@ -76,7 +76,7 @@ class AfipClient implements IAfipClient {
             FECAEDetRequest: feDetRequest
           }
         }
-      }
+      } 
     });
     return response.data;
   }

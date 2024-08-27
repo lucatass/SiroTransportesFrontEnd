@@ -3,7 +3,7 @@ import { create } from 'zustand';
 interface AuthState {
   token: string;
   sign: string;
-  expiration: string;
+  expiration: string; 
   setAuthData: (token: string, sign: string, expiration: string) => void;
   clearAuthData: () => void;
   isTokenExpired: () => boolean;
