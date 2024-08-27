@@ -7,7 +7,7 @@ interface AuthState {
   setAuthData: (token: string, sign: string, expiration: string) => void;
   clearAuthData: () => void;
   isTokenExpired: () => boolean;
-  getToken: () => string | null;  // Added this line
+  getToken: () => string | null;  
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -24,9 +24,9 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const expirationDate = new Date(get().expiration);
     return new Date() > expirationDate;
   },
-  getToken: () => {  // Added this method
+  getToken: () => {
     if (get().isTokenExpired()) {
-      // Optionally, you can trigger a token refresh here if needed
+
       return null;
     }
     return get().token;

@@ -5,11 +5,11 @@ import SidebarButton from './components/SidebarButton';
 import HrutaForm from './components/HRutaForm';
 import RemitoForm from './components/RemitoForm';
 import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
-import { FaTruck, FaFileAlt, FaMapMarkedAlt, FaEdit, FaBars } from 'react-icons/fa';
+import { FaBars, FaFileAlt, FaTruck, FaMapMarkedAlt, FaEdit, FaTools, FaShoppingCart, FaWallet } from 'react-icons/fa';
 
 const App: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('HRepartoForm');
-  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   const renderComponent = () => {
     switch (selectedComponent) {
@@ -28,18 +28,19 @@ const App: React.FC = () => {
     <div className="app">
       <div
         className="dropdown-toggle"
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <FaBars />
       </div>
-      <div className={`sidebar-dropdown ${isDropdownOpen ? 'open' : ''}`}>
-        <SidebarSection label="Facturación" icon={<FaFileAlt />}>
+
+      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <SidebarSection label="Cargos" icon={<FaFileAlt />}>
           <SidebarButton
             icon={<FaTruck />}
             label="HReparto"
             onClick={() => {
               setSelectedComponent('HRepartoForm');
-              setIsDropdownOpen(false);
+              setIsSidebarOpen(false);
             }}
           />
           <SidebarButton
@@ -47,7 +48,7 @@ const App: React.FC = () => {
             label="HRuta"
             onClick={() => {
               setSelectedComponent('HrutaForm');
-              setIsDropdownOpen(false);
+              setIsSidebarOpen(false);
             }}
           />
           <SidebarButton
@@ -55,11 +56,45 @@ const App: React.FC = () => {
             label="Remito"
             onClick={() => {
               setSelectedComponent('RemitoForm');
-              setIsDropdownOpen(false);
+              setIsSidebarOpen(false);
+            }}
+          />
+        </SidebarSection>
+
+        <SidebarSection label="Maquinarias" icon={<FaTools />}>
+          <SidebarButton
+            icon={<FaTruck />}
+            label="Ejemplo"
+            onClick={() => {
+              setSelectedComponent('HRepartoForm');
+              setIsSidebarOpen(false);
+            }}
+          />
+        </SidebarSection>
+
+        <SidebarSection label="Compras" icon={<FaShoppingCart />}>
+          <SidebarButton
+            icon={<FaTruck />}
+            label="Ejemplo"
+            onClick={() => {
+              setSelectedComponent('HRepartoForm');
+              setIsSidebarOpen(false);
+            }}
+          />
+        </SidebarSection>
+
+        <SidebarSection label="Tesorería" icon={<FaWallet />}>
+          <SidebarButton
+            icon={<FaTruck />}
+            label="Ejemplo"
+            onClick={() => {
+              setSelectedComponent('HRepartoForm');
+              setIsSidebarOpen(false);
             }}
           />
         </SidebarSection>
       </div>
+
       <div className="content">{renderComponent()}</div>
     </div>
   );
