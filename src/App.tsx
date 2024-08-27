@@ -18,7 +18,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const afipClient = new AfipClient();
+        const afipClient = new AfipClient(); 
         
         // Fetch the token from the AFIP API
         const authResponse = await afipClient.getToken('dev', '20409378472', 'wsfe');
