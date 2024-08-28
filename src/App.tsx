@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
@@ -12,35 +12,25 @@ import { FaBars, FaFileAlt, FaTruck, FaMapMarkedAlt, FaEdit, FaTools, FaShopping
 const App: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('HRepartoForm');
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState(true);
-  const setAuthData = useAuthStore((state) => state.setAuthData);
-  
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const afipClient = new AfipClient(); 
-        
-        // Fetch the token from the AFIP API
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const { setAuthData, getToken, isTokenExpired, clearAuthData } = useAuthStore();
+
+  const handleFetchToken = async () => {
+    setLoading(true);
+    try {
+      if (!getToken() || isTokenExpired()) {
+        const afipClient = new AfipClient();
         const authResponse = await afipClient.getToken('dev', '20409378472', 'wsfe');
-        
-        // Store the token in the zustand store
         setAuthData(authResponse.token, authResponse.sign, authResponse.expiration);
-        
-        // Optionally, update your local state
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching token:', error);
-        setLoading(false);
       }
-    };
-    
-    fetchToken();
-  }, [setAuthData]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
+    } catch (error) {
+      console.error('Error fetching token:', error);
+      clearAuthData();
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const renderComponent = () => {
     switch (selectedComponent) {
@@ -63,6 +53,14 @@ const App: React.FC = () => {
       >
         <FaBars />
       </div>
+
+      {!isSidebarOpen && (
+        <div className="fetch-token">
+          <button onClick={handleFetchToken} disabled={loading}>
+            {loading ? 'Guardando token...' : 'Token'}
+          </button>
+        </div>
+      )}
 
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <SidebarSection label="Cargos" icon={<FaFileAlt />}>
@@ -126,7 +124,9 @@ const App: React.FC = () => {
         </SidebarSection>
       </div>
 
-      <div className="content">{renderComponent()}</div>
+      <div className="content">
+        {renderComponent()}
+      </div>
     </div>
   );
 };

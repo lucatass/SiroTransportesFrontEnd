@@ -1,5 +1,6 @@
 .app {
   display: flex;
+  min-height: 100vh;
 }
 
 .dropdown-toggle {
@@ -17,6 +18,19 @@
   justify-content: center;
 }
 
+.fetch-token {
+  position: fixed;
+  top: 10px;
+  left: 60px;
+  background-color: #333;
+  color: rgb(36, 8, 8);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sidebar {
   background-color: #333;
   color: white;
@@ -26,36 +40,28 @@
   flex-direction: column;
   z-index: 90;
   overflow: hidden;
-  max-height: 0; /*Altura cuando está cerrado*/
+  max-height: 0;
   transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-  /* Ocultar padding y margen durante el colapso para evitar cambios repentinos */
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
   margin-top: 10px;
   margin-left: 10px;
-
 }
 
 .sidebar.open {
-  max-height: 500px; /* Expanded height; adjust this value */
-  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+  max-height: 500px;
   padding-top: 45px;
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-top: 10px;
-  margin-left: 10px ;
 }
-
-
 
 .content {
   flex-grow: 1;
-  text-align: center;
-  margin-top: 40px;
-  margin-left: 40px; /* Offset to accommodate sidebar */
+  margin-left: 220px; /* Offset to accommodate sidebar */
+  padding: 20px;
 }
 
 .sidebar-section {
