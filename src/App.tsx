@@ -112,6 +112,17 @@ const App: React.FC = () => {
           />
         </SidebarSection>
 
+        <SidebarSection label="Ventas" icon={<FaWallet />}>
+          <SidebarButton
+            icon={<FaTruck />}
+            label="Facturación"
+            onClick={() => {
+              setSelectedComponent('HRepartoForm');
+              setIsSidebarOpen(false);
+            }}
+          />
+        </SidebarSection>
+
         <SidebarSection label="Tesorería" icon={<FaWallet />}>
           <SidebarButton
             icon={<FaTruck />}
