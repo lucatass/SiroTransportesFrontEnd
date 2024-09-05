@@ -5,6 +5,7 @@ import SidebarButton from './components/SidebarButton';
 import HrutaForm from './components/HRutaForm';
 import RemitoForm from './components/RemitoForm';
 import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
+import FactForm from './components/FactForm';
 import { useAuthStore } from './components/api/useAuthStore';
 import { AfipClient } from './components/api/AfipClient';
 import { FaBars, FaFileAlt, FaTruck, FaMapMarkedAlt, FaEdit, FaTools, FaShoppingCart, FaWallet } from 'react-icons/fa';
@@ -40,6 +41,8 @@ const App: React.FC = () => {
         return <RemitoForm />;
       case 'HRepartoForm':
         return <HRepartoForm />;
+      case 'FactForm':
+        return <FactForm />;
       default:
         return null;
     }
@@ -117,7 +120,7 @@ const App: React.FC = () => {
             icon={<FaTruck />}
             label="Facturación"
             onClick={() => {
-              setSelectedComponent('HRepartoForm');
+              setSelectedComponent('FactForm');
               setIsSidebarOpen(false);
             }}
           />
