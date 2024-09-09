@@ -120,7 +120,7 @@ const HRutaForm: React.FC = () => {
               <td>{formData.transporteId}</td>
               <td>{formData.salida}</td>
               <td>{formData.llegada}</td>
-              <td>{formData.cerrada ? 'Si' : 'No'}</td>
+              <td>{formData.cerrada ? 'Sí' : 'No'}</td>
             </tr>
           ) : (
             <tr>

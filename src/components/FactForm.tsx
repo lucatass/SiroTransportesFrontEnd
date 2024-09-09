@@ -13,7 +13,7 @@ const FactForm: React.FC = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {/* Header Section */}
       <div className="section">
-        <h2>Header</h2>
+        <h2>Total</h2>
         <label>Factura N°:</label>
         <input {...register('facturaNumero')} type="text" />
         <label>Fecha:</label>
