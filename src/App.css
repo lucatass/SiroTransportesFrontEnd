@@ -1,9 +1,11 @@
 .app {
   display: flex;
   min-height: 100vh;
+  width: 100vw; /* Take full width of the screen */
 }
 
-.dropdown-toggle {
+.dropdown-toggle,
+.fetch-token {
   position: fixed;
   top: 10px;
   left: 10px;
@@ -19,16 +21,8 @@
 }
 
 .fetch-token {
-  position: fixed;
-  top: 10px;
   left: 60px;
-  background-color: #333;
-  color: rgb(36, 8, 8);
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #240808;
 }
 
 .sidebar {
@@ -42,10 +36,91 @@
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
+
+}
+
+.sidebar.open {
+  max-height: 500px;
+
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 2fr; 
+  gap: 20px; 
+  min-height: 100vh; 
+}
+
+form {
+  background-color: aliceblue;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #034c6e;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr)); /* Adjusted form size */
+  gap: 20px;
+  box-sizing: border-box;
+  flex-grow: 1; /* Ensure the form grows */
+  width: 100%; /* Full width for the form */
+}
+
+table, form {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  background-color: aliceblue;
+  border-radius: 20px;
+  border: 1px solid #034c6e;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #034c6e;
+  color: white;
+  text-align: left;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #034c6e;
+}
+
+tbody {
+  display: block;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+thead, tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+tbody td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar {
+  background-color: #333;
+  color: white;
+  border-radius: 5px;
+  width: 200px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  z-index: 90;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
   margin-top: 10px;
   margin-left: 10px;
 }
@@ -60,8 +135,12 @@
 
 .content {
   flex-grow: 1;
-  margin-left: 220px; /* Offset to accommodate sidebar */
+  margin-left: 220px; /* Adjust for sidebar width */
   padding: 20px;
+  display: flex;
+  flex-direction: column; /* Ensure form and table are stacked */
+  gap: 20px;
+  min-height: 100vh; /* Ensure content takes full height */
 }
 
 .sidebar-section {
@@ -119,115 +198,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-form {
-  background-color: aliceblue;
-  padding: 20px;
-  border-radius: 50px;
-  border: 1px solid #034c6e;
-  max-width: 500px;
-  max-height: 500px;
-  overflow-y: scroll;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 10px;
-  position: absolute !important;
-  right: 0 !important;
-}
-body {
-  margin: 20px;
-}
-
-form, table {
-  display: inline-block;
-  vertical-align: top; /* Align form and table side by side */
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background-color: #f8f9fa;
-  box-sizing: border-box;
-}
-
-form {
-  width: 300px; /* Set a width for the form */
-  max-width: 100%; /* Ensure form adapts responsively */
-}
-
-table {
-  width: 800px; /* Set a width for the table */
-  max-width: 100%; /* Ensure table adapts responsively */
-  background-color: aliceblue;
-  border-radius: 20px;
-  border: 1px solid #034c6e;
-  border-collapse: collapse;
-}
-
-thead {
-  background-color: #034c6e;
-  color: white;
-  text-align: left;
-}
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border: 1px solid #034c6e;
-}
-
-tbody {
-  display: block;
-  max-height: 400px; /* Limit the height for scrolling */
-  overflow-y: auto;
-}
-
-thead, tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-tbody td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-form div {
-  margin-bottom: 10px;
-}
-
-form label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-form input[type="text"],
-form input[type="date"],
-form input[type="checkbox"] {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-form button {
-  padding: 10px 20px;
-  background-color: #034c6e;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-input {
-  width: min-content;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 1em;
-  border-radius: 5px;
-  color: black;
-  border: 1px solid #ccc;
-  background-color: #fff;
 }

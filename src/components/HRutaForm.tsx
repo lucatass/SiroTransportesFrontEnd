@@ -98,136 +98,107 @@ const HRutaForm: React.FC = () => {
   const salidaValue = watch('salida');
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Sucursal Origen</th>
-            <th>Sucursal Destino</th>
-            <th>Transportes</th>
-            <th>Fecha Salida</th>
-            <th>Fecha Llegada</th>
-            <th>Cerrada</th>
-          </tr>
-        </thead>
-        <tbody>
-          {formData ? (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+      {/* Table Section */}
+      <div style={{ gridRow: '1', gridColumn: '1' }}>
+        <table>
+          <thead>
             <tr>
-              <td>{formData.codigo}</td>
-              <td>{formData.origen}</td>
-              <td>{formData.destino}</td>
-              <td>{formData.transporteId}</td>
-              <td>{formData.salida}</td>
-              <td>{formData.llegada}</td>
-              <td>{formData.cerrada ? 'Sí' : 'No'}</td>
+              <th>Código</th>
+              <th>Sucursal Origen</th>
+              <th>Sucursal Destino</th>
+              <th>Transportes</th>
+              <th>Fecha Salida</th>
+              <th>Fecha Llegada</th>
+              <th>Cerrada</th>
             </tr>
-          ) : (
-            <tr>
-              <td colSpan={7}>No hay datos</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>
-          Código:
-          <input type="string" className="greyed-out" readOnly {...register('codigo', { required: true })} />
-        </label>
-
-        <style>{`
-          .greyed-out {
-            color: grey !important;
-            background-color: #f7f7f7;
-            border-color: #ccc;
-          }
-        `}</style>
-
-        <label>
-          Fecha Salida:
-          <input type="date" {...register('salida', { required: "Este campo es requerido" })} disabled={isCerradaChecked} />
-        </label>
-        <label>
-          Fecha Llegada:
-          <input type="date" {...register('llegada', {
-            required: "Este campo es requerido",
-            validate: value =>
-              !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
-          })} disabled={isCerradaChecked} />
-          {errors.llegada && <p>{errors.llegada.message}</p>}
-        </label>
-        <label>
-          Sucursal origen:
-          <select {...register('origen', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
-            <option value="BAS">BS AS</option>
-            <option value="SNZ">SAENZ PEÑA</option>
-            <option value="RST">RESISTENCIA</option>
-          </select>
-        </label>
-        <label>
-          Sucursal destino:
-          <select {...register('destino', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
-            <option value="BAS">BS AS</option>
-            <option value="SNZ">SAENZ PEÑA</option>
-            <option value="RST">RESISTENCIA</option>
-          </select>
-        </label>
-        <label>
-          <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} disabled={isCerradaChecked} />
-          Transportes:
-          <select {...register('transporteId', { required: isTransportesChecked })} disabled={!isTransportesChecked || isCerradaChecked}>
-            <option value="transporte1">transporte1</option>
-            <option value="transporte2">transporte2</option>
-          </select>
-        </label>
-        <label>
-          <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
-          Persona:
-          <select {...register('personalId', { required: isPersonaMaquinariaChecked })} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
-            <option value="persona1">persona1</option>
-            <option value="persona2">persona2</option>
-          </select>
-          Camión:
-          <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
-            <option value="maquinaria1">camion1</option>
-            <option value="maquinaria2">camion2</option>
-          </select>
-        </label>
-
-        <label>
-          Cerrada:
-          <input type="checkbox" {...register('cerrada')} checked={isCerradaChecked} onChange={handleCerradaChange} />
-      </label>
-
-      <button type="submit" disabled={isCerradaChecked} >Enviar</button>
-      </form>
-    
-      {isFormSubmitted && (
-        <>
-          <button onClick={fetchRemitos}>Remitos</button>
-            <ul>
-              {remitos.map(remito => (
-                <li key={remito.Remitosid}>
-                  {remito.nombre}
-                </li>
-              ))}
-            </ul>
-        </>)}
-      
-      {/* Listado de remitos 
-         <ul> 
-           {remitos.map(remito => ( 
-             <li key={remito.Remitosid} style={selectedRemitoIds.includes(remito.Remitosid) ? {border: '2px solid blue', borderRadius: '5px'} : {}} onClick={() => handleRemitoClick(remito.Remitosid)}> 
-               {remito.nombre} 
-             </li> 
-           ))} 
-         </ul> 
-       <button onClick={handleRemitoClick}>Remito</button> */}
-
+          </thead>
+          <tbody>
+            {formData ? (
+              <tr>
+                <td>{formData.codigo}</td>
+                <td>{formData.origen}</td>
+                <td>{formData.destino}</td>
+                <td>{formData.transporteId}</td>
+                <td>{formData.salida}</td>
+                <td>{formData.llegada}</td>
+                <td>{formData.cerrada ? 'Sí' : 'No'}</td>
+              </tr>
+            ) : (
+              <tr>
+                <td colSpan={7}>No hay datos</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+  
+      {/* Form Section */}
+      <div style={{ gridRow: '2', gridColumn: '1 / span 2' }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label>
+            Código:
+            <input type="string" className="greyed-out" readOnly {...register('codigo', { required: true })} />
+          </label>
+          <label>
+            Fecha Salida:
+            <input type="date" {...register('salida', { required: "Este campo es requerido" })} disabled={isCerradaChecked} />
+          </label>
+          <label>
+            Fecha Llegada:
+            <input type="date" {...register('llegada', {
+              required: "Este campo es requerido",
+              validate: value =>
+                !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
+            })} disabled={isCerradaChecked} />
+            {errors.llegada && <p>{errors.llegada.message}</p>}
+          </label>
+          <label>
+            Sucursal origen:
+            <select {...register('origen', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
+              <option value="BAS">BS AS</option>
+              <option value="SNZ">SAENZ PEÑA</option>
+              <option value="RST">RESISTENCIA</option>
+            </select>
+          </label>
+          <label>
+            Sucursal destino:
+            <select {...register('destino', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
+              <option value="BAS">BS AS</option>
+              <option value="SNZ">SAENZ PEÑA</option>
+              <option value="RST">RESISTENCIA</option>
+            </select>
+          </label>
+          <label>
+            <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} disabled={isCerradaChecked} />
+            Transportes:
+            <select {...register('transporteId', { required: isTransportesChecked })} disabled={!isTransportesChecked || isCerradaChecked}>
+              <option value="transporte1">transporte1</option>
+              <option value="transporte2">transporte2</option>
+            </select>
+          </label>
+          <label>
+            <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
+            Persona:
+            <select {...register('personalId', { required: isPersonaMaquinariaChecked })} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
+              <option value="persona1">persona1</option>
+              <option value="persona2">persona2</option>
+            </select>
+            Camión:
+            <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
+              <option value="maquinaria1">camion1</option>
+              <option value="maquinaria2">camion2</option>
+            </select>
+          </label>
+          <label>
+            Cerrada:
+            <input type="checkbox" {...register('cerrada')} checked={isCerradaChecked} onChange={handleCerradaChange} />
+          </label>
+          <button type="submit" disabled={isCerradaChecked}>Enviar</button>
+        </form>
+      </div>
     </div>
-);
-
-};
-
+  );
+  
+}
 export default HRutaForm;
