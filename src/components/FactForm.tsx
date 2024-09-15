@@ -11,6 +11,7 @@ const FactForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      
       {/* Header Section */}
       <div className="section">
         <h2>Total</h2>

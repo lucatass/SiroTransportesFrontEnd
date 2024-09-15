@@ -65,51 +65,14 @@ form {
   width: 100%; /* Full width for the form */
 }
 
-table, form {
+form {
   border-radius: 10px;
   border: 1px solid #ccc;
   background-color: #f8f9fa;
   box-sizing: border-box;
 }
 
-table {
-  width: 100%;
-  max-width: 100%;
-  background-color: aliceblue;
-  border-radius: 20px;
-  border: 1px solid #034c6e;
-  border-collapse: collapse;
-}
 
-thead {
-  background-color: #034c6e;
-  color: white;
-  text-align: left;
-}
-
-th, td {
-  padding: 12px;
-  text-align: left;
-  border: 1px solid #034c6e;
-}
-
-tbody {
-  display: block;
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-thead, tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-tbody td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .sidebar {
   background-color: #333;
   color: white;
@@ -127,20 +90,19 @@ tbody td {
 
 .sidebar.open {
   max-height: 500px;
-  padding-top: 45px;
+  padding-top: 60px;
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
 .content {
-  flex-grow: 1;
-  margin-left: 220px; /* Adjust for sidebar width */
+  flex-grow: 1; 
   padding: 20px;
   display: flex;
-  flex-direction: column; /* Ensure form and table are stacked */
+  flex-direction: column;
   gap: 20px;
-  min-height: 100vh; /* Ensure content takes full height */
+  min-height: 100vh;
 }
 
 .sidebar-section {

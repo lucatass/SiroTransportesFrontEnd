@@ -3,6 +3,7 @@ import './App.css';
 import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
 import HrutaForm from './components/HRutaForm';
+import HRutaList from './components/HRutaList';
 import RemitoForm from './components/RemitoForm';
 import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
 import FactForm from './components/FactForm';
@@ -35,8 +36,8 @@ const App: React.FC = () => {
 
   const renderComponent = () => {
     switch (selectedComponent) {
-      case 'HrutaForm':
-        return <HrutaForm />;
+      case 'HRutaList':
+        return <HRutaList formData={null} />;
       case 'RemitoForm':
         return <RemitoForm />;
       case 'HRepartoForm':
@@ -79,7 +80,7 @@ const App: React.FC = () => {
             icon={<FaMapMarkedAlt />}
             label="HRuta"
             onClick={() => {
-              setSelectedComponent('HrutaForm');
+              setSelectedComponent('HrutaList');
               setIsSidebarOpen(false);
             }}
           />

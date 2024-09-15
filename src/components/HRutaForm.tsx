@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import HRutaList from './HRutaList';  
 
 type FormInput = {
   codigo: string;
@@ -98,41 +99,9 @@ const HRutaForm: React.FC = () => {
   const salidaValue = watch('salida');
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-      {/* Table Section */}
-      <div style={{ gridRow: '1', gridColumn: '1' }}>
-        <table>
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>Sucursal Origen</th>
-              <th>Sucursal Destino</th>
-              <th>Transportes</th>
-              <th>Fecha Salida</th>
-              <th>Fecha Llegada</th>
-              <th>Cerrada</th>
-            </tr>
-          </thead>
-          <tbody>
-            {formData ? (
-              <tr>
-                <td>{formData.codigo}</td>
-                <td>{formData.origen}</td>
-                <td>{formData.destino}</td>
-                <td>{formData.transporteId}</td>
-                <td>{formData.salida}</td>
-                <td>{formData.llegada}</td>
-                <td>{formData.cerrada ? 'Sí' : 'No'}</td>
-              </tr>
-            ) : (
-              <tr>
-                <td colSpan={7}>No hay datos</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-  
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>
+
+
       {/* Form Section */}
       <div style={{ gridRow: '2', gridColumn: '1 / span 2' }}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -199,6 +168,7 @@ const HRutaForm: React.FC = () => {
       </div>
     </div>
   );
-  
-}
+};
+
 export default HRutaForm;
+
