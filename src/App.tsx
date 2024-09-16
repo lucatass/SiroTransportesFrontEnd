@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
-import HrutaForm from './components/HRutaForm';
+import HRutaForm from './components/HRutaForm';
 import HRutaList from './components/HRutaList';
 import RemitoForm from './components/RemitoForm';
 import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
@@ -80,7 +80,7 @@ const App: React.FC = () => {
             icon={<FaMapMarkedAlt />}
             label="HRuta"
             onClick={() => {
-              setSelectedComponent('HrutaList');
+              setSelectedComponent('HRutaList');
               setIsSidebarOpen(false);
             }}
           />

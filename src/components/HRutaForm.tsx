@@ -105,6 +105,8 @@ const HRutaForm: React.FC = () => {
       {/* Form Section */}
       <div style={{ gridRow: '2', gridColumn: '1 / span 2' }}>
         <form onSubmit={handleSubmit(onSubmit)}>
+        <h2>Añadir Hoja de Ruta</h2>
+
           <label>
             Código:
             <input type="string" className="greyed-out" readOnly {...register('codigo', { required: true })} />

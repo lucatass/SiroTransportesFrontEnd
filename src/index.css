@@ -46,21 +46,30 @@ button,
 input[type="text"],
 input[type="numeric"],
 input[type="date"],
+
 select {
-  border-radius: 0.9em;
+  border-radius: 0.3em;
   border: 1px solid transparent;
   padding: 0.2em 0.4em ;
   margin: 4px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #ffffff;
+  background-color: #e7e7e7;
   color: #021141 !important;
   cursor: pointer;
   transition: border-color 0.1s;
   border: 1px solid #9b9b9b !important;
   border-color: #0a0a0a;
 }
+input.greyed-out {
+  margin: 3px;
+  color: #a0a0a0 !important;
+  background-color: #e7e7e7 !important;
+  border-color: #e7e7e7 !important;
+  cursor: default !important;
+}
+
 input:hover,
 select:hover {
   border-color: #646cff;
@@ -75,6 +84,4 @@ select:focus,
 select:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-
 
