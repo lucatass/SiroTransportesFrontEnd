@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import 'ag-grid-enterprise';
 import SidebarSection from './components/SidebarSection';
@@ -19,6 +19,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { setAuthData, getToken, isTokenExpired, clearAuthData } = useAuthStore();
+  const sidebarRef = useRef<HTMLDivElement>(null); // Sidebar reference
 
   const handleFetchToken = async () => {
     setLoading(true);
@@ -36,10 +37,24 @@ const App: React.FC = () => {
     }
   };
 
+  // Close sidebar when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setIsSidebarOpen(false); // Close sidebar if clicked outside
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const renderComponent = () => {
     switch (selectedComponent) {
       case 'HRutaList':
-        return <HRutaList  />;
+        return <HRutaList />;
       case 'RemitoForm':
         return <RemitoForm />;
       case 'HRepartoForm':
@@ -64,15 +79,8 @@ const App: React.FC = () => {
         <FaBars />
       </div>
 
-      {!isSidebarOpen && (
-        <div className="fetch-token">
-          <button onClick={handleFetchToken} disabled={loading}>
-            {loading ? 'Guardando token...' : 'Token'}
-          </button>
-        </div>
-      )}
-
-      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+      <div ref={sidebarRef} className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+      <FaBars />
         <SidebarSection label="Logística" icon={<FaFileAlt />}>
           <SidebarButton
             icon={<FaTruck />}
@@ -106,7 +114,6 @@ const App: React.FC = () => {
               setIsSidebarOpen(false);
             }}
           />
-
           <SidebarButton
             icon={<FaTruck />}
             label="Configuración"
@@ -115,9 +122,7 @@ const App: React.FC = () => {
               setIsSidebarOpen(false);
             }}
           />
-
         </SidebarSection>
-
 
         <SidebarSection label="Maquinarias" icon={<FaTools />}>
           <SidebarButton
@@ -162,8 +167,6 @@ const App: React.FC = () => {
             }}
           />
         </SidebarSection>
-
-
       </div>
 
       <div className="content">

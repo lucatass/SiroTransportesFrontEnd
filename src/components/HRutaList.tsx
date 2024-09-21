@@ -51,15 +51,15 @@ const HRutaList: React.FC = () => {
 
   const columnDefs: ColDef[] = [
     { headerName: 'Código', field: 'codigo', sortable: true, filter: true, width: 100 },
-    { headerName: 'Origen', field: 'origen', sortable: true, filter: true, width: 150 },
-    { headerName: 'Destino', field: 'destino', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
-    { headerName: 'Transportes', field: 'transporteId', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
-    { headerName: 'Personal', field: 'personalId', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
-    { headerName: 'Maquinaria', field: 'maquinariaId', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Origen', field: 'origen', sortable: false, filter: true, width: 100 },
+    { headerName: 'Destino', field: 'destino', sortable: false, filter: true, width: 100, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Transportes', field: 'transporteId', sortable: false, filter: true, width: 125, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Personal', field: 'personalId', sortable: false, filter: true, width: 110, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Maquinaria', field: 'maquinariaId', sortable: false, filter: true, width: 120, valueFormatter: (params) => params.value || '-' },
     { headerName: 'Fecha Salida', field: 'salida', sortable: true, filter: true, width: 150 },
     { headerName: 'Fecha Llegada', field: 'llegada', sortable: true, filter: true, width: 150 },
     { headerName: 'Cerrada', field: 'cerrada', sortable: true, filter: true, cellRenderer: (params: any) => (params.value ? 'Sí' : 'No'), width: 100 },
-    { headerName: 'Unidad', field: 'unidad', sortable: true, filter: true, width: 100 },
+    { headerName: 'Unidad', field: 'unidad', sortable: false, filter: true, width: 100 },
   ];
 
   // Function to export the grid data to an Excel file

@@ -1,16 +1,19 @@
 import React from 'react';
 
 interface SidebarProps {
-  onSelect: (component: string) => void;
-  children: React.ReactNode;  // Allow children to be passed in
+  children: React.ReactNode;  
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onSelect, children }) => {
+const Sidebar: React.FC<SidebarProps> = ({ children }) => {
+
+
   return (
     <div className="sidebar">
-      {children}  {/* Render the children here */}
+
+      {children}  
     </div>
   );
+
 };
 
 export default Sidebar;

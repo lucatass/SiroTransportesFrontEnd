@@ -46,6 +46,8 @@ button,
 input[type="text"],
 input[type="numeric"],
 input[type="date"],
+input[type="datetime-local"],
+input[type="number"],
 
 select {
   border-radius: 0.3em;
@@ -84,4 +86,35 @@ select:focus,
 select:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+/* Ag Grid table HEADERS */
+.ag-header-cell-resize,
+.ag-cell-label-container{
+  padding:0;
+  margin: 0;
+  width: min-content;
+}
+.ag-header-cell.ag-column-first.ag-header-cell-sortable.ag-focus-managed{
+  padding: 0;
+  padding-left: 20px;
+}
+/* Target the specific classes and remove padding and margin */
+.ag-cell,
+.ag-cell-not-inline-editing,
+.ag-cell-normal-height,
+.ag-column-first,
+.ag-cell-value,
+.ag-cell-focus {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure that all cells maintain their size and appearance without extra spacing */
+.ag-cell {
+  display: flex;  /* Optional: Ensure cell content behaves properly without padding */
+  align-items: center;  /* Optional: Align content vertically if necessary */
+  justify-content: center;  /* Optional: Center content horizontally */
+}
+
 

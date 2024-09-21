@@ -49,7 +49,6 @@
   height: auto;
 }
 
-
 .content {
   display: grid;
   grid-template-columns: 1fr 2fr; 
@@ -78,7 +77,6 @@ form {
   box-sizing: border-box;
 }
 
-
 .sidebar {
   background-color: #333;
   color: white;
@@ -95,11 +93,13 @@ form {
 }
 
 .sidebar.open {
-  max-height: 500px;
+  max-height:600px;
+  width: 180px;
   padding-top: 60px;
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  overflow-y: auto;
 }
 
 .content {
@@ -136,8 +136,13 @@ form {
 
 .sidebar-section.open .section-content {
   display: flex;
+  
 }
 
+
+.section-content.open{
+  transition: 0.3s ease-in-out;
+}
 .sidebar-item {
   width: 100%;
   padding: 10px;
@@ -167,44 +172,11 @@ form {
   text-overflow: ellipsis;
 }
 
-.modal {
-  display: block;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .sidebar {
   background-color: #333;
   color: white;
   border-radius: 5px;
-  width: 200px;
+  width: 40px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   flex-direction: column;
   z-index: 90;
@@ -242,17 +214,34 @@ form {
 
 .section-content {
   padding: 7px;
-  display: none; /* Hide content initially */
+  display: none; 
   flex-direction: column;
   background-color: #444;
   transition: max-height 0.3s ease-in-out;
   overflow: hidden;
-  max-height: 0; /* Collapsed height */
+  max-height: 0; 
 }
 
+.sidebar-section.open .section-content {
+  display: flex; 
+  max-height: 1000px; 
+  margin-left: 10px!important;
+  transition: 0.3s ease-in-out;
+}
 
+.sidebar.open{
+  margin-left: 10px!important;
+  width: fit-content+1px!important;
+  height: fit-content!important;
+  padding : 10px;
+  padding-top: 8px!important;
+}
+.open{
+  transition: width 0.2s ease-in;
+
+}
 .sidebar-item {
-  width: 100%;
+  width: fit-content;
   padding: 10px;
   text-align: left;
   cursor: pointer;
@@ -271,6 +260,7 @@ form {
   width: 24px;
   height: 24px;
   text-align: center;
+
 }
 
 .sidebar-item .text {
@@ -281,8 +271,8 @@ form {
 }
 
 .sidebar-section .section-content {
-  display: none; /* Hide content initially */
-  max-height: 0; /* Collapsed height */
+  display: none; 
+  max-height: 0; 
   transition: max-height 0.3s ease-in-out;
   overflow: hidden;
 }
@@ -290,4 +280,32 @@ form {
 .sidebar-section.open .section-content {
   display: flex; /* Show content when the section is clicked and opened */
   max-height: 1000px; /* Expand to fit content */
+}
+
+/*POP UP*/
+.modal {
+  display: block;
+  z-index: 10;
+  left: 0;
+  top: 0px!important;
+  margin: 0px!important;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3)!important; /* Makes the outside of the modal transparent */
+}
+
+
+.close {
+  color: #034c6e;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ag-header-cell-resize{
+  z-index: 1!important;
 }
