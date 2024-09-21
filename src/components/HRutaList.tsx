@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import 'ag-grid-enterprise'; // This is necessary for Excel export
 import { ColDef } from 'ag-grid-community';
 import HRutaForm from './HRutaForm';
 
@@ -15,14 +16,13 @@ interface FormData {
   salida: string;
   llegada: string;
   cerrada: boolean;
+  unidad: string;
 }
 
-type HRutaListProps = {
-  formData: FormData | null;
-};
-
-const HRutaList: React.FC<HRutaListProps> = ({ formData }) => {
+const HRutaList: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [rowData, setRowData] = useState<FormData[]>([]);
+  const gridRef = useRef<AgGridReact>(null); // Reference to the AgGridReact instance
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => setIsFormOpen(false);
@@ -34,29 +34,61 @@ const HRutaList: React.FC<HRutaListProps> = ({ formData }) => {
     }
   };
 
+  // Fetch JSON data on component mount
+  useEffect(() => {
+    fetch('public/HRuta.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setRowData(data);
+      })
+      .catch((error) => console.error('Error fetching JSON:', error));
+  }, []);
+
   const columnDefs: ColDef[] = [
-    { headerName: 'Código', field: 'codigo', sortable: true, filter: true },
-    { headerName: 'Sucursal Origen', field: 'origen', sortable: true, filter: true },
-    { headerName: 'Sucursal Destino', field: 'destino', sortable: true, filter: true },
-    { headerName: 'Transportes', field: 'transporteId', sortable: true, filter: true },
-    { headerName: 'Fecha Salida', field: 'salida', sortable: true, filter: true },
-    { headerName: 'Fecha Llegada', field: 'llegada', sortable: true, filter: true },
-    { headerName: 'Cerrada', field: 'cerrada', sortable: true, filter: true, cellRenderer: (params: any) => (params.value ? 'Sí' : 'No') },
+    { headerName: 'Código', field: 'codigo', sortable: true, filter: true, width: 100 },
+    { headerName: 'Origen', field: 'origen', sortable: true, filter: true, width: 150 },
+    { headerName: 'Destino', field: 'destino', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Transportes', field: 'transporteId', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Personal', field: 'personalId', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Maquinaria', field: 'maquinariaId', sortable: true, filter: true, width: 150, valueFormatter: (params) => params.value || '-' },
+    { headerName: 'Fecha Salida', field: 'salida', sortable: true, filter: true, width: 150 },
+    { headerName: 'Fecha Llegada', field: 'llegada', sortable: true, filter: true, width: 150 },
+    { headerName: 'Cerrada', field: 'cerrada', sortable: true, filter: true, cellRenderer: (params: any) => (params.value ? 'Sí' : 'No'), width: 100 },
+    { headerName: 'Unidad', field: 'unidad', sortable: true, filter: true, width: 100 },
   ];
 
-  const rowData = formData ? [formData] : [];
+  // Function to export the grid data to an Excel file
+  const exportToExcel = () => {
+    gridRef.current?.api.exportDataAsExcel({
+      fileName: 'HRutaData.xlsx',
+      sheetName: 'HRutas',
+    });
+  };
 
   return (
     <div>
-      {/* Button for opening the form, placed above the table */}
-      <button onClick={openForm} style={{ marginBottom: '5px', marginLeft: '0px', borderRadius: '0.3rem' }}>
-        Añadir
-      </button>
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '5px' }}>
+        {/* Form button */}
+        <button onClick={openForm} style={{ borderRadius: '0.3rem' }}>
+          Añadir
+        </button>
+
+        {/* Excel export button */}
+        <button onClick={exportToExcel} style={{ borderRadius: '0.3rem' }}>
+          Exportar a Excel
+        </button>
+      </div>
 
       {/* AG Grid Table */}
       <div className="ag-theme-alpine" style={{ height: 400 }}>
-        <AgGridReact 
-          rowData={rowData}
+        <AgGridReact
+          ref={gridRef} // Reference to access grid API
+          rowData={rowData} // Make sure rowData is populated
           columnDefs={columnDefs}
           domLayout="autoHeight"
         />
@@ -64,45 +96,29 @@ const HRutaList: React.FC<HRutaListProps> = ({ formData }) => {
 
       {/* Popup form */}
       {isFormOpen && (
-        <div className="modal" style={{ display: 'block', position: 'fixed', zIndex: 1, left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgb(0,0,0)' }} onClick={handleClickOutside}>
-          <div id="modal-content" className="modal-content" style={{ backgroundColor: '#fefefe', margin: '15% auto', padding: '20px', border: '1px solid #888', width: '80%' }}>
-            <span className="close" onClick={closeForm} style={{ color: '#aaa', float: 'right', fontSize: '28px', fontWeight: 'bold' }}>&times;</span>
+        <div
+          className="modal"
+          style={{ display: 'block', position: 'fixed', zIndex: 1, left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgb(0,0,0)' }}
+          onClick={handleClickOutside}
+        >
+          <div
+            id="modal-content"
+            className="modal-content"
+            style={{ backgroundColor: '#fefefe', margin: '15% auto', padding: '20px', border: '1px solid #888', width: '80%' }}
+          >
+            <span
+              className="close"
+              onClick={closeForm}
+              style={{ color: '#aaa', float: 'right', fontSize: '28px', fontWeight: 'bold' }}
+            >
+              &times;
+            </span>
             <HRutaForm />
           </div>
         </div>
       )}
     </div>
   );
-};
-// Styles for the modal
-const modalStyles: React.CSSProperties = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  zIndex: 11, // Ensure the modal is on top of everything
-  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional background overlay
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-const modalContentStyles: React.CSSProperties = {
-  backgroundColor: 'transparent',
-  border: 'none',
-  padding: '20px',
-  width: '80%',
-  maxWidth: '600px',
-};
-
-const closeButtonStyles: React.CSSProperties = {
-  position: 'absolute',
-  top: '10px',
-  right: '10px',
-  cursor: 'pointer',
-  fontSize: '1.5rem',
 };
 
 export default HRutaList;

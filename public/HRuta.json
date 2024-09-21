@@ -1,0 +1,39 @@
+[
+  {
+    "salida": "2024-08-27",
+    "llegada": "2024-09-25",
+    "origen": "BAS",
+    "destino": "BAS",
+    "transporteId": "",
+    "personalId": "persona2",
+    "maquinariaId": "maquinaria1",
+    "cerrada": false,
+    "unidad": "kg",
+    "codigo": 1
+  },
+  {
+    "salida": "2024-07-15",
+    "llegada": "2024-07-20",
+    "origen": "MEX",
+    "destino": "USA",
+    "transporteId": "",
+    "personalId": "persona3",
+    "maquinariaId": "maquinaria4",
+    "cerrada": true,
+    "unidad": "kg",
+    "codigo": 2
+  },
+  {
+    "salida": "2024-09-01",
+    "llegada": "2024-09-05",
+    "origen": "BRA",
+    "destino": "ARG",
+    "transporteId": "transporte1",
+    "personalId": "",
+    "maquinariaId": "",
+    "cerrada": false,
+    "unidad": "ton",
+    "codigo": 3
+  }
+]
+  

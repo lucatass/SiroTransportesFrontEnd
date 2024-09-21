@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import 'ag-grid-enterprise';
 import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
 import HRutaForm from './components/HRutaForm';
@@ -7,6 +8,7 @@ import HRutaList from './components/HRutaList';
 import RemitoForm from './components/RemitoForm';
 import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
 import FactForm from './components/FactForm';
+import Placeholder from './components/Placeholder';
 import { useAuthStore } from './components/api/useAuthStore';
 import { AfipClient } from './components/api/AfipClient';
 import { FaBars, FaFileAlt, FaTruck, FaMapMarkedAlt, FaEdit, FaTools, FaShoppingCart, FaWallet } from 'react-icons/fa';
@@ -37,13 +39,17 @@ const App: React.FC = () => {
   const renderComponent = () => {
     switch (selectedComponent) {
       case 'HRutaList':
-        return <HRutaList formData={null} />;
+        return <HRutaList  />;
       case 'RemitoForm':
         return <RemitoForm />;
       case 'HRepartoForm':
         return <HRepartoForm />;
       case 'FactForm':
         return <FactForm />;
+      case 'Proforma':
+        return <Placeholder />;
+      case 'Configuracion':
+        return <Placeholder />;
       default:
         return null;
     }
@@ -67,7 +73,7 @@ const App: React.FC = () => {
       )}
 
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-        <SidebarSection label="Cargos" icon={<FaFileAlt />}>
+        <SidebarSection label="Logística" icon={<FaFileAlt />}>
           <SidebarButton
             icon={<FaTruck />}
             label="HReparto"
@@ -92,7 +98,26 @@ const App: React.FC = () => {
               setIsSidebarOpen(false);
             }}
           />
+          <SidebarButton
+            icon={<FaTruck />}
+            label="Proforma"
+            onClick={() => {
+              setSelectedComponent('Placeholder');
+              setIsSidebarOpen(false);
+            }}
+          />
+
+          <SidebarButton
+            icon={<FaTruck />}
+            label="Configuración"
+            onClick={() => {
+              setSelectedComponent('Placeholder');
+              setIsSidebarOpen(false);
+            }}
+          />
+
         </SidebarSection>
+
 
         <SidebarSection label="Maquinarias" icon={<FaTools />}>
           <SidebarButton
@@ -137,6 +162,8 @@ const App: React.FC = () => {
             }}
           />
         </SidebarSection>
+
+
       </div>
 
       <div className="content">
