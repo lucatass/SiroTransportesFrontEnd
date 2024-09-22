@@ -4,8 +4,8 @@ import 'ag-grid-enterprise';
 import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
 import HRutaList from './components/HRuta/HRutaList';
-import RemitosList from './components/remitos/RemitosList';
-import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
+import RemitosList from './components/Remitos/RemitosList';
+import HRepList from './components/HojaDeReparto/HRepList';
 import FactForm from './components/FactForm';
 import Placeholder from './components/Placeholder';
 import { useAuthStore } from './components/api/useAuthStore';
@@ -56,8 +56,8 @@ const App: React.FC = () => {
         return <HRutaList />;
       case 'RemitosList':
         return <RemitosList />;
-      case 'HRepartoForm':
-        return <HRepartoForm />;
+      case 'HRepList':
+        return <HRepList />;
       case 'FactForm':
         return <FactForm />;
       case 'Proforma':
@@ -83,9 +83,9 @@ const App: React.FC = () => {
         <SidebarSection label="Logística" icon={<FaFileAlt />}>
           <SidebarButton
             icon={<FaTruck />}
-            label="HReparto"
+            label="HRep"
             onClick={() => {
-              setSelectedComponent('HRepartoForm');
+              setSelectedComponent('HRepList');
               setIsSidebarOpen(false);
             }}
           />
@@ -128,7 +128,7 @@ const App: React.FC = () => {
             icon={<FaTruck />}
             label="Ejemplo"
             onClick={() => {
-              setSelectedComponent('HRepartoForm');
+              setSelectedComponent('HRepForm');
               setIsSidebarOpen(false);
             }}
           />
@@ -139,7 +139,7 @@ const App: React.FC = () => {
             icon={<FaTruck />}
             label="Ejemplo"
             onClick={() => {
-              setSelectedComponent('HRepartoForm');
+              setSelectedComponent('HRepForm');
               setIsSidebarOpen(false);
             }}
           />
