@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import HRutaList from './HRutaList';  
+import HRutaList from './HRutaList';
 
 type FormInput = {
   codigo: string;

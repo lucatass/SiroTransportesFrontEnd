@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import clientesData from './remitosId.json';
 
 interface IFormInput {
   fecha: string;
@@ -23,7 +22,7 @@ interface Cliente {
   cuit: string;
 }
 
-const RemitoForm: React.FC = () => {
+const RemitosForm: React.FC = () => {
   const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<IFormInput>({
     defaultValues: {
       remitenteNombre: '',
@@ -35,7 +34,7 @@ const RemitoForm: React.FC = () => {
       contrareembolso: 0,
     }
   });
-  const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [remitos, setRemitos] = useState<Cliente[]>([]);
   const [filteredRemitentes, setFilteredRemitentes] = useState<Cliente[]>([]);
   const [filteredDestinatarios, setFilteredDestinatarios] = useState<Cliente[]>([]);
   const [selectedRemitente, setSelectedRemitente] = useState<Cliente | null>(null);
@@ -43,15 +42,26 @@ const RemitoForm: React.FC = () => {
   const [showDropdownRemitente, setShowDropdownRemitente] = useState(false);
   const [showDropdownDestinatario, setShowDropdownDestinatario] = useState(false);
 
+
   useEffect(() => {
-    setClientes(clientesData);
-    setFilteredRemitentes(clientesData);
-    setFilteredDestinatarios(clientesData);
+    fetch('public/remitos.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        return response.json();
+      })
+      .then((remitosData) => {
+        setRemitos(remitosData);
+        setFilteredRemitentes(remitosData);
+        setFilteredDestinatarios(remitosData);
+      })
+      .catch((error) => console.error('Error fetching JSON:', error));
   }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    const remitente = clientes.find(cliente => cliente.id === data.remitenteId);
-    const destinatario = clientes.find(cliente => cliente.id === data.destinatarioId);
+    const remitente = remitos.find(remito => remito.id === data.remitenteId);
+    const destinatario = remitos.find(remito => remito.id === data.destinatarioId);
     const pagoEn = data.pagoEn;
     const unidad = data.unidad;
 
@@ -84,8 +94,8 @@ const RemitoForm: React.FC = () => {
       setFilteredRemitentes([]);
       setShowDropdownRemitente(false);
     } else {
-      const filtered = clientes.filter(cliente => 
-        cliente.nombre.toLowerCase().includes(query)
+      const filtered = remitos.filter(remito => 
+        remito.nombre.toLowerCase().includes(query)
       );
       setFilteredRemitentes(filtered);
       setShowDropdownRemitente(true);
@@ -106,8 +116,8 @@ const RemitoForm: React.FC = () => {
       setFilteredDestinatarios([]);
       setShowDropdownDestinatario(false);
     } else {
-      const filtered = clientes.filter(cliente => 
-        cliente.nombre.toLowerCase().includes(query)
+      const filtered = remitos.filter(remito => 
+        remito.nombre.toLowerCase().includes(query)
       );
       setFilteredDestinatarios(filtered);
       setShowDropdownDestinatario(true);
@@ -272,4 +282,4 @@ const RemitoForm: React.FC = () => {
   );
 };
 
-export default RemitoForm;
+export default RemitosForm;

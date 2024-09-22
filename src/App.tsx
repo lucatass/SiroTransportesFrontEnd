@@ -3,9 +3,8 @@ import './App.css';
 import 'ag-grid-enterprise';
 import SidebarSection from './components/SidebarSection';
 import SidebarButton from './components/SidebarButton';
-import HRutaForm from './components/HRutaForm';
-import HRutaList from './components/HRutaList';
-import RemitoForm from './components/RemitoForm';
+import HRutaList from './components/HRuta/HRutaList';
+import RemitosList from './components/remitos/RemitosList';
 import HRepartoForm from './components/HojaDeReparto/HRepartoForm';
 import FactForm from './components/FactForm';
 import Placeholder from './components/Placeholder';
@@ -55,8 +54,8 @@ const App: React.FC = () => {
     switch (selectedComponent) {
       case 'HRutaList':
         return <HRutaList />;
-      case 'RemitoForm':
-        return <RemitoForm />;
+      case 'RemitosList':
+        return <RemitosList />;
       case 'HRepartoForm':
         return <HRepartoForm />;
       case 'FactForm':
@@ -102,7 +101,7 @@ const App: React.FC = () => {
             icon={<FaEdit />}
             label="Remito"
             onClick={() => {
-              setSelectedComponent('RemitoForm');
+              setSelectedComponent('RemitosList');
               setIsSidebarOpen(false);
             }}
           />

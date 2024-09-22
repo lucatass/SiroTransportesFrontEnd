@@ -105,16 +105,22 @@ select:focus-visible {
 .ag-column-first,
 .ag-cell-value,
 .ag-cell-focus {
-  padding: 0;
+  padding: 10;
   margin: 0;
   box-sizing: border-box;
+  text-align: center;
 }
+
 
 /* Ensure that all cells maintain their size and appearance without extra spacing */
 .ag-cell {
   display: flex;  /* Optional: Ensure cell content behaves properly without padding */
   align-items: center;  /* Optional: Align content vertically if necessary */
   justify-content: center;  /* Optional: Center content horizontally */
+
 }
 
-
+.ag-theme-alpine {
+  margin: 0!important;
+  
+}

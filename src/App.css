@@ -54,6 +54,7 @@
   grid-template-columns: 1fr 2fr; 
   gap: 20px; 
   min-height: 100vh; 
+;
 }
 
 form {
@@ -278,8 +279,8 @@ form {
 }
 
 .sidebar-section.open .section-content {
-  display: flex; /* Show content when the section is clicked and opened */
-  max-height: 1000px; /* Expand to fit content */
+  display: flex; 
+  max-height: 1000px; /
 }
 
 /*POP UP*/
@@ -309,3 +310,4 @@ form {
 .ag-header-cell-resize{
   z-index: 1!important;
 }
+

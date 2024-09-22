@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import 'ag-grid-enterprise'; // This is necessary for Excel export
+import 'ag-grid-enterprise'; //Excel 
 import { ColDef } from 'ag-grid-community';
 import HRutaForm from './HRutaForm';
 
@@ -22,6 +22,7 @@ interface FormData {
 const HRutaList: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [rowData, setRowData] = useState<FormData[]>([]);
+  const [searchText, setSearchText] = useState(''); // State for search input
   const gridRef = useRef<AgGridReact>(null); // Reference to the AgGridReact instance
 
   const openForm = () => setIsFormOpen(true);
@@ -62,12 +63,17 @@ const HRutaList: React.FC = () => {
     { headerName: 'Unidad', field: 'unidad', sortable: false, filter: true, width: 100 },
   ];
 
-  // Function to export the grid data to an Excel file
   const exportToExcel = () => {
     gridRef.current?.api.exportDataAsExcel({
       fileName: 'HRutaData.xlsx',
       sheetName: 'HRutas',
     });
+  };
+
+  // Search functionality
+  const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchText(value); // Update search text
   };
 
   return (
@@ -84,6 +90,17 @@ const HRutaList: React.FC = () => {
         </button>
       </div>
 
+      {/* Search bar */}
+      <div style={{ margin: '0' }}>
+        <input
+          type="text"
+          placeholder="Buscar..."
+          value={searchText}
+          onChange={onSearch}
+          style={{ padding: '5px', borderRadius: '0.3rem', width: '100%' }}
+        />
+      </div>
+      
       {/* AG Grid Table */}
       <div className="ag-theme-alpine" style={{ height: 400 }}>
         <AgGridReact
@@ -91,6 +108,7 @@ const HRutaList: React.FC = () => {
           rowData={rowData} // Make sure rowData is populated
           columnDefs={columnDefs}
           domLayout="autoHeight"
+          quickFilterText={searchText} // Add the quick filter property
         />
       </div>
 
@@ -104,7 +122,7 @@ const HRutaList: React.FC = () => {
           <div
             id="modal-content"
             className="modal-content"
-            style={{ backgroundColor: '#fefefe', margin: '15% auto', padding: '20px', border: '1px solid #888', width: '80%' }}
+            style={{ backgroundColor: '#fefefe', margin: '5% auto', padding: '20px', border: '1px solid #888', width: '60%', borderRadius: '0.3rem' }}
           >
             <span
               className="close"

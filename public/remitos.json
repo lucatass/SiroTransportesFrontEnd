@@ -1,42 +1,42 @@
 [
     {
-        "Remitosid": 1,
+        "remitosid": 1,
         "nombre": "Merrill Inchley"
     },
     {
-        "Remitosid": 2,
+        "remitosid": 2,
         "nombre": "Arline Kersley"
     },
     {
-        "Remitosid": 3,
+        "remitosid": 3,
         "nombre": "Smith Haxley"
     },
     {
-        "Remitosid": 4,
+        "remitosid": 4,
         "nombre": "Ryann Briar"
     },
     {
-        "Remitosid": 5,
+        "remitosid": 5,
         "nombre": "Renell Morrell"
     },
     {
-        "Remitosid": 6,
+        "remitosid": 6,
         "nombre": "Zara Abys"
     },
     {
-        "Remitosid": 7,
+        "remitosid": 7,
         "nombre": "Rosie Magowan"
     },
     {
-        "Remitosid": 8,
+        "remitosid": 8,
         "nombre": "Piotr Caccavella"
     },
     {
-        "Remitosid": 9,
+        "remitosid": 9,
         "nombre": "Lorin Pude"
     },
     {
-        "Remitosid": 10,
+        "remitosid": 10,
         "nombre": "Victoir Annear"
     }
 ]
