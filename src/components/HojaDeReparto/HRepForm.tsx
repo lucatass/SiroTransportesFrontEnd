@@ -36,7 +36,7 @@ const HRepartoForm: React.FC = () => {
   });
 
   useEffect(() => {
-    fetch('./src/components/codigoRuta.json')
+    fetch('codigoRuta.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -51,7 +51,7 @@ const HRepartoForm: React.FC = () => {
   }, [setValue]);
 
   useEffect(() => {
-    fetch('./src/components/HojaDeReparto/camionesReparto.json')
+    fetch('camiones.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -66,7 +66,7 @@ const HRepartoForm: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    fetch('./src/components/HojaDeReparto/fleterosReparto.json')
+    fetch('fleteros.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -81,7 +81,7 @@ const HRepartoForm: React.FC = () => {
   }, []); 
 
   const fetchRemitos = () => {
-    fetch('./src/components/remitosId.json')
+    fetch('remitos.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

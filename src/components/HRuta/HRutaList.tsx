@@ -37,7 +37,7 @@ const HRutaList: React.FC = () => {
 
   // Fetch JSON data on component mount
   useEffect(() => {
-    fetch('public/HRuta.json')
+    fetch('HRuta.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');

@@ -83,7 +83,7 @@ const App: React.FC = () => {
         <SidebarSection label="Logística" icon={<FaFileAlt />}>
           <SidebarButton
             icon={<FaTruck />}
-            label="HRep"
+            label="Reparto"
             onClick={() => {
               setSelectedComponent('HRepList');
               setIsSidebarOpen(false);
@@ -91,7 +91,7 @@ const App: React.FC = () => {
           />
           <SidebarButton
             icon={<FaMapMarkedAlt />}
-            label="HRuta"
+            label="Ruta"
             onClick={() => {
               setSelectedComponent('HRutaList');
               setIsSidebarOpen(false);

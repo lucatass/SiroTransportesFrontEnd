@@ -1,0 +1,68 @@
+[
+    {
+      "salida": "2024-09-21T08:00",
+      "llegada": "2024-09-21T12:00",
+      "origen": "BAS",
+      "destino": "SNZ",
+      "personalId": "8",
+      "maquinariaId": "5",
+      "cerrada": false,
+      "kms": 100,
+      "gastos": 50,
+      "codigo": "RUTA123",
+      "remitoid": 1
+    },
+    {
+      "salida": "2024-09-22T09:00",
+      "llegada": "2024-09-22T13:00",
+      "origen": "SNZ",
+      "destino": "RST",
+      "personalId": "12",
+      "maquinariaId": "7",
+      "cerrada": true,
+      "kms": 150,
+      "gastos": 75,
+      "codigo": "RUTA456",
+      "remitoid": 2
+    },
+    {
+      "salida": "2024-09-23T07:30",
+      "llegada": "2024-09-23T10:30",
+      "origen": "RST",
+      "destino": "BAS",
+      "personalId": "10",
+      "maquinariaId": "9",
+      "cerrada": false,
+      "kms": 200,
+      "gastos": 100,
+      "codigo": "RUTA789",
+      "remitoid": 3
+    },
+    {
+      "salida": "2024-09-24T10:00",
+      "llegada": "2024-09-24T14:00",
+      "origen": "BAS",
+      "destino": "SNZ",
+      "personalId": "15",
+      "maquinariaId": "4",
+      "cerrada": true,
+      "kms": 80,
+      "gastos": 40,
+      "codigo": "RUTA321",
+      "remitoid": 4
+    },
+    {
+      "salida": "2024-09-25T11:00",
+      "llegada": "2024-09-25T15:00",
+      "origen": "SNZ",
+      "destino": "RST",
+      "personalId": "18",
+      "maquinariaId": "6",
+      "cerrada": false,
+      "kms": 120,
+      "gastos": 60,
+      "codigo": "RUTA654",
+      "remitoid": 5
+    }
+  ]
+  

@@ -37,7 +37,7 @@ const HRutaForm: React.FC = () => {
   });
 
   useEffect(() => {
-    fetch('./src/components/codigoRuta.json')
+    fetch('./public/codigoRuta.json')
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched data:', data);
@@ -47,7 +47,7 @@ const HRutaForm: React.FC = () => {
   }, [setValue]);
 
   const fetchRemitos = () => {
-    fetch('./src/components/remitosId.json')
+    fetch('./components/remitosId.json')
       .then((response) => response.json())
       .then((data) => {
         console.log('Fetched remitos:', data);
