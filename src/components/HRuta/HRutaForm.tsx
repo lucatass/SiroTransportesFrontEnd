@@ -6,9 +6,9 @@ type FormInput = {
   codigo: string;
   origen: string;
   destino: string;
-  transporteId: string;
-  personalId: string;
-  maquinariaId: string;
+  transporteId: string | null;
+  personalId: string | null;
+  maquinariaId: string | null;
   salida: string;
   llegada: string;
   cerrada: boolean;
@@ -60,10 +60,10 @@ const HRutaForm: React.FC = () => {
 
   const onSubmit = (data: FormInput) => {
     if (isTransportesChecked) {
-      data.personalId = '';
-      data.maquinariaId = '';
+      data.personalId = null;
+      data.maquinariaId = null;
     } else if (isPersonaMaquinariaChecked) {
-      data.transporteId = '';
+      data.transporteId = null;
     }
 
     console.log('Form Data:', data);

@@ -1,7 +1,7 @@
 [
     {
-      "salida": "2024-09-21T08:00",
-      "llegada": "2024-09-21T12:00",
+      "salida": "2024-09-21",
+      "llegada": "2024-09-21",
       "origen": "BAS",
       "destino": "SNZ",
       "personalId": "8",
@@ -13,8 +13,8 @@
       "remitoid": 1
     },
     {
-      "salida": "2024-09-22T09:00",
-      "llegada": "2024-09-22T13:00",
+      "salida": "2024-09-22",
+      "llegada": "2024-09-22",
       "origen": "SNZ",
       "destino": "RST",
       "personalId": "12",
@@ -26,8 +26,8 @@
       "remitoid": 2
     },
     {
-      "salida": "2024-09-23T07:30",
-      "llegada": "2024-09-23T10:30",
+      "salida": "2024-09-23",
+      "llegada": "2024-09-23",
       "origen": "RST",
       "destino": "BAS",
       "personalId": "10",
@@ -39,8 +39,8 @@
       "remitoid": 3
     },
     {
-      "salida": "2024-09-24T10:00",
-      "llegada": "2024-09-24T14:00",
+      "salida": "2024-09-24",
+      "llegada": "2024-09-24",
       "origen": "BAS",
       "destino": "SNZ",
       "personalId": "15",
@@ -52,8 +52,8 @@
       "remitoid": 4
     },
     {
-      "salida": "2024-09-25T11:00",
-      "llegada": "2024-09-25T15:00",
+      "salida": "2024-09-25",
+      "llegada": "2024-09-25",
       "origen": "SNZ",
       "destino": "RST",
       "personalId": "18",

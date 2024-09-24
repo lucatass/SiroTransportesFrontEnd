@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import 'ag-grid-enterprise'; //Excel 
+import 'ag-grid-enterprise'; // Excel 
 import { ColDef } from 'ag-grid-community';
 import HRutaForm from './HRutaForm';
+import { format, subDays, isAfter } from 'date-fns'; // Import date-fns functions
 
 interface FormData {
   codigo: string;
@@ -23,6 +24,7 @@ const HRutaList: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [rowData, setRowData] = useState<FormData[]>([]);
   const [searchText, setSearchText] = useState(''); // State for search input
+  const [days, setDays] = useState<number>(1); // Default filter value for 10 days
   const gridRef = useRef<AgGridReact>(null); // Reference to the AgGridReact instance
 
   const openForm = () => setIsFormOpen(true);
@@ -50,17 +52,24 @@ const HRutaList: React.FC = () => {
       .catch((error) => console.error('Error fetching JSON:', error));
   }, []);
 
+  // Filter data based on the selected number of days
+  const filteredRowData = rowData.filter((row) => {
+    const salidaDate = new Date(row.salida); // Convert 'salida' field to Date object
+    const cutoffDate = subDays(new Date(), days); // Calculate the date n days ago
+    return isAfter(salidaDate, cutoffDate); // Keep rows where 'salida' is after the cutoff date
+  });
+
   const columnDefs: ColDef[] = [
-    { headerName: 'Código', field: 'codigo', sortable: true, filter: true, width: 100 },
+    { headerName: 'Fecha Salida', field: 'salida', sortable: true, filter: false, width: 120 },
+    { headerName: 'Fecha Llegada', field: 'llegada', sortable: true, filter: false, width: 120 },
     { headerName: 'Origen', field: 'origen', sortable: false, filter: true, width: 100 },
     { headerName: 'Destino', field: 'destino', sortable: false, filter: true, width: 100, valueFormatter: (params) => params.value || '-' },
     { headerName: 'Transportes', field: 'transporteId', sortable: false, filter: true, width: 125, valueFormatter: (params) => params.value || '-' },
     { headerName: 'Personal', field: 'personalId', sortable: false, filter: true, width: 110, valueFormatter: (params) => params.value || '-' },
     { headerName: 'Maquinaria', field: 'maquinariaId', sortable: false, filter: true, width: 120, valueFormatter: (params) => params.value || '-' },
-    { headerName: 'Fecha Salida', field: 'salida', sortable: true, filter: true, width: 150 },
-    { headerName: 'Fecha Llegada', field: 'llegada', sortable: true, filter: true, width: 150 },
     { headerName: 'Cerrada', field: 'cerrada', sortable: true, filter: true, cellRenderer: (params: any) => (params.value ? 'Sí' : 'No'), width: 100 },
     { headerName: 'Unidad', field: 'unidad', sortable: false, filter: true, width: 100 },
+    { headerName: 'Código', field: 'codigo', sortable: true, filter: true, width: 100 },
   ];
 
   const exportToExcel = () => {
@@ -74,6 +83,11 @@ const HRutaList: React.FC = () => {
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearchText(value); // Update search text
+  };
+
+  // Handle days input change
+  const handleDaysChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDays(Number(event.target.value)); // Update the number of days
   };
 
   return (
@@ -97,15 +111,30 @@ const HRutaList: React.FC = () => {
           placeholder="Buscar..."
           value={searchText}
           onChange={onSearch}
-          style={{ padding: '5px', borderRadius: '0.3rem', width: '100%' }}
+          style={{ padding: '5px', borderRadius: '0.3rem', width: '225px' }}
         />
       </div>
-      
+
+      {/* Filtro de días */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+        <label htmlFor="days-input" style={{ marginRight: '10px' }}>
+          Mostrar datos de los últimos
+        </label>
+        <input
+          id="days-input"
+          type="number"
+          value={days}
+          onChange={handleDaysChange}
+          style={{ padding: '5px', borderRadius: '0.3rem', width: '80px', marginRight: '10px' }}
+        />
+        <span> días</span>
+      </div>
+
       {/* AG Grid Table */}
       <div className="ag-theme-alpine" style={{ height: 400 }}>
         <AgGridReact
           ref={gridRef} // Reference to access grid API
-          rowData={rowData} // Make sure rowData is populated
+          rowData={filteredRowData} // Filtered data based on the number of days
           columnDefs={columnDefs}
           domLayout="autoHeight"
           quickFilterText={searchText} // Add the quick filter property
