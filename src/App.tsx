@@ -11,6 +11,7 @@ import Placeholder from './components/Placeholder';
 import { useAuthStore } from './components/api/useAuthStore';
 import { AfipClient } from './components/api/AfipClient';
 import { FaBars, FaFileAlt, FaTruck, FaMapMarkedAlt, FaEdit, FaTools, FaShoppingCart, FaWallet } from 'react-icons/fa';
+import logo from './assets/logo.svg';
 
 const App: React.FC = () => {
   const [selectedComponent, setSelectedComponent] = useState<string>('HRepartoForm');
@@ -65,7 +66,7 @@ const App: React.FC = () => {
       case 'Configuracion':
         return <Placeholder />;
       default:
-        return null;
+        return <img src={logo} alt="Siro Transportes" style={{ width: '95vh', height: '95vh', marginRight: 'auto', marginLeft: '250px' }} />;
     }
   };
 
@@ -168,7 +169,7 @@ const App: React.FC = () => {
         </SidebarSection>
       </div>
 
-      <div className="content">
+      <div className="content">        
         {renderComponent()}
       </div>
     </div>
