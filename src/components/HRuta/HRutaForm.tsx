@@ -1,6 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import HRutaList from './HRutaList';
+// HRutaForm.tsx
+import React, { useEffect } from "react";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import {
+  TextField,
+  Checkbox,
+  FormControlLabel,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Grid,
+  Typography,
+  Divider,
+  Card,
+  CardContent,
+  CardHeader,
+} from "@mui/material";
 
 type FormInput = {
   codigo: string;
@@ -9,30 +27,39 @@ type FormInput = {
   transporteId: string | null;
   personalId: string | null;
   maquinariaId: string | null;
-  salida: string;
-  llegada: string;
+  salida: Date | null;
+  llegada: Date | null;
   cerrada: boolean;
   unidad: string;
+  isTransportesChecked: boolean;
+  isPersonaMaquinariaChecked: boolean;
 };
 
-const HRutaForm: React.FC = () => {
-  const [isCerradaChecked, setIsCerradaChecked] = useState(false);
-  const [isTransportesChecked, setIsTransportesChecked] = useState(false);
-  const [isPersonaMaquinariaChecked, setIsPersonaMaquinariaChecked] = useState(false);
-  const [remitos, setRemitos] = useState<{ Remitosid: string; nombre: string }[]>([]);
-  const [isFormSubmitted, SetIsFormSubmitted] = useState(false);
+interface HRutaFormProps {
+  closeForm: () => void; // Función para cerrar el formulario al enviar
+}
 
-  const { register, handleSubmit, watch, formState: { errors }, reset, setValue } = useForm<FormInput>({
+const HRutaForm: React.FC<HRutaFormProps> = ({ closeForm }) => {
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    setValue,
+  } = useForm<FormInput>({
     defaultValues: {
-      salida: '',
-      llegada: '',
-      origen: 'BAS',
-      destino: '',
-      transporteId: '',
-      personalId: '',
-      maquinariaId: '',
+      codigo: "",
+      salida: null,
+      llegada: null,
+      origen: "BAS",
+      destino: "BAS",
+      transporteId: "",
+      personalId: "",
+      maquinariaId: "",
       cerrada: false,
-      unidad: 'kg',
+      unidad: "kg",
+      isTransportesChecked: false,
+      isPersonaMaquinariaChecked: false,
     },
   });
 
@@ -40,25 +67,17 @@ const HRutaForm: React.FC = () => {
     fetch('./public/codigoRuta.json')
       .then((response) => response.json())
       .then((data) => {
-        console.log('Fetched data:', data);
         setValue('codigo', data[0].codigo);
       })
       .catch((error) => console.error('Error fetching codigo data:', error));
   }, [setValue]);
 
-  const fetchRemitos = () => {
-    fetch('./components/remitosId.json')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Fetched remitos:', data);
-        setRemitos(data);
-      })
-      .catch((error) => console.error('Error fetching remitos data:', error));
-  };
+  const isTransportesChecked = watch("isTransportesChecked");
+  const isPersonaMaquinariaChecked = watch("isPersonaMaquinariaChecked");
+  const cerradaValue = watch("cerrada");
+  const salidaValue = watch("salida");
 
-  const [formData, setFormData] = useState<FormInput | null>(null);
-
-  const onSubmit = (data: FormInput) => {
+  const onSubmit: SubmitHandler<FormInput> = (data) => {
     if (isTransportesChecked) {
       data.personalId = null;
       data.maquinariaId = null;
@@ -66,111 +85,351 @@ const HRutaForm: React.FC = () => {
       data.transporteId = null;
     }
 
-    console.log('Form Data:', data);
-    setFormData(data);
-    SetIsFormSubmitted(true);
+    console.log("Form Data:", data);
+    closeForm(); // Cerrar el formulario después de enviar
   };
-
-  const handleCerradaChange = () => {
-    setIsCerradaChecked(!isCerradaChecked);
-  };
-
-  const handleTransportesChange = () => {
-    setIsTransportesChecked(!isTransportesChecked);
-    setIsPersonaMaquinariaChecked(false);
-    clearPersonaMaquinariaFields();
-  };
-
-  const handlePersonaMaquinariaChange = () => {
-    setIsPersonaMaquinariaChecked(!isPersonaMaquinariaChecked);
-    setIsTransportesChecked(false);
-    clearTransporteField();
-  };
-
-  const clearTransporteField = () => {
-    setValue('transporteId', '');
-  };
-
-  const clearPersonaMaquinariaFields = () => {
-    setValue('personalId', '');
-    setValue('maquinariaId', '');
-  };
-
-  const salidaValue = watch('salida');
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '20px' }}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <Card
+        sx={{
+          mb: 4,
+          backgroundColor: "#373F51",
+          borderRadius: "10px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <CardHeader
+          title="Hoja de Ruta"
+          sx={{
+            backgroundColor: "#008DD5",
+            color: "#FFFFFF",
+            textAlign: "center",
+            padding: "10px",
+            borderRadius: "10px 10px 0 0",
+          }}
+        />
+        <Divider />
+        <CardContent sx={{ padding: 4 }}>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Grid
+              container
+              spacing={3}
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              {/* Código */}
+              <Grid item xs={12} sm={4}>
+                <Controller
+                  name="codigo"
+                  control={control}
+                  rules={{ required: "Este campo es requerido" }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      label="Código"
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{ readOnly: true }}
+                      error={!!errors.codigo}
+                      helperText={errors.codigo?.message}
+                    />
+                  )}
+                />
+              </Grid>
 
+              {/* Fecha Salida */}
+              <Grid item xs={12} sm={4}>
+                <Controller
+                  name="salida"
+                  control={control}
+                  rules={{ required: "Este campo es requerido" }}
+                  render={({ field }) => (
+                    <DatePicker
+                      label="Fecha Salida"
+                      disabled={cerradaValue}
+                      value={field.value}
+                      onChange={(date) => field.onChange(date)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          variant="outlined"
+                          fullWidth
+                          error={!!errors.salida}
+                          helperText={errors.salida?.message}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </Grid>
 
-      {/* Form Section */}
-      <div style={{ gridRow: '2', gridColumn: '1 / span 2' }}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <h2>Añadir Hoja de Ruta</h2>
+              {/* Fecha Llegada */}
+              <Grid item xs={12} sm={4}>
+                <Controller
+                  name="llegada"
+                  control={control}
+                  rules={{
+                    required: "Este campo es requerido",
+                    validate: (value) =>
+                      !salidaValue ||
+                      (value && salidaValue && value >= salidaValue) ||
+                      "Fecha de llegada no puede ser anterior a la fecha de salida",
+                  }}
+                  render={({ field }) => (
+                    <DatePicker
+                      label="Fecha Llegada"
+                      disabled={cerradaValue}
+                      value={field.value}
+                      onChange={(date) => field.onChange(date)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          variant="outlined"
+                          fullWidth
+                          error={!!errors.llegada}
+                          helperText={errors.llegada?.message}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              </Grid>
 
-          <label>
-            Código:
-            <input type="string" className="greyed-out" readOnly {...register('codigo', { required: true })} />
-          </label>
-          <label>
-            Fecha Salida:
-            <input type="date" {...register('salida', { required: "Este campo es requerido" })} disabled={isCerradaChecked} />
-          </label>
-          <label>
-            Fecha Llegada:
-            <input type="date" {...register('llegada', {
-              required: "Este campo es requerido",
-              validate: value =>
-                !salidaValue || new Date(value) >= new Date(salidaValue) || "Fecha de llegada no puede ser anterior a la fecha de salida"
-            })} disabled={isCerradaChecked} />
-            {errors.llegada && <p>{errors.llegada.message}</p>}
-          </label>
-          <label>
-            Sucursal origen:
-            <select {...register('origen', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
-              <option value="BAS">BS AS</option>
-              <option value="SNZ">SAENZ PEÑA</option>
-              <option value="RST">RESISTENCIA</option>
-            </select>
-          </label>
-          <label>
-            Sucursal destino:
-            <select {...register('destino', { required: "Este campo es requerido" })} disabled={isCerradaChecked}>
-              <option value="BAS">BS AS</option>
-              <option value="SNZ">SAENZ PEÑA</option>
-              <option value="RST">RESISTENCIA</option>
-            </select>
-          </label>
-          <label>
-            <input type="checkbox" checked={isTransportesChecked} onChange={handleTransportesChange} disabled={isCerradaChecked} />
-            Transportes:
-            <select {...register('transporteId', { required: isTransportesChecked })} disabled={!isTransportesChecked || isCerradaChecked}>
-              <option value="transporte1">transporte1</option>
-              <option value="transporte2">transporte2</option>
-            </select>
-          </label>
-          <label>
-            <input type="checkbox" checked={isPersonaMaquinariaChecked} onChange={handlePersonaMaquinariaChange} disabled={isCerradaChecked} />
-            Persona:
-            <select {...register('personalId', { required: isPersonaMaquinariaChecked })} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
-              <option value="persona1">persona1</option>
-              <option value="persona2">persona2</option>
-            </select>
-            Camión:
-            <select {...register('maquinariaId')} disabled={!isPersonaMaquinariaChecked || isCerradaChecked}>
-              <option value="maquinaria1">camion1</option>
-              <option value="maquinaria2">camion2</option>
-            </select>
-          </label>
-          <label>
-            Cerrada:
-            <input type="checkbox" {...register('cerrada')} checked={isCerradaChecked} onChange={handleCerradaChange} />
-          </label>
-          <button type="submit" disabled={isCerradaChecked}>Enviar</button>
-        </form>
-      </div>
-    </div>
+              {/* Sucursal Origen */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="origen"
+                  control={control}
+                  rules={{ required: "Este campo es requerido" }}
+                  render={({ field }) => (
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.origen}
+                    >
+                      <InputLabel>Sucursal Origen</InputLabel>
+                      <Select
+                        {...field}
+                        label="Sucursal Origen"
+                        disabled={cerradaValue}
+                      >
+                        <MenuItem value="BAS">BS AS</MenuItem>
+                        <MenuItem value="SNZ">SAENZ PEÑA</MenuItem>
+                        <MenuItem value="RST">RESISTENCIA</MenuItem>
+                      </Select>
+                      {errors.origen && (
+                        <Typography color="error" variant="caption">
+                          {errors.origen.message}
+                        </Typography>
+                      )}
+                    </FormControl>
+                  )}
+                />
+              </Grid>
+
+              {/* Sucursal Destino */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="destino"
+                  control={control}
+                  rules={{ required: "Este campo es requerido" }}
+                  render={({ field }) => (
+                    <FormControl
+                      variant="outlined"
+                      fullWidth
+                      error={!!errors.destino}
+                    >
+                      <InputLabel>Sucursal Destino</InputLabel>
+                      <Select
+                        {...field}
+                        label="Sucursal Destino"
+                        disabled={cerradaValue}
+                      >
+                        <MenuItem value="BAS">BS AS</MenuItem>
+                        <MenuItem value="SNZ">SAENZ PEÑA</MenuItem>
+                        <MenuItem value="RST">RESISTENCIA</MenuItem>
+                      </Select>
+                      {errors.destino && (
+                        <Typography color="error" variant="caption">
+                          {errors.destino.message}
+                        </Typography>
+                      )}
+                    </FormControl>
+                  )}
+                />
+              </Grid>
+
+              {/* Transporte Checkbox */}
+              <Grid item xs={12}>
+                <Controller
+                  name="isTransportesChecked"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          {...field}
+                          checked={field.value}
+                          onChange={(e) => {
+                            field.onChange(e.target.checked);
+                            setValue("isPersonaMaquinariaChecked", false);
+                          }}
+                          disabled={cerradaValue}
+                        />
+                      }
+                      label="Usar Transportes"
+                    />
+                  )}
+                />
+              </Grid>
+
+              {/* TransporteId Select */}
+              {isTransportesChecked && (
+                <Grid item xs={12}>
+                  <Controller
+                    name="transporteId"
+                    control={control}
+                    rules={{ required: "Este campo es requerido" }}
+                    render={({ field }) => (
+                      <FormControl
+                        variant="outlined"
+                        fullWidth
+                        error={!!errors.transporteId}
+                      >
+                        <InputLabel>Transporte</InputLabel>
+                        <Select
+                          {...field}
+                          label="Transporte"
+                          disabled={cerradaValue}
+                        >
+                          <MenuItem value="transporte1">Transporte 1</MenuItem>
+                          <MenuItem value="transporte2">Transporte 2</MenuItem>
+                        </Select>
+                        {errors.transporteId && (
+                          <Typography color="error" variant="caption">
+                            {errors.transporteId.message}
+                          </Typography>
+                        )}
+                      </FormControl>
+                    )}
+                  />
+                </Grid>
+              )}
+
+              {/* Persona y Camión Checkbox */}
+              <Grid item xs={12}>
+                <Controller
+                  name="isPersonaMaquinariaChecked"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          {...field}
+                          checked={field.value}
+                          onChange={(e) => {
+                            field.onChange(e.target.checked);
+                            setValue("isTransportesChecked", false);
+                          }}
+                          disabled={cerradaValue}
+                        />
+                      }
+                      label="Asignar Persona y Camión"
+                    />
+                  )}
+                />
+              </Grid>
+
+              {/* Persona y Camión Fields */}
+              {isPersonaMaquinariaChecked && (
+                <>
+                  {/* Persona */}
+                  <Grid item xs={12} sm={6}>
+                    <Controller
+                      name="personalId"
+                      control={control}
+                      rules={{ required: "Este campo es requerido" }}
+                      render={({ field }) => (
+                        <FormControl
+                          variant="outlined"
+                          fullWidth
+                          error={!!errors.personalId}
+                        >
+                          <InputLabel>Persona</InputLabel>
+                          <Select
+                            {...field}
+                            label="Persona"
+                            disabled={cerradaValue}
+                          >
+                            <MenuItem value="persona1">Persona 1</MenuItem>
+                            <MenuItem value="persona2">Persona 2</MenuItem>
+                          </Select>
+                          {errors.personalId && (
+                            <Typography color="error" variant="caption">
+                              {errors.personalId.message}
+                            </Typography>
+                          )}
+                        </FormControl>
+                      )}
+                    />
+                  </Grid>
+
+                  {/* Camión */}
+                  <Grid item xs={12} sm={6}>
+                    <Controller
+                      name="maquinariaId"
+                      control={control}
+                      render={({ field }) => (
+                        <FormControl variant="outlined" fullWidth>
+                          <InputLabel>Camión</InputLabel>
+                          <Select
+                            {...field}
+                            label="Camión"
+                            disabled={cerradaValue}
+                          >
+                            <MenuItem value="maquinaria1">Camión 1</MenuItem>
+                            <MenuItem value="maquinaria2">Camión 2</MenuItem>
+                          </Select>
+                        </FormControl>
+                      )}
+                    />
+                  </Grid>
+                </>
+              )}
+
+              {/* Cerrada Checkbox */}
+              <Grid item xs={12}>
+                <Controller
+                  name="cerrada"
+                  control={control}
+                  render={({ field }) => (
+                    <FormControlLabel
+                      control={<Checkbox {...field} checked={field.value} />}
+                      label="Cerrada"
+                    />
+                  )}
+                />
+              </Grid>
+
+              {/* Submit Button */}
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  sx={{ mt: 3, backgroundColor: "#16DF9F" }}
+                >
+                  Enviar
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </CardContent>
+      </Card>
+    </LocalizationProvider>
   );
 };
 
 export default HRutaForm;
-

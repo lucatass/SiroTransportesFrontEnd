@@ -64,12 +64,9 @@ form {
   border-radius: 10px;
   border: 1px solid #034c6e;
   overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 1fr)); /* Adjusted form size */
   gap: 20px;
   box-sizing: border-box;
   flex-grow: 1; /* Ensure the form grows */
-  width: 100%; /* Full width for the form */
 }
 
 form {
@@ -311,4 +308,3 @@ form {
 .ag-header-cell-resize{
   z-index: 1!important;
 }
-
