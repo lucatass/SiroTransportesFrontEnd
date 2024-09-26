@@ -10,9 +10,9 @@ import { subDays, isAfter } from "date-fns";
 const HRutaList: React.FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [rowData, setRowData] = useState<FormData[]>([]);
-  const [searchText, setSearchText] = useState(""); // State for search input
-  const [days, setDays] = useState<number>(1); // Default filter value for 10 days
-  const gridRef = useRef<AgGridReact>(null); // Reference to the AgGridReact instance
+  const [searchText, setSearchText] = useState("");
+  const [days, setDays] = useState<number>(1);
+  const gridRef = useRef<AgGridReact>(null);
 
   const openForm = () => setIsFormOpen(true);
   const closeForm = () => setIsFormOpen(false);
@@ -24,7 +24,6 @@ const HRutaList: React.FC = () => {
     }
   };
 
-  // Fetch JSON data on component mount
   useEffect(() => {
     fetch("HRuta.json")
       .then((response) => {
@@ -39,11 +38,10 @@ const HRutaList: React.FC = () => {
       .catch((error) => console.error("Error fetching JSON:", error));
   }, []);
 
-  // Filter data based on the selected number of days
   const filteredRowData = rowData.filter((row) => {
-    const salidaDate = new Date(row.salida); // Convert 'salida' field to Date object
-    const cutoffDate = subDays(new Date(), days); // Calculate the date n days ago
-    return isAfter(salidaDate, cutoffDate); // Keep rows where 'salida' is after the cutoff date
+    const salidaDate = new Date(row.salida);
+    const cutoffDate = subDays(new Date(), days);
+    return isAfter(salidaDate, cutoffDate);
   });
 
   // Definir columnas
