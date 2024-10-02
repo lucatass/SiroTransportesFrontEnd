@@ -1,0 +1,126 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(3, 57, 78, 0.87);
+  background: linear-gradient(to bottom,#32b1f0, #85D6FF);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+select {
+  height: 2em;
+  font-size:0.9em !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0em 1.4em !important;
+}
+
+button,
+input[type="text"],
+input[type="numeric"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="number"],
+
+select {
+  border-radius: 0.3em;
+  border: 1px solid transparent;
+  padding: 0.2em 0.4em ;
+  margin: 4px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #e7e7e7;
+  color: #021141 !important;
+  cursor: pointer;
+  transition: border-color 0.1s;
+  border: 1px solid #9b9b9b !important;
+  border-color: #0a0a0a;
+}
+input.greyed-out {
+  margin: 3px;
+  color: #a0a0a0 !important;
+  background-color: #e7e7e7 !important;
+  border-color: #e7e7e7 !important;
+  cursor: default !important;
+}
+
+input:hover,
+select:hover {
+  border-color: #646cff;
+  box-shadow: 0 0 10px #646cff;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+button:focus,
+button:focus-visible,
+input:focus,
+input:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Ag Grid table HEADERS */
+.ag-header-cell-resize,
+.ag-cell-label-container{
+  padding:0;
+  margin: 0;
+  width: min-content;
+}
+.ag-header-cell.ag-column-first.ag-header-cell-sortable.ag-focus-managed{
+  padding: 0;
+  padding-left: 20px;
+}
+/* Target the specific classes and remove padding and margin */
+.ag-cell,
+.ag-cell-not-inline-editing,
+.ag-cell-normal-height,
+.ag-column-first,
+.ag-cell-value,
+.ag-cell-focus {
+  padding: 10;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
+/* Ensure that all cells maintain their size and appearance without extra spacing */
+.ag-cell {
+  display: flex;  /* Optional: Ensure cell content behaves properly without padding */
+  align-items: center;  /* Optional: Align content vertically if necessary */
+  justify-content: center;  /* Optional: Center content horizontally */
+
+}
+
+.ag-theme-alpine {
+  margin: 0!important;
+  
+}
