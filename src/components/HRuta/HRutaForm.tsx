@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   TextField,
   Checkbox,
@@ -17,6 +18,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  IconButton,
 } from "@mui/material";
 
 type FormInput = {
@@ -50,7 +52,7 @@ const HRutaForm: React.FC<HRutaFormProps> = ({ closeForm }) => {
       codigo: "",
       salida: null,
       llegada: null,
-      origen: "BAS", 
+      origen: "BAS",
       destino: "BAS",
       transporteId: "",
       personalId: "",
@@ -85,14 +87,18 @@ const HRutaForm: React.FC<HRutaFormProps> = ({ closeForm }) => {
     }
 
     console.log("Form Data:", data);
-    closeForm(); // Cerrar el formulario después de enviar
+    closeForm();
   };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-
         <CardHeader
           title="Hoja de Ruta"
+          action={
+            <IconButton onClick={closeForm}>
+              <CloseIcon sx={{ color: "#FFFFFF" }} />  {/* Make the cross icon white */}
+            </IconButton>
+          }
           sx={{
             backgroundColor: "#008DD5",
             color: "#FFFFFF",

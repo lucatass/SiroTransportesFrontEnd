@@ -23,7 +23,6 @@ const RemitosList: React.FC = () => {
   const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
     const modalContent = document.getElementById('modal-content');
     if (modalContent && !modalContent.contains(event.target as Node)) {
-      closeForm();
     }
   };
 
@@ -110,14 +109,9 @@ const RemitosList: React.FC = () => {
             className="modal-content"
             style={{ backgroundColor: '#fefefe', margin: '5% auto', padding: '20px', border: '1px solid #888', width: '60%', borderRadius: '0.3rem' }}
           >
-            <span
-              className="close"
-              onClick={closeForm}
-              style={{ color: '#aaa', float: 'right', fontSize: '28px', fontWeight: 'bold' }}
-            >
-              &times;
-            </span>
-            <RemitosForm />     
+
+
+            <RemitosForm { ...closeForm }/>     
           </div>
         </div>
       )}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm,Controller, SubmitHandler } from 'react-hook-form';
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import CloseIcon from '@mui/icons-material/Close';
 import {
   TextField,
   Checkbox,
@@ -17,7 +18,9 @@ import {
   Card,
   CardContent,
   CardHeader,
+  IconButton,
 } from "@mui/material";
+import { Close } from '@mui/icons-material';
 
 
 interface IFormInput {
@@ -41,7 +44,10 @@ interface Cliente {
   cuit: string;
 }
 
-const RemitosForm: React.FC = () => {
+interface RemitosFormProps {
+  closeForm: () => void;
+}
+const RemitosForm: React.FC<RemitosFormProps> = () => {
   const { register, handleSubmit, setValue, formState: { errors }, watch } = useForm<IFormInput>({
     defaultValues: {
       remitenteNombre: '',
@@ -153,11 +159,19 @@ const RemitosForm: React.FC = () => {
   const remitenteNombre = watch('remitenteNombre') || '';
   const destinatarioNombre = watch('destinatarioNombre') || '';
 
+  const closeForm = () => {
+  };
+
   return (
     <>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <CardHeader
         title="Remitos"
+        action={
+        <IconButton onClick={closeForm}>
+          <CloseIcon sx={{ color: "#FFFFFF" }} />
+        </IconButton>
+        }
         sx={{
           backgroundColor: "#008DD5",
           color: "#FFFFFF",
