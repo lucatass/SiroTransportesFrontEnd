@@ -9,7 +9,7 @@ type FormInput = {
   transporteId: string;
   personalId: string;
   maquinariaId: string;
-  salida: string;
+  salida: string; 
   llegada: string;
   cerrada: boolean;
   unidad: string;
