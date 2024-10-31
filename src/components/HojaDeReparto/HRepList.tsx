@@ -7,7 +7,6 @@ import { ColDef } from 'ag-grid-community';
 import HRepForm from './HRepForm';
 
 interface HRepData {
-  // Define the fields specific to HRepList
   codigo: string;
   nombre: string;
   categoria: string;
@@ -33,7 +32,7 @@ const HRepList: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch('public/HRep.json')
+    fetch('/HRep.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
@@ -52,7 +51,14 @@ const HRepList: React.FC = () => {
     { headerName: 'Categoría', field: 'categoria', sortable: true, filter: true, width: 150 },
     { headerName: 'Fecha de Ingreso', field: 'fechaIngreso', sortable: true, filter: true, width: 150 },
     { headerName: 'Ubicación', field: 'ubicacion', sortable: true, filter: true, width: 150 },
-    { headerName: 'Estado', field: 'estado', sortable: true, filter: true, cellRenderer: (params: any) => (params.value ? 'Activo' : 'Inactivo'), width: 100 },
+    { 
+      headerName: 'Estado', 
+      field: 'estado', 
+      sortable: true, 
+      filter: true, 
+      cellRenderer: (params: any) => (params.value ? 'Abierto' : 'Cerrado'), 
+      width: 100 
+    },
   ];
 
   const exportToExcel = () => {
@@ -97,7 +103,7 @@ const HRepList: React.FC = () => {
       {isFormOpen && (
         <div
           className="modal"
-          style={{ display: 'block', position: 'fixed', zIndex: 1, left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgb(0,0,0)' }}
+          style={{ display: 'block', position: 'fixed', zIndex: 1, left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgba(0,0,0,0.4)' }}
           onClick={handleClickOutside}
         >
           <div
@@ -108,7 +114,7 @@ const HRepList: React.FC = () => {
             <span
               className="close"
               onClick={closeForm}
-              style={{ color: '#aaa', float: 'right', fontSize: '28px', fontWeight: 'bold' }}
+              style={{ color: '#aaa', float: 'right', fontSize: '28px', fontWeight: 'bold', cursor: 'pointer' }}
             >
               &times;
             </span>

@@ -51,7 +51,7 @@ const HRepartoForm: React.FC = () => {
   }, [setValue]);
 
   useEffect(() => {
-    fetch('camiones.json')
+    fetch('camionesRep.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -66,7 +66,7 @@ const HRepartoForm: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    fetch('fleteros.json')
+    fetch('fleterosRep.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -81,7 +81,7 @@ const HRepartoForm: React.FC = () => {
   }, []); 
 
   const fetchRemitos = () => {
-    fetch('remitos.json')
+    fetch('remitosRep.json')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
