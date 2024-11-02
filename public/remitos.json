@@ -1,42 +1,27 @@
 [
     {
         "remitosid": 1,
-        "nombre": "Merrill Inchley"
+        "nombre": "Merrill Inchley",
+        "fecha": "2024-01-01"
     },
     {
         "remitosid": 2,
-        "nombre": "Arline Kersley"
+        "nombre": "Arline Kersley",
+        "fecha": "2024-01-01"
     },
     {
         "remitosid": 3,
-        "nombre": "Smith Haxley"
+        "nombre": "Smith Haxley",
+        "fecha": "2024-06-01"
+    },
+    {
+        "remitosid": 3,
+        "nombre": "Perro Loco",
+        "fecha": "2024-06-01"
     },
     {
         "remitosid": 4,
-        "nombre": "Ryann Briar"
-    },
-    {
-        "remitosid": 5,
-        "nombre": "Renell Morrell"
-    },
-    {
-        "remitosid": 6,
-        "nombre": "Zara Abys"
-    },
-    {
-        "remitosid": 7,
-        "nombre": "Rosie Magowan"
-    },
-    {
-        "remitosid": 8,
-        "nombre": "Piotr Caccavella"
-    },
-    {
-        "remitosid": 9,
-        "nombre": "Lorin Pude"
-    },
-    {
-        "remitosid": 10,
-        "nombre": "Victoir Annear"
+        "nombre": "Ryann Briar",
+        "fecha": "2024-05-01"
     }
 ]
