@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/api/remitos"
+  },
+  "response": {
+    "status": 201,
+    "body": "{ \"id\": \"{{randomValue type='UUID'}}\", \"fecha\": \"{{jsonPath request.body '$.fecha'}}\", \"remito\": \"{{jsonPath request.body '$.remito'}}\", \"cartaPorte\": \"{{jsonPath request.body '$.cartaPorte'}}\", \"remitente\": \"{{jsonPath request.body '$.remitente'}}\", \"destinatario\": \"{{jsonPath request.body '$.destinatario'}}\", \"tipoPago\": \"{{jsonPath request.body '$.tipoPago'}}\", \"tracking\": \"{{jsonPath request.body '$.tracking'}}\", \"valorDeclarado\": {{jsonPath request.body '$.valorDeclarado'}}, \"descripcion\": \"{{jsonPath request.body '$.descripcion'}}\", \"recoleccion\": {{jsonPath request.body '$.recoleccion'}}, \"contrareembolso\": {{jsonPath request.body '$.contrareembolso'}}, \"seguro\": {{jsonPath request.body '$.seguro'}}, \"productos\": {{jsonPath request.body '$.productos'}} }",
+    "transformers": [
+      "response-template"
+    ],
+    "headers": {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type"
+    }
+  }
+}

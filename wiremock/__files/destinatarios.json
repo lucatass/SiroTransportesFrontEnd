@@ -1,0 +1,32 @@
+[
+    {
+        "id": 3,
+        "razonSocial": "Daiberman Social",
+        "tipoDoc": "CUIT",
+        "nroDoc": 34567890123,
+        "direcciones": [
+            {
+                "domicilio": "Calle Principal 456",
+                "localidad": "Rosario",
+                "codigoPostal": "2000",
+                "provincia": "Santa Fe",
+                "pais": "Argentina"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "razonSocial": "Mormand",
+        "tipoDoc": "CUIT",
+        "nroDoc": 45678901234,
+        "direcciones": [
+            {
+                "domicilio": "Ruta Nacional 9 Km 150",
+                "localidad": "Mar del Plata",
+                "codigoPostal": "7600",
+                "provincia": "Buenos Aires",
+                "pais": "Argentina"
+            }
+        ]
+    }
+]

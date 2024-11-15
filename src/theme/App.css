@@ -1,0 +1,82 @@
+/* App.css */
+
+:root {
+  --primary-bg-color: #32b1f0;
+  --secondary-bg-color: #85D6FF;
+  --text-color: rgba(3, 57, 78, 0.87);
+  --sidebar-bg-color: #333;
+  --sidebar-hover-bg-color: #444;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(3, 57, 78, 0.87);
+  background: linear-gradient(to bottom, #32b1f0, #85D6FF);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body, h1, a, button, input, select {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, var(--primary-bg-color), var(--secondary-bg-color));
+}
+
+a {
+  color: #646cff;
+  font-weight: 500;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+input, button, select {
+  border-radius: 0.3em;
+  border: 1px solid #9b9b9b;
+  padding: 0.2em 0.4em;
+  font-size: 1em;
+  background-color: #e7e7e7;
+  color: #021141;
+  transition: border-color 0.1s;
+}
+input:hover, button:hover, select:hover {
+  border-color: #646cff;
+  box-shadow: 0 0 10px #646cff;
+}
+
+/* Flexbox para la estructura principal */
+.app {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.content {
+  margin-top: 50px;
+  flex-grow: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* When the sidebar is open */
+.sidebar.open ~ .content {
+  margin-left: 220px; /* Match the sidebar's width */
+}

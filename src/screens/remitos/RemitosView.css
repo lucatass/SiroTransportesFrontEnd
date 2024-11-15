@@ -1,0 +1,41 @@
+/* Estilos para el overlay del modal */
+.custom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75); /* Fondo semi-transparente */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Asegurar que el modal tenga un z-index superior al overlay */
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001; /* Superior al overlay */
+}
+
+.custom-modal .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Opcional: Estilos para los campos de fecha */
+.remitos-list .MuiTextField-root {
+  width: 200px; /* Ajusta el ancho según tus necesidades */
+}
+

@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "razonSocial": "Pablo Moringo",
+        "tipoDoc": "CUIT",
+        "nroDoc": 12345678901,
+        "direcciones": [
+            {
+                "domicilio": "Calle Falsa 123",
+                "localidad": "Buenos Aires",
+                "codigoPostal": "1000",
+                "provincia": "Buenos Aires",
+                "pais": "Argentina"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "razonSocial": "Señor Marshant",
+        "tipoDoc": "CUIT",
+        "nroDoc": 23456789012,
+        "direcciones": [
+            {
+                "domicilio": "Avenida Siempreviva 742",
+                "localidad": "Córdoba",
+                "codigoPostal": "5000",
+                "provincia": "Córdoba",
+                "pais": "Argentina"
+            }
+        ]
+    }
+]

@@ -1,0 +1,35 @@
+{
+  "fecha": "01-01-2024",
+  "id": "REM001",
+  "lastModified": "01-11-2024",
+  "createdOn": "01-11-2024",
+  "remito": "10001",
+  "cartaPorte": "20001",
+  "hojaReparto": "30001",
+  "hojaRuta": "40001",
+  "tipoPago": "ORIGEN",
+  "tracking": "TRANSITO",
+  "remitente": "Pablo Moringo",
+  "destinatario": "Mormand",
+  "descripcion": "Entrega de mercadería",
+  "valorDeclarado": "10000",
+  "proforma": "50001",
+  "usuario": "Usuario1",
+  "detalleProductos": [
+      {
+          "unidad": "CHICO",
+          "cantidad": 10,
+          "producto": "TRANSPORTE_MERCADERIA",
+          "descripcion": "Caja pequeña"
+      },
+      {
+          "unidad": "GRANDE",
+          "cantidad": 5,
+          "producto": "PALLET_NO_FRAGIL",
+          "descripcion": "Pallet con materiales"
+      }
+  ],
+  "recoleccion": "5000",
+  "contraeembolso": "5000",
+  "seguro": "200"
+}

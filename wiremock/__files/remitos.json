@@ -1,0 +1,153 @@
+[
+    {
+        "fecha": "01-01-2024",
+        "id": "REM001",
+        "lastModified": "01-10-2024",
+        "createdOn": "01-01-2024",
+        "remito": "10001",
+        "cartaPorte": "20001",
+        "hojaReparto": "30001",
+        "hojaRuta": "40001",
+        "tipoPago": "ORIGEN",
+        "tracking": "TRANSITO",
+        "remitente": "Pablo Moringo",
+        "destinatario": "Mormand",
+        "descripcion": "Entrega de mercadería",
+        "valorDeclarado": "10000",
+        "proforma": "50001",
+        "usuario": "Usuario1",
+        "productos": [
+            {
+                "unidad": "CHICO",
+                "cantidad": 10,
+                "producto": "TRANSPORTE_MERCADERIA",
+                "descripcion": "Caja pequeña"
+            },
+            {
+                "unidad": "GRANDE",
+                "cantidad": 5,
+                "producto": "PALLET_NO_FRAGIL",
+                "descripcion": "Pallet con materiales"
+            }
+        ],
+        "recoleccion": "5000",
+        "contraeembolso": "5000",
+        "seguro": "200"
+    },
+    {
+        "fecha": "01-01-2024",
+        "id": "REM002",
+        "lastModified": "01-12-2024",
+        "createdOn": "01-01-2024",
+        "remito": "10002",
+        "cartaPorte": "20002",
+        "hojaReparto": "30002",
+        "hojaRuta": "40002",
+        "tipoPago": "DESTINO",
+        "tracking": "PLANTA",
+        "remitente": "Pablo Moringo",
+        "destinatario": "Mormand",
+        "descripcion": "Documentación importante",
+        "valorDeclarado": "500",
+        "proforma": "50002",
+        "usuario": "Usuario2",
+        "productos": [
+            {
+                "unidad": "MEDIANO",
+                "cantidad": 20,
+                "producto": "DONACION",
+                "descripcion": "Documentos legales"
+            }
+        ],
+        "recoleccion": "5000",
+        "contraeembolso": "0",
+        "seguro": "50"
+    },
+    {
+        "fecha": "01-06-2024",
+        "id": "REM003",
+        "lastModified": "06-05-2024",
+        "createdOn": "06-01-2024",
+        "remito": "10003",
+        "cartaPorte": "20003",
+        "hojaReparto": "30003",
+        "hojaRuta": "40003",
+        "tipoPago": "ORIGEN",
+        "tracking": "PENDIENTE_REPARTO",
+        "remitente": "Señor Marshant",
+        "destinatario": "Mormand",
+        "descripcion": "Carga de equipos",
+        "valorDeclarado": "2000",
+        "proforma": "50003",
+        "usuario": "Usuario3",
+        "productos": [
+            {
+                "unidad": "XL",
+                "cantidad": 15,
+                "producto": "PALLET_FRAGIL",
+                "descripcion": "Equipos delicados"
+            }
+        ],
+        "recoleccion": "5000",
+        "contraeembolso": "0",
+        "seguro": "100"
+    },
+    {
+        "fecha": "06-01-2024",
+        "id": "REM004",
+        "lastModified": "06-07-2024",
+        "createdOn": "06-01-2024",
+        "remito": "10004",
+        "cartaPorte": "20004",
+        "hojaReparto": "30004",
+        "hojaRuta": "40004",
+        "tipoPago": "DESTINO",
+        "tracking": "ENTREGADO",
+        "remitente": "Señor Marshant",
+        "destinatario": "Daiberman Social",
+        "descripcion": "Artículos varios",
+        "valorDeclarado": "1500",
+        "proforma": "50004",
+        "usuario": "Usuario4",
+        "productos": [
+            {
+                "unidad": "XXL",
+                "cantidad": 8,
+                "producto": "TRANSPORTE_MERCADERIA",
+                "descripcion": "Artículos grandes"
+            }
+        ],
+        "recoleccion": "5000",
+        "contraeembolso": "300",
+        "seguro": "70"
+    },
+    {
+        "fecha": "05-01-2024",
+        "id": "REM005",
+        "lastModified": "05-03-2024",
+        "createdOn": "05-01-2024",
+        "remito": "10005",
+        "cartaPorte": "20005",
+        "hojaReparto": "30005",
+        "hojaRuta": "40005",
+        "tipoPago": "ORIGEN",
+        "tracking": "TRANSITO",
+        "remitente": "Pablo Moringo",
+        "destinatario": "Daiberman Social",
+        "descripcion": "Carga de materiales",
+        "valorDeclarado": "3000",
+        "proforma": "50005",
+        "usuario": "Usuario5",
+        "productos": [
+            {
+                "unidad": "PALLET_NO_FRAGIL",
+                "cantidad": 12,
+                "producto": "TRANSPORTE_MERCADERIA",
+                "descripcion": "Materiales de construcción"
+            }
+        ],
+        "recoleccion": "5000",
+        "contraeembolso": "0",
+        "seguro": "150"
+    }
+]
