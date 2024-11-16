@@ -31,6 +31,7 @@ const FormDatePicker: React.FC<FormDatePickerProps> = ({
           slotProps={{
             textField: {
               variant: "outlined",
+              size: "small",
             },
           }}
         />

@@ -62,7 +62,6 @@ const TestForm = () => {
       <form onSubmit={handleSubmit(() => {})} className="test-form compact">
         {/* Header dentro del formulario */}
         <div className="form-header">
-          <h2>Crear o Editar Remito</h2>
         </div>
 
         {/* Loading and Error Messages */}
@@ -76,6 +75,7 @@ const TestForm = () => {
           <div className="form-field small-field">
             <FormDatePicker name="fecha" label="Fecha de Registro" />
           </div>
+          <h2 style={{ fontSize: '2em', margin: '0', padding: '0' }}>Remito</h2>
           <div className="form-field tracking-field">
             <TextField
               label="Tracking"
@@ -89,38 +89,39 @@ const TestForm = () => {
         {/* Remitente y Destinatario Selection */}
         <div className="form-row spaced-row dropdown-row">
           <div className="form-field dropdown-field">
-            <FormControl fullWidth>
+            <FormControl sx={{ width: "200px" }}>
               <InputLabel id="remitente-label">Remitente</InputLabel>
               <Select
                 labelId="remitente-label"
                 {...register("remitenteId")}
                 onChange={handleRemitenteChange}
-                fullWidth
-              >
+                size="small"
+                sx={{ width: "200px" }}>
                 {clients.map((client) => (
                   <MenuItem key={client.id} value={client.id}>
                     {client.razonSocial}
                   </MenuItem>
                 ))}
               </Select>
+
             </FormControl>
-            {selectedRemitente && (
+          </div>
+          {selectedRemitente && (
               <ClientDetails
                 razonSocial={selectedRemitente.razonSocial}
                 direccion={selectedRemitente.direccion}
                 cuit={selectedRemitente.cuit}
               />
             )}
-          </div>
-
           <div className="form-field dropdown-field">
-            <FormControl fullWidth>
+            <FormControl sx={{ width: "200px" }}>
               <InputLabel id="destinatario-label">Destinatario</InputLabel>
               <Select
                 labelId="destinatario-label"
                 {...register("destinatarioId")}
                 onChange={handleDestinatarioChange}
                 fullWidth
+                size="small"
               >
                 {clients.map((client) => (
                   <MenuItem key={client.id} value={client.id}>
@@ -129,14 +130,15 @@ const TestForm = () => {
                 ))}
               </Select>
             </FormControl>
-            {selectedDestinatario && (
+
+          </div>
+          {selectedDestinatario && (
               <ClientDetails
                 razonSocial={selectedDestinatario.razonSocial}
                 direccion={selectedDestinatario.direccion}
                 cuit={selectedDestinatario.cuit}
               />
             )}
-          </div>
         </div>
 
         {/* Detalles Envio*/}
@@ -145,7 +147,9 @@ const TestForm = () => {
           <div className="grid-container">
             <FormControl size="small">
               <InputLabel id="tipoPago-label">Pago en</InputLabel>
-              <Select labelId="tipoPago-label" {...register("tipoPago")}>
+              <Select labelId="tipoPago-label" 
+                {...register("tipoPago")}
+                size="small">
                 <MenuItem value="ORIGEN">ORIGEN</MenuItem>
                 <MenuItem value="DESTINO">DESTINO</MenuItem>
               </Select>
