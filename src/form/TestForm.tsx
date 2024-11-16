@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -21,10 +21,17 @@ const clients = [
 
 const TestForm = () => {
   const methods = useForm();
-  const { register, handleSubmit } = methods;
+  const { register, handleSubmit, watch } = methods;
+  //remitente y destinatario useStates
   const [selectedRemitente, setSelectedRemitente] = useState(null);
   const [selectedDestinatario, setSelectedDestinatario] = useState(null);
 
+  //seguro y contrareembolso useStates
+  const valorDeclarado = watch('seguro.valorDeclarado');
+  const coeficiente = watch('seguro.coeficiente'); 
+  const [seguro, setSeguro] = useState<number>(0);
+  
+  //remitente y destinatario onChanges
   const handleRemitenteChange = (event) => {
     const selectedClient = clients.find(
       (client) => client.id === event.target.value
@@ -38,6 +45,17 @@ const TestForm = () => {
     );
     setSelectedDestinatario(selectedClient);
   };
+
+
+
+  useEffect(() => {
+    if (valorDeclarado && coeficiente) {
+      const seguroTotal = (valorDeclarado * coeficiente);
+      setSeguro(seguroTotal);
+      console.log("segurototal multiplicado da",seguro)
+    } 
+    
+  }, [valorDeclarado, coeficiente]);
 
   return (
     <FormProvider {...methods}>
@@ -57,7 +75,6 @@ const TestForm = () => {
         <div className="form-row spaced-between">
           <div className="form-field small-field">
             <FormDatePicker name="fecha" label="Fecha de Registro" />
-            <p className="error-message">Error de fecha</p>
           </div>
           <div className="form-field tracking-field">
             <TextField
@@ -161,7 +178,8 @@ const TestForm = () => {
               />
               <TextField
                 label="Seguro Total"
-                {...register("seguro.seguro")}
+                disabled
+                value={seguro.toFixed(3)}
                 size="small"
               />
             </div>
