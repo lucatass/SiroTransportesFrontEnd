@@ -1,35 +1,50 @@
 {
-  "fecha": "01-01-2024",
-  "id": "REM001",
-  "lastModified": "01-11-2024",
-  "createdOn": "01-11-2024",
-  "remito": "10001",
-  "cartaPorte": "20001",
-  "hojaReparto": "30001",
-  "hojaRuta": "40001",
-  "tipoPago": "ORIGEN",
-  "tracking": "TRANSITO",
-  "remitente": "Pablo Moringo",
-  "destinatario": "Mormand",
-  "descripcion": "Entrega de mercadería",
-  "valorDeclarado": "10000",
-  "proforma": "50001",
-  "usuario": "Usuario1",
-  "detalleProductos": [
-      {
-          "unidad": "CHICO",
-          "cantidad": 10,
-          "producto": "TRANSPORTE_MERCADERIA",
-          "descripcion": "Caja pequeña"
-      },
-      {
-          "unidad": "GRANDE",
-          "cantidad": 5,
-          "producto": "PALLET_NO_FRAGIL",
-          "descripcion": "Pallet con materiales"
-      }
-  ],
-  "recoleccion": "5000",
-  "contraeembolso": "5000",
-  "seguro": "200"
+    "id": 1,
+    "fecha": "11-11-2024",
+    "remitente": "Señor Marshant",
+    "destinatario": "Mormand",
+    "remito": "10001",
+    "cartaPorte": 20001,
+    "bultos": 10,
+    "totalOrigen": 50000,
+    "totalDestino": 50000,
+    "tipoPago": "DESTINO",
+    "descripcion": "prueba",
+    "tracking": "PLANTA",
+    "afectacion": null,
+    "facturaId": null,
+    "factura": null,
+    "hojaReparto": "N/A",
+    "hojaRuta": "N/A",
+    "seguro": {
+        "valorDeclarado": 20000,
+        "coeficiente": 0.05,
+        "seguro": 1000
+    },
+    "contrareembolso": {
+        "importe": 500,
+        "coeficiente": 0.02,
+        "comision": 10
+    },
+    "detalleProductos": [
+        {
+            "producto": "Flete",
+            "unidad": "TN",
+            "cantidad": 10,
+            "precio": 5000,
+            "total": 50000,
+            "descripcion": "Prueba Producto"
+        },
+        {
+            "producto": "Chico",
+            "unidad": "PC",
+            "cantidad": 0.02,
+            "precio": 10000,
+            "total": 200,
+            "descripcion": "Prueba ContraReembolso"
+        }
+    ],
+    "lastModified": "2024-11-13T18:43:54.956234",
+    "createdOn": "2024-11-13T18:43:54.956241",
+    "usuario": "dober"
 }

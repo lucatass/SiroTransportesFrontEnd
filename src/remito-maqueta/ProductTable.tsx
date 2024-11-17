@@ -10,7 +10,7 @@ import {
   Button,
   TablePagination,
 } from "@mui/material";
-import { Producto } from "../../types/types";
+import { Producto } from "../types/types";
 
 interface ProductTableProps {
   productos: Producto[];
@@ -44,9 +44,11 @@ const ProductTable: React.FC<ProductTableProps> = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Tipo</TableCell>
+              <TableCell>Producto</TableCell>
               <TableCell>Unidad</TableCell>
               <TableCell>Cantidad</TableCell>
+              <TableCell>Precio</TableCell>
+              <TableCell>Total</TableCell>
               <TableCell>Descripción</TableCell>
               <TableCell>Eliminar</TableCell>
             </TableRow>
@@ -55,16 +57,17 @@ const ProductTable: React.FC<ProductTableProps> = ({
             {productos
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((producto, index) => (
-                <TableRow key={producto.id || index}>
-                  <TableCell>{producto.tipo}</TableCell>
+                <TableRow key={index}>
+                  <TableCell>{producto.producto}</TableCell>
                   <TableCell>{producto.unidad}</TableCell>
                   <TableCell>{producto.cantidad}</TableCell>
+                  <TableCell>{producto.precio}</TableCell>
+                  <TableCell>
+                    {(producto.cantidad * producto.precio).toFixed(2)}
+                  </TableCell>
                   <TableCell>{producto.descripcion}</TableCell>
                   <TableCell>
-                    <Button
-                      onClick={() => removeProduct(index)}
-                      aria-label={`Eliminar producto ${producto.tipo}`}
-                    >
+                    <Button onClick={() => removeProduct(index)}>
                       Eliminar
                     </Button>
                   </TableCell>

@@ -1,153 +1,252 @@
 [
     {
-        "fecha": "01-01-2024",
-        "id": "REM001",
-        "lastModified": "01-10-2024",
-        "createdOn": "01-01-2024",
+        "id": "1",
+        "fecha": "11-11-2024",
+        "remitente": "Señor Marshant",
+        "destinatario": "Mormand",
         "remito": "10001",
         "cartaPorte": "20001",
-        "hojaReparto": "30001",
-        "hojaRuta": "40001",
-        "tipoPago": "ORIGEN",
-        "tracking": "TRANSITO",
-        "remitente": "Pablo Moringo",
-        "destinatario": "Mormand",
-        "descripcion": "Entrega de mercadería",
-        "valorDeclarado": "10000",
-        "proforma": "50001",
-        "usuario": "Usuario1",
-        "productos": [
+        "bultos": 10,
+        "totalOrigen": 50000,
+        "totalDestino": 50000,
+        "tipoPago": "DESTINO",
+        "descripcion": "prueba",
+        "tracking": "PLANTA",
+        "afectacion": null,
+        "facturaId": null,
+        "factura": null,
+        "hojaReparto": "N/A",
+        "hojaRuta": "N/A",
+        "seguro": {
+            "valorDeclarado": 20000,
+            "coeficiente": 0.05,
+            "seguro": 1000
+        },
+        "contrareembolso": {
+            "importe": 500,
+            "coeficiente": 0.02,
+            "comision": 10
+        },
+        "detalleProductos": [
             {
-                "unidad": "CHICO",
+                "producto": "Flete",
+                "unidad": "TN",
                 "cantidad": 10,
-                "producto": "TRANSPORTE_MERCADERIA",
-                "descripcion": "Caja pequeña"
+                "precio": 5000,
+                "total": 50000,
+                "descripcion": "Prueba Producto"
             },
             {
-                "unidad": "GRANDE",
-                "cantidad": 5,
-                "producto": "PALLET_NO_FRAGIL",
-                "descripcion": "Pallet con materiales"
+                "producto": "Chico",
+                "unidad": "PC",
+                "cantidad": 0.02,
+                "precio": 10000,
+                "total": 200,
+                "descripcion": "Prueba ContraReembolso"
             }
         ],
-        "recoleccion": "5000",
-        "contraeembolso": "5000",
-        "seguro": "200"
+        "lastModified": "2024-11-13T18:43:54.956234",
+        "createdOn": "2024-11-13T18:43:54.956241",
+        "usuario": "dober"
     },
     {
-        "fecha": "01-01-2024",
-        "id": "REM002",
-        "lastModified": "01-12-2024",
-        "createdOn": "01-01-2024",
+        "id": "2",
+        "fecha": "22-08-2024",
+        "remitente": "Señor Marshant",
+        "destinatario": "Mormand",
         "remito": "10002",
         "cartaPorte": "20002",
-        "hojaReparto": "30002",
-        "hojaRuta": "40002",
-        "tipoPago": "DESTINO",
-        "tracking": "PLANTA",
-        "remitente": "Pablo Moringo",
-        "destinatario": "Mormand",
-        "descripcion": "Documentación importante",
-        "valorDeclarado": "500",
-        "proforma": "50002",
-        "usuario": "Usuario2",
-        "productos": [
+        "bultos": 10.02,
+        "totalOrigen": 0,
+        "totalDestino": 0,
+        "tipoPago": "ORIGEN",
+        "descripcion": "prueba",
+        "tracking": "TRANSITO",
+        "afectacion": null,
+        "facturaId": null,
+        "factura": null,
+        "hojaReparto": "N/A",
+        "hojaRuta": "N/A",
+        "seguro": {
+            "valorDeclarado": 20000,
+            "coeficiente": 0.05,
+            "seguro": 1000
+        },
+        "contrareembolso": {
+            "importe": 500,
+            "coeficiente": 0.02,
+            "comision": 10
+        },
+        "detalleProductos": [
             {
-                "unidad": "MEDIANO",
-                "cantidad": 20,
-                "producto": "DONACION",
-                "descripcion": "Documentos legales"
+                "producto": "Flete",
+                "unidad": "TN",
+                "cantidad": 10,
+                "precio": 5000,
+                "total": 50000,
+                "descripcion": "Prueba Producto"
+            },
+            {
+                "producto": "Pallet No Frágil",
+                "unidad": "PC",
+                "cantidad": 0.02,
+                "precio": 10000,
+                "total": 200,
+                "descripcion": "Prueba"
             }
         ],
-        "recoleccion": "5000",
-        "contraeembolso": "0",
-        "seguro": "50"
+        "lastModified": "2024-11-13T18:43:54.956247",
+        "createdOn": "2024-11-13T18:43:54.956249",
+        "usuario": "dober"
     },
     {
-        "fecha": "01-06-2024",
-        "id": "REM003",
-        "lastModified": "06-05-2024",
-        "createdOn": "06-01-2024",
+        "id": "3",
+        "fecha": "22-05-2024",
+        "remitente": "Pablo Moringo",
+        "destinatario": "Daiberman Social",
         "remito": "10003",
         "cartaPorte": "20003",
-        "hojaReparto": "30003",
-        "hojaRuta": "40003",
-        "tipoPago": "ORIGEN",
+        "bultos": 10.02,
+        "totalOrigen": 50000,
+        "totalDestino": 50000,
+        "tipoPago": "DESTINO",
+        "descripcion": "prueba",
         "tracking": "PENDIENTE_REPARTO",
-        "remitente": "Señor Marshant",
-        "destinatario": "Mormand",
-        "descripcion": "Carga de equipos",
-        "valorDeclarado": "2000",
-        "proforma": "50003",
-        "usuario": "Usuario3",
-        "productos": [
+        "afectacion": null,
+        "facturaId": null,
+        "factura": null,
+        "hojaReparto": "N/A",
+        "hojaRuta": "N/A",
+        "seguro": {
+            "valorDeclarado": 20000,
+            "coeficiente": 0.05,
+            "seguro": 1000
+        },
+        "contrareembolso": {
+            "importe": 500,
+            "coeficiente": 0.02,
+            "comision": 10
+        },
+        "detalleProductos": [
             {
-                "unidad": "XL",
-                "cantidad": 15,
-                "producto": "PALLET_FRAGIL",
-                "descripcion": "Equipos delicados"
+                "producto": "Flete",
+                "unidad": "TN",
+                "cantidad": 10,
+                "precio": 5000,
+                "total": 50000,
+                "descripcion": "Prueba Producto"
+            },
+            {
+                "producto": "Donacion",
+                "unidad": "PC",
+                "cantidad": 0.02,
+                "precio": 10000,
+                "total": 200,
+                "descripcion": "Prueba Donacion"
             }
         ],
-        "recoleccion": "5000",
-        "contraeembolso": "0",
-        "seguro": "100"
+        "lastModified": "2024-11-13T18:43:54.956253",
+        "createdOn": "2024-11-13T18:43:54.956255",
+        "usuario": "dober"
     },
     {
-        "fecha": "06-01-2024",
-        "id": "REM004",
-        "lastModified": "06-07-2024",
-        "createdOn": "06-01-2024",
+        "id": "4",
+        "fecha": "22-05-2024",
+        "remitente": "Señor Marshant",
+        "destinatario": "Daiberman Social",
         "remito": "10004",
         "cartaPorte": "20004",
-        "hojaReparto": "30004",
-        "hojaRuta": "40004",
-        "tipoPago": "DESTINO",
+        "bultos": 10.02,
+        "totalOrigen": 0,
+        "totalDestino": 0,
+        "tipoPago": "ORIGEN",
+        "descripcion": "prueba",
         "tracking": "ENTREGADO",
-        "remitente": "Señor Marshant",
-        "destinatario": "Daiberman Social",
-        "descripcion": "Artículos varios",
-        "valorDeclarado": "1500",
-        "proforma": "50004",
-        "usuario": "Usuario4",
-        "productos": [
+        "afectacion": null,
+        "facturaId": null,
+        "factura": null,
+        "hojaReparto": "N/A",
+        "hojaRuta": "N/A",
+        "seguro": {
+            "valorDeclarado": 20000,
+            "coeficiente": 0.05,
+            "seguro": 1000
+        },
+        "contrareembolso": {
+            "importe": 500,
+            "coeficiente": 0.02,
+            "comision": 10
+        },
+        "detalleProductos": [
             {
-                "unidad": "XXL",
-                "cantidad": 8,
-                "producto": "TRANSPORTE_MERCADERIA",
-                "descripcion": "Artículos grandes"
+                "producto": "Flete",
+                "unidad": "TN",
+                "cantidad": 10,
+                "precio": 5000,
+                "total": 50000,
+                "descripcion": "Prueba Producto"
+            },
+            {
+                "producto": "Recoleccion",
+                "unidad": "BU",
+                "cantidad": 1,
+                "precio": 10000,
+                "total": 200,
+                "descripcion": "Prueba Recoleccion"
             }
         ],
-        "recoleccion": "5000",
-        "contraeembolso": "300",
-        "seguro": "70"
+        "lastModified": "2024-11-13T18:43:54.956259",
+        "createdOn": "2024-11-13T18:43:54.956260",
+        "usuario": "dober"
     },
     {
-        "fecha": "05-01-2024",
-        "id": "REM005",
-        "lastModified": "05-03-2024",
-        "createdOn": "05-01-2024",
-        "remito": "10005",
-        "cartaPorte": "20005",
-        "hojaReparto": "30005",
-        "hojaRuta": "40005",
-        "tipoPago": "ORIGEN",
-        "tracking": "TRANSITO",
+        "id": "5",
+        "fecha": "22-05-2024",
         "remitente": "Pablo Moringo",
         "destinatario": "Daiberman Social",
-        "descripcion": "Carga de materiales",
-        "valorDeclarado": "3000",
-        "proforma": "50005",
-        "usuario": "Usuario5",
-        "productos": [
+        "remito": "10005",
+        "cartaPorte": "20005",
+        "bultos": 10.02,
+        "totalOrigen": 50000,
+        "totalDestino": 50000,
+        "tipoPago": "DESTINO",
+        "descripcion": "prueba",
+        "tracking": "TRANSITO",
+        "afectacion": null,
+        "facturaId": null,
+        "factura": null,
+        "hojaReparto": "N/A",
+        "hojaRuta": "N/A",
+        "seguro": {
+            "valorDeclarado": 20000,
+            "coeficiente": 0.05,
+            "seguro": 1000
+        },
+        "contrareembolso": {
+            "importe": 500,
+            "coeficiente": 0.02,
+            "comision": 10
+        },
+        "detalleProductos": [
             {
-                "unidad": "PALLET_NO_FRAGIL",
-                "cantidad": 12,
-                "producto": "TRANSPORTE_MERCADERIA",
-                "descripcion": "Materiales de construcción"
+                "producto": "Flete",
+                "unidad": "TN",
+                "cantidad": 10,
+                "precio": 5000,
+                "total": 50000,
+                "descripcion": "Prueba Producto"
+            },
+            {
+                "producto": "XXL",
+                "unidad": "TN",
+                "cantidad": 10,
+                "precio": 10000,
+                "total": 200,
+                "descripcion": "Prueba XXL"
             }
         ],
-        "recoleccion": "5000",
-        "contraeembolso": "0",
-        "seguro": "150"
+        "lastModified": "2024-11-13T18:43:54.956264",
+        "createdOn": "2024-11-13T18:43:54.956265",
+        "usuario": "dober"
     }
 ]

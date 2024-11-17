@@ -1,6 +1,7 @@
 // src/types/types.ts
 
 import { Dayjs } from "dayjs";
+import { TipoProducto } from "../remito-maqueta/remitoConstants";
 
 /**
  * Dirección de un Cliente
@@ -28,9 +29,11 @@ export interface Cliente {
  * Producto incluido en un Remito
  */
 export interface Producto {
+  producto: TipoProducto;
   unidad: string;
-  tipo: string;
   cantidad: number;
+  precio: number;
+  total: number;
   descripcion: string;
 }
 
@@ -38,25 +41,31 @@ export interface Producto {
  * Datos de un Remito para mostrar en la tabla
  */
 export interface RemitoDto {
-  id: string; // UUID generado en frontend por ahora
+  id: string;
   fecha: string;
   remito: string;
   cartaPorte: string;
-  remitente: string;
-  destinatario: string;
+  remitente?: string;
+  destinatario?: string;
   tipoPago: string;
   tracking: string; // Siempre proporcionado por backend
-  valorDeclarado: number;
+  bultos: number;
   descripcion: string;
-  recoleccion: number;
-  contrareembolso: number;
-  seguro: number;
-  productos: Producto[];
+  seguro: Seguro;
+  contrareembolso: ContraReembolso;
+  montoOrigen?: number;
+  montoDestino?: number;
+  afectacion?: string; // Siempre proporcionado por backend
+  facturaId?: string;
+  factura?: string;
+  hojaReparto?: string;
+  hojaRuta?: string;
+  detalleProductos: Producto[];
+  lastModified?: string;
+  createdOn?: string;
+  usuario?: string;
 }
 
-/**
- * Datos del formulario para crear o editar un Remito
- */
 export interface RemitoFormData {
   id?: string; // Generado en frontend por ahora
   fecha: Dayjs | null; // Por defecto, se establece en la fecha de hoy
@@ -66,17 +75,25 @@ export interface RemitoFormData {
   destinatarioId: { value: number; label: string } | null;
   tipoPago: string;
   tracking?: string; // Opcional, proporcionado por backend
-  valorDeclarado: number;
   descripcion: string;
-  recoleccion: number;
-  contrareembolso: number;
-  seguro: number;
-  productos: Producto[];
+  bultos: number;
+  seguro: Seguro;
+  contrareembolso: ContraReembolso;
+  detalleProductos: Producto[];
 }
 
-/**
- * Props para el componente RemitosForm
- */
+export interface ContraReembolso {
+  importe: number;
+  coeficiente: number;
+  comision: number;
+}
+
+export interface Seguro {
+  valorDeclarado: number;
+  coeficiente: number;
+  seguro: number;
+}
+
 export interface RemitosFormProps {
   initialData?: RemitoDto | null;
   onSubmit: (data: RemitoDto) => void;
