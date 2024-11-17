@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useMemo } from "react";
 import Select from "react-select";
-import { Controller } from "react-hook-form";
+import { Controller, useWatch } from "react-hook-form";
+import { Cliente } from "../types/types";
 
 interface Option {
   value: number;
@@ -14,6 +15,7 @@ interface ClientSelectorProps {
   control: any;
   options: Option[];
   errors: any;
+  data: Cliente[]; // Lista de clientes para mostrar información adicional
 }
 
 const ClientSelector: React.FC<ClientSelectorProps> = ({
@@ -22,7 +24,20 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
   control,
   options,
   errors,
+  data,
 }) => {
+  const selectedOption = useWatch({
+    control,
+    name,
+  });
+
+  const selectedClient = useMemo(() => {
+    if (selectedOption && selectedOption.value) {
+      return data.find((cliente) => cliente.id === selectedOption.value) || null;
+    }
+    return null;
+  }, [selectedOption, data]);
+
   return (
     <div className="client-selector">
       <label htmlFor={name}>{label}</label>
@@ -45,8 +60,28 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
       {errors[name]?.message && (
         <p className="error-message">{errors[name]?.message}</p>
       )}
+      {selectedClient && (
+        <div className="cliente-detalles">
+          <p>
+            <strong>Razón Social:</strong> {selectedClient.razonSocial}
+          </p>
+          <p>
+            <strong>CUIT:</strong> {selectedClient.nroDoc}
+          </p>
+          {selectedClient.direcciones?.length > 0 && (
+            <>
+              <p>
+                <strong>Domicilio:</strong> {selectedClient.direcciones[0].domicilio}
+              </p>
+              <p>
+                <strong>Localidad:</strong> {selectedClient.direcciones[0].localidad}
+              </p>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };
 
-export default ClientSelector;
+export default ClientSelector

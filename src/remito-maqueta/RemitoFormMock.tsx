@@ -65,6 +65,39 @@ const initialData = {
   ],
 };
 
+const clientes = [
+  {
+    id: 3,
+    razonSocial: "Daiberman Social",
+    tipoDoc: "CUIT",
+    nroDoc: 34567890123,
+    direcciones: [
+      {
+        domicilio: "Calle Principal 456",
+        localidad: "Rosario",
+        codigoPostal: "2000",
+        provincia: "Santa Fe",
+        pais: "Argentina",
+      },
+    ],
+  },
+  {
+    id: 4,
+    razonSocial: "Mormand",
+    tipoDoc: "CUIT",
+    nroDoc: 45678901234,
+    direcciones: [
+      {
+        domicilio: "Ruta Nacional 9 Km 150",
+        localidad: "Mar del Plata",
+        codigoPostal: "7600",
+        provincia: "Buenos Aires",
+        pais: "Argentina",
+      },
+    ],
+  },
+]
+
 const RemitoFormMock: React.FC = () => {
   const productDialog = useDialog();
   const methods = useForm<RemitoFormData>({
@@ -84,10 +117,26 @@ const RemitoFormMock: React.FC = () => {
     },
   });
 
+  const isLoadingRemitentes = false; // Simula carga de remitentes
+  const isLoadingDestinatarios = false; // Simula carga de destinatarios
+  const isErrorRemitentes = false; // Simula error de remitentes
+  const isErrorDestinatarios = false; // Simula error de destinatarios
+  const errorRemitentes = { message: "Error al cargar remitentes" }; // Mensaje de error simulado
+  const errorDestinatarios = { message: "Error al cargar destinatarios" };
+
   return (
     <FormProvider {...methods}>
       <form className="remitos-form">
         <h2>Crear Remito</h2>
+
+        {/* Mostrar un mensaje de carga si los datos se están obteniendo */}
+        {isLoadingRemitentes || isLoadingDestinatarios ? (
+          <p>Cargando datos...</p>
+        ) : isErrorRemitentes ? (
+          <p className="error-message">{errorRemitentes.message}</p>
+        ) : isErrorDestinatarios ? (
+          <p className="error-message">{errorDestinatarios.message}</p>
+        ) : null}
 
         {/* Fila superior con Fecha de Registro y Tracking */}
         <FormRow className="top-row">
@@ -109,12 +158,13 @@ const RemitoFormMock: React.FC = () => {
             <ClientSelector
               name="remitenteId"
               label="Remitente"
-              control={methods.control} // Pasamos el control de useForm
+              control={methods.control}
               options={[
-                { value: 1, label: "Cliente A" },
-                { value: 2, label: "Cliente B" },
+                { value: 3, label: "Daiberman Social" },
+                { value: 4, label: "Mormand" },
               ]}
-              errors={methods.formState.errors} // Pasamos los errores del formState
+              errors={methods.formState.errors}
+              data={clientes}
             />
           </div>
           <div className="form-column">
@@ -127,6 +177,7 @@ const RemitoFormMock: React.FC = () => {
                 { value: 4, label: "Cliente D" },
               ]}
               errors={methods.formState.errors}
+              data={clientes}
             />
           </div>
         </FormRow>
@@ -202,7 +253,10 @@ const RemitoFormMock: React.FC = () => {
         </FormRow>
 
         {/* Tabla de productos */}
-        <ProductTable productos={[]} removeProduct={() => {}} />
+        <ProductTable
+          productos={initialData.detalleProductos}
+          removeProduct={() => {}}
+        />
 
         {/* Dialogo de Producto */}
         <ProductDialog
