@@ -11,8 +11,8 @@ const ClientDetails: React.FC<ClientDetailsProps> = ({ razonSocial, direccion, c
   return (
     <div className="client-details">
       <p><strong>Razón Social:</strong> {razonSocial}</p>
-      <p><strong>Dirección:</strong> {direccion}</p>
-      <p><strong>CUIT:</strong> {cuit}</p>
+      <p><strong>Dirección:</strong> {direccion}&nbsp;&nbsp;<strong>CUIT:</strong> {cuit}</p>
+      <p></p>
     </div>
   );
 };

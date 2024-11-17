@@ -15,8 +15,8 @@ import "./TestForm.css";
 
 const clients = [
   { id: 1, razonSocial: "Pablo", direccion: "Texas", cuit: "20230232" },
-  { id: 2, razonSocial: "Maria", direccion: "California", cuit: "20304050" },
-  { id: 3, razonSocial: "Juan", direccion: "Florida", cuit: "40506070" },
+  { id: 2, razonSocial: "En caso de que el nombre sea largo", direccion: "California", cuit: "20304050" },
+  { id: 3, razonSocial: "María", direccion: "Florida", cuit: "40506070" },
 ];
 
 const TestForm = () => {
@@ -106,13 +106,12 @@ const TestForm = () => {
 
             </FormControl>
           </div>
-          {selectedRemitente && (
-              <ClientDetails
-                razonSocial={selectedRemitente.razonSocial}
-                direccion={selectedRemitente.direccion}
-                cuit={selectedRemitente.cuit}
-              />
-            )}
+          {/* el campo se muestra desde el principio sin datos  */}
+          <ClientDetails
+            razonSocial={selectedRemitente?.razonSocial || ""}
+            direccion={selectedRemitente?.direccion || ""}
+            cuit={selectedRemitente?.cuit || ""}
+          />
           <div className="form-field dropdown-field">
             <FormControl sx={{ width: "200px" }}>
               <InputLabel id="destinatario-label">Destinatario</InputLabel>
@@ -132,13 +131,13 @@ const TestForm = () => {
             </FormControl>
 
           </div>
-          {selectedDestinatario && (
-              <ClientDetails
-                razonSocial={selectedDestinatario.razonSocial}
-                direccion={selectedDestinatario.direccion}
-                cuit={selectedDestinatario.cuit}
-              />
-            )}
+
+          <ClientDetails
+            razonSocial={selectedDestinatario?.razonSocial || ""}
+            direccion={selectedDestinatario?.direccion || ""}
+            cuit={selectedDestinatario?.cuit || ""}
+          />
+          
         </div>
 
         {/* Detalles Envio*/}

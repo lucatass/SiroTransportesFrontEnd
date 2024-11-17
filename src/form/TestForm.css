@@ -44,7 +44,7 @@ body {
 
 .form-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 1rem;
   width: 100%;
 }
@@ -234,5 +234,15 @@ body {
 
 /*width de remitente*/
 .form-field.dropdown-field {
-  width: 190px;
+  max-width: 199px;
+  min-width: 199px;
+  width: 150px!important;
+}
+
+/*datos de cliente*/
+.client-details {
+  min-width: 270px;
+  max-width: 270px;
+  gap: 0px!important;
+  padding: 3px;
 }
