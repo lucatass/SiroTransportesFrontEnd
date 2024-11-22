@@ -7,6 +7,8 @@ import { Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
 import SelectedRemitosTable from "./SelectedRemitosTable";
 import "./css/HojaRutaForm.css";
 import { TipoProducto } from "../remito-maqueta/remitoConstants";
+import "./css/HojaRutaForm.css";
+
 
 const remitos = [
   {
@@ -86,6 +88,7 @@ const HojaRutaForm: React.FC = () => {
           <FormRow className="form-header">
             <FormDatePicker name="fecha" label="Fecha" />
             <FormDatePicker name="salida" label="Fecha de Salida" />
+            <h2>Hoja de Ruta</h2>
             <FormDatePicker name="llegada" label="Fecha de Llegada" />
             <TextField label="Estado" value="ABIERTA" disabled fullWidth />
           </FormRow>
@@ -122,12 +125,7 @@ const HojaRutaForm: React.FC = () => {
                 },
               }} // Simula un error para diseño
             />
-          </FormRow>
-        </div>
 
-        {/* Checkbox para Flete Tercero */}
-        <div className="section">
-          <FormRow>
             <FormControlLabel
               control={
                 <Checkbox
@@ -137,10 +135,8 @@ const HojaRutaForm: React.FC = () => {
               }
               label="Flete Tercero"
             />
-          </FormRow>
 
           {fleteTercero && (
-            <FormRow>
               <AutoCompleteSelector
                 name="transporteId"
                 label="Transporte"
@@ -155,11 +151,9 @@ const HojaRutaForm: React.FC = () => {
                   },
                 }}
               />
-            </FormRow>
           )}
 
           {/* Personal y Camión */}
-          <FormRow>
             <AutoCompleteSelector
               name="personalId"
               label="Personal"
@@ -170,6 +164,7 @@ const HojaRutaForm: React.FC = () => {
                   message: "El origen es obligatorio.",
                 },
               }}
+              style={{ width: "300px" }}
             />
             <AutoCompleteSelector
               name="maquinariaId"
@@ -181,6 +176,7 @@ const HojaRutaForm: React.FC = () => {
                   message: "El origen es obligatorio.",
                 },
               }}
+              style={{ width: "300px" }}
             />
           </FormRow>
         </div>

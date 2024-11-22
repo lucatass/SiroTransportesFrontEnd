@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Controller } from "react-hook-form";
 import { TextField, Autocomplete } from "@mui/material";
@@ -14,6 +13,7 @@ interface AutoCompleteSelectorProps {
   control: any;
   options: Option[];
   errors?: Record<string, { message: string }>; // Maneja los errores
+  className?: string;
 }
 
 const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
@@ -38,6 +38,7 @@ const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
               label={label}
               error={!!errors?.[name]} // Marca como error si existe
               helperText={errors?.[name]?.message} // Muestra el mensaje de error
+              sx={{ width: "130px" }} // Ajusta el ancho aquí
             />
           )}
         />
