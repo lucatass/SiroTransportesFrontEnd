@@ -2,9 +2,9 @@
 import React from "react";
 import { TextField, Button } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
-import { FormDatePicker, FormRow } from "../components/common";
+import { FormDatePicker, FormRow } from "../components";
 import { useDialog } from "../hooks";
-import { RemitoFormData } from "../types/types";
+import { RemitoRequest } from "../types/types";
 import Select from "react-select";
 import ClientSelector from "./ClientSelector";
 import ProductDialog from "./ProductDialog";
@@ -100,7 +100,7 @@ const clientes = [
 
 const RemitoFormMock: React.FC = () => {
   const productDialog = useDialog();
-  const methods = useForm<RemitoFormData>({
+  const methods = useForm<RemitoRequest>({
     defaultValues: {
       fecha: dayjs(initialData.fecha, "DD-MM-YYYY"),
       remitenteId: { value: 1, label: initialData.remitente },

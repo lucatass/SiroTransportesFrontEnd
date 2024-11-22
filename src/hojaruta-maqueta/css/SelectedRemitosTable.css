@@ -1,0 +1,25 @@
+.selected-remitos-table-container {
+  overflow-x: auto; /* Desplazamiento horizontal si la tabla se desborda */
+  margin-top: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.selected-remitos-table {
+  width: 100%;
+}
+
+.selected-remitos-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.selected-remitos-table td {
+  white-space: nowrap; /* Evita saltos de línea */
+}
+
+.selected-remitos-table-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
