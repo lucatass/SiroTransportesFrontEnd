@@ -1,6 +1,4 @@
 // src/types/types.ts
-import { TipoProducto } from "../remito-maqueta/remitoConstants";
-
 export interface Option {
   value: string | number; // Generaliza para que sirva tanto para strings como números
   label: string;
@@ -40,6 +38,21 @@ export interface Producto {
   descripcion: string;
 }
 
+export interface Personal {
+  id: string;
+  nombre: string;
+  nroDoc: number;
+}
+
+export interface Maquinaria {
+  id: string;
+  categoria: string;
+  identificador: string;
+  nombre: string;
+  chasis: string;
+  patente: string;
+}
+
 export interface ContraReembolso {
   importe: number;
   coeficiente: number;
@@ -65,6 +78,7 @@ export interface RemitoDto {
   descripcion: string;
   seguro: Seguro;
   contraReembolso: ContraReembolso;
+  detalleProductos: Producto[];
   montoOrigen?: number;
   montoDestino?: number;
   afectacion?: string; // Siempre proporcionado por backend
@@ -72,7 +86,6 @@ export interface RemitoDto {
   factura?: string;
   hojaReparto?: string;
   hojaRuta?: string;
-  detalleProductos: Producto[];
   lastModified?: string;
   createdOn?: string;
   usuario?: string;
@@ -142,17 +155,52 @@ export interface HojaRutaFormProps {
   destinatariosData: Cliente[];
 }
 
-export interface Personal {
-  id: string;
-  nombre: string;
-  nroDoc: number;
+export interface HojaRepartoRequest {
+  numero?: number;
+  fecha: string | null;
+  salida: string | null;
+  llegada: string | null;
+  sucursal: string | null;
+  transporteId: { value: number; label: string } | null;
+  personalId: { value: number; label: string } | null;
+  maquinariaId: { value: number; label: string } | null;
+  remitosId: number[];
 }
 
-export interface Maquinaria {
-  id: string;
-  categoria: string;
-  identificador: string;
-  nombre: string;
-  chasis: string;
-  patente: string;
+export interface HojaRepartoDto {
+  numero: string;
+  fecha: string;
+  salida: string;
+  llegada: string;
+  cerrada: boolean;
+  sucursal: string;
+  transporte: string | null;
+  personal: string;
+  camion: string;
+  remitoDtos: RemitoDto[];
+}
+
+export interface HojaRepartoFormProps {
+  initialData?: HojaRepartoDto | null;
+  onSubmit: (data: HojaRepartoRequest) => void;
+  transporteOptions: Option[];
+  personalOptions: Option[];
+  camionOptions: Option[];
+  remitentesOptions: Option[];
+  destinatariosOptions: Option[];
+  remitentesData: Cliente[];
+  destinatariosData: Cliente[];
+}
+
+export enum TipoProducto {
+  CHICO = "Chico",
+  MEDIANO = "Mediano",
+  GRANDE = "Grande",
+  XL = "XL",
+  XXL = "XXL",
+  PALLET_NO_FRAGIL = "Pallet No Frágil",
+  PALLET_FRAGIL = "Pallet Frágil",
+  DONACION = "Donacion",
+  RECOLECCION = "Recoleccion",
+  FLETE = "Flete",
 }

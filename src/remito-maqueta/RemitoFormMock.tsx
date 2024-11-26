@@ -102,7 +102,6 @@ const RemitoFormMock: React.FC = () => {
   const productDialog = useDialog();
   const methods = useForm<RemitoRequest>({
     defaultValues: {
-      fecha: dayjs(initialData.fecha, "DD-MM-YYYY"),
       remitenteId: { value: 1, label: initialData.remitente },
       destinatarioId: { value: 2, label: initialData.destinatario },
       remito: initialData.remito,

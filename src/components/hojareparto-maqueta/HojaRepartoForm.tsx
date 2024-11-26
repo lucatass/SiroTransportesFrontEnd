@@ -1,13 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// HojaRutaForm.tsx
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { FormDatePicker, FormRow, AutoCompleteSelector, TotalsSection } from "../components";
 import { Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
-import SelectedRemitosTable from "./SelectedRemitosTable";
-import "./css/HojaRutaForm.css";
-import { TipoProducto } from "../remito-maqueta/remitoConstants";
-import { useRemitosTotal } from "../hooks/useRemitosTotal";
+import {
+  RemitoDto,
+  TipoProducto,
+} from "../../types/types";
+import { useDialog } from "../../hooks";
+import { useRemitosTotal } from "../../hooks/useRemitosTotal";
+import {
+  FormDatePicker,
+  FormTimePicker,
+  FormRow,
+  AutoCompleteSelector,
+  RemitoDialog,
+  SelectedRemitosTable,
+  TotalsSection,
+} from "../index";
+import { Sucursales } from "../commonConstants";
+import RemitosHojaRepartoDialog from "./RemitosHojaRepartoDialog";
+import "dayjs/locale/es";
+import "./css/HojaRepartoForm.css";
+
 
 const remitos = [
   {
@@ -70,59 +84,65 @@ const camionOptions = [
   { value: "2", label: "VOLVO" },
 ]
 
-const HojaRutaForm: React.FC = () => {
+const transporteOptions = [
+  { value: "1", label: "Pepe" },
+  { value: "2", label: "Grillio" },
+]
+
+const HojaRepartoForm: React.FC = () => {
   const methods = useForm();
-  const { control, handleSubmit } = methods;
+  const { control } = methods;
+  const [selectedRemito, setSelectedRemito] = useState<RemitoDto>();
   const [fleteTercero, setFleteTercero] = useState(false);
+
+  const remitosModal = useDialog();
+  const remitoDialog = useDialog();
   const totals = useRemitosTotal(remitos);
-  
-  const onSubmit = (data: any) => {
-    console.log("Submit:", data);
+
+  // Funciones de manejo
+  const handleViewRemito = (remito: RemitoDto) => {
+    setSelectedRemito(remito);
+    remitoDialog.openDialog();
+  };
+
+  const handleAddRemitos = () => {
+    remitosModal.openDialog();
+  };
+
+  const handleCancelRemitosModal = () => {
+    setSelectedRemito(undefined);
+    remitosModal.closeDialog();
   };
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="hoja-ruta-form">
+      <form
+        onSubmit={() => console.log("submit")}
+        className="hoja-reparto-form"
+      >
         {/* Header Top */}
         <div className="section">
           <FormRow className="form-header">
             <FormDatePicker name="fecha" label="Fecha" />
-            <FormDatePicker name="salida" label="Fecha de Salida" />
-            <FormDatePicker name="llegada" label="Fecha de Llegada" />
-            <TextField label="Estado" value="ABIERTA" disabled fullWidth />
+            <FormTimePicker name="salida" label="Hora Salida" />
+            <FormTimePicker name="llegada" label="Hora Llegada" />
+            <TextField
+              label="Estado"
+              value={"ABIERTA"}
+              disabled
+              fullWidth
+            />
           </FormRow>
         </div>
 
-        {/* Origen y Destino */}
+        {/* Sucursal */}
         <div className="section">
           <FormRow>
             <AutoCompleteSelector
-              name="origen"
-              label="Origen"
+              name="sucursal"
+              label="Sucursal"
               control={control}
-              options={[
-                { value: "BAS", label: "Buenos Aires" },
-                { value: "SNZ", label: "Santa Cruz" },
-              ]}
-              errors={{
-                origen: {
-                  message: "El origen es obligatorio.",
-                },
-              }}
-            />
-            <AutoCompleteSelector
-              name="destino"
-              label="Destino"
-              control={control}
-              options={[
-                { value: "BAS", label: "Buenos Aires" },
-                { value: "SNZ", label: "Santa Cruz" },
-              ]}
-              errors={{
-                destino: {
-                  message: "El destino es obligatorio.",
-                },
-              }} // Simula un error para diseño
+              options={Sucursales}
             />
           </FormRow>
         </div>
@@ -135,27 +155,21 @@ const HojaRutaForm: React.FC = () => {
                 <Checkbox
                   checked={fleteTercero}
                   onChange={(e) => setFleteTercero(e.target.checked)}
+                  color="primary"
                 />
               }
               label="Flete Tercero"
             />
           </FormRow>
 
-          {fleteTercero && (
+          {/* Transporte Opcional */}
+          {fleteTercero && ( // Muestra solo si el checkbox está activado
             <FormRow>
               <AutoCompleteSelector
                 name="transporteId"
                 label="Transporte"
                 control={control}
-                options={[
-                  { value: "1", label: "Transporte A" },
-                  { value: "2", label: "Transporte B" },
-                ]}
-                errors={{
-                  origen: {
-                    message: "El origen es obligatorio.",
-                  },
-                }}
+                options={transporteOptions}
               />
             </FormRow>
           )}
@@ -167,22 +181,12 @@ const HojaRutaForm: React.FC = () => {
               label="Personal"
               control={control}
               options={personalOptions}
-              errors={{
-                origen: {
-                  message: "El origen es obligatorio.",
-                },
-              }}
             />
             <AutoCompleteSelector
               name="maquinariaId"
               label="Camión"
               control={control}
               options={camionOptions}
-              errors={{
-                origen: {
-                  message: "El origen es obligatorio.",
-                },
-              }}
             />
           </FormRow>
         </div>
@@ -190,22 +194,46 @@ const HojaRutaForm: React.FC = () => {
         {/* Tabla de Remitos */}
         <SelectedRemitosTable
           remitos={remitos}
-          onView={(remito) => console.log("Ver Remito", remito)}
-          onDelete={(id) => console.log("Eliminar Remito", id)}
+          onView={handleViewRemito}
+          onDelete={() => console.log("Removiendo remito")}
         />
-
+ 
         {/* Sección de Totales */}
         <TotalsSection totals={totals} />
-        
+
         {/* Botones de acción */}
+        <Button variant="contained" color="primary" onClick={handleAddRemitos}>
+          Agregar Remitos
+        </Button>
         <div className="form-actions">
           <Button type="submit" variant="contained" color="primary">
             Guardar
           </Button>
         </div>
       </form>
+
+      {/* Modal para Seleccionar Remitos */}
+      <RemitosHojaRepartoDialog
+        open={remitosModal.isOpen}
+        remitos={remitos}
+        isLoading={false}
+        onClose={handleCancelRemitosModal}
+        setValue={() => console.log("seteando remito")}
+      />
+
+      {/* Modal para Ver Remito */}
+      <RemitoDialog
+        isOpen={remitoDialog.isOpen}
+        onClose={remitoDialog.closeDialog}
+        remito={selectedRemito || remitos[0]}
+        onSubmit={() => console.log("Remito Dialog")}
+        remitentesOptions={[]}
+        destinatariosOptions={[]}
+        remitentesData={[]}
+        destinatariosData={[]}
+      />
     </FormProvider>
   );
 };
 
-export default HojaRutaForm;
+export default HojaRepartoForm;

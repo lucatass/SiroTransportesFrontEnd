@@ -1,0 +1,7 @@
+/* TotalsSection.css */
+.form-totals {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 24px;
+}
