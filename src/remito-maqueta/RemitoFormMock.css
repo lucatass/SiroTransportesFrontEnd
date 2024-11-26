@@ -68,11 +68,6 @@ body {
   padding-right: 8px;
 }
 
-.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root {
-  width: 150px;
-  height: 30px;
-}
-
 
 /*ORIGINALMENETE ARCHIVO REMITO.CSS*/
 .remitos-form {
@@ -272,4 +267,18 @@ body {
 .flex-column.compact-column {
   padding: 0px;
   margin-top: -10px; 
+}
+
+/* Textfield*/
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 150px;
+  height: 30px;
+}
+/* Textfield que no permite cambiar el tamaño*/
+MuiInputBase-input.MuiOutlinedInput-input.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+  width: 150px;
+  height: 0px!important;
+  padding: 0px!important;
+  margin: 0px!important;
+  border: 0px!important;
 }
