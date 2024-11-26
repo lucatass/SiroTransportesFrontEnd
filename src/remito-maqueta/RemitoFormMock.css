@@ -1,3 +1,80 @@
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #50c878;
+  --background-color: #fafbfc;
+  --divider-color: #e0e4e8;
+  --text-color: #333333;
+  --subheader-color: #4a4a4a;
+  --error-color: #e74c3c;
+  --info-color: #4a90e2;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+
+
+
+
+
+
+
+
+/* Estilo de las leyendas de error y mensajes informativos */
+.status-message {
+  font-size: 0.9rem;
+  color: var(--info-color);
+  text-align: center;
+  background-color: #e6f0fc;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin: 0.5rem 0;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  background-color: #fdecea;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+
+/* size of DateTimePicker */
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-sizeSmall {
+  font-size: 1rem;
+  height: 40px;
+  padding-right: 8px;
+}
+
+/*fecha width*/
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-sizeSmall.MuiInputBase-adornedEnd {
+  width: 190px;
+}
+/*Label */
+.MuiTextField-root .MuiInputLabel-root {
+  font-size: 1rem; /* Smaller label font size */
+}
+
+/*Adjust Tracking*/
+.MuiInputBase-input.MuiOutlinedInput-input.Mui-disabled {
+  font-size: 0.9rem;
+  height: 8px;
+  padding-right: 8px;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 150px;
+  height: 30px;
+}
+
+
+/*ORIGINALMENETE ARCHIVO REMITO.CSS*/
 .remitos-form {
   background-color: aliceblue;
   padding: 20px;
@@ -16,7 +93,6 @@
 
 .remitos-form label {
   display: block;
-  margin-top: 10px;
   font-weight: bold;
   font-size: 0.95em;
   color: #555;
@@ -40,14 +116,19 @@
 }
 
 .remitos-form .cliente-detalles {
-  background-color: #f4f8fc;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
+  flex: 1;
   font-size: 0.9em;
+  margin-top: 0rem;
+  padding: 0.5rem;
+  border: 2px solid;
+  border-color: #cedeec;
+  border-radius: 15px;
+  background-color: #e6f4ff;
+  font-size: 0.9rem;
+  max-width: 220px;
 }
 
-.remitos-form .cliente-detalles p {
+.cliente-detalles p {
   margin: 4px 0;
   color: #333;
 }
@@ -61,7 +142,6 @@
 .remitos-form .product-table th,
 .remitos-form .product-table td {
   border: 1px solid #e1e1e1;
-  padding: 12px;
   text-align: left;
 }
 
@@ -74,20 +154,6 @@
   background-color: #f3f7fc;
 }
 
-.remitos-form .custom-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 900px;
-  max-height: 90vh;
-  overflow-y: auto;
-  background-color: #ffffff;
-  padding: 0px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(56, 52, 52, 0.15);
-}
 .ReactModal__Content.ReactModal__Content--after-open.custom-modal {
   scrollbar-width: thin;
   scrollbar-color: #0077ff #f3f7fc;
@@ -120,14 +186,11 @@
 .remitos-form .modal-buttons-container {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 0px;
   margin-top: 20px;
 }
 
-.remitos-form .modal-button {
-  padding: 10px 20px;
-}
-
+/*REMITENTE Y DESTINATARIO*/
 .remitos-form .form-row {
   display: flex;
   flex-wrap: wrap;
@@ -135,13 +198,14 @@
   margin-bottom: 25px;
 }
 
-.remitos-form .form-column {
-  flex: 1;
-  min-width: 250px;
-}
 
 .remitos-form .form-column:last-child {
   margin-right: 0;
+}
+.remitos-form .form-column {
+  margin-bottom: -30px;
+  margin-top: -10px;
+  padding: -10px;
 }
 
 .remitos-form .form-column label {
@@ -161,23 +225,23 @@
 }
 
 .remitos-form .client-selector {
-  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  margin-top: -20px;
 }
-
-.remitos-form .react-select__control.css-13cymwt-control {
-  transition: border-color 0.3s ease;
+.remitos-form .react-select-menu {
+  background-color: #000000;
 }
-
 .remitos-form .react-select__control.css-13cymwt-control:hover {
   border-color: #000000; /* Change to desired hover border color */
 
 }
 .MuiInputBase-input.MuiOutlinedInput-input.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input{
   border-color: #000000!important;
-}
+} 
 .remitos-form .form-row button {
   margin-top: 15px;
-  padding: 10px 20px;
+  padding: 8px 20px;
   font-size: 1em;
 }
 
@@ -192,16 +256,20 @@
 .MuiBox-root.css-1u94rr5{
   background-color: #b3b3b3;
 }
-MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
-  max-width: 10px!important;
+
+.remitos-form .top-row {
+  gap: 100px;
 }
 
-/* Use the id selector with escaping for colons */
-input#\:r5\ {
-  padding: 10px; /* Add padding */
-  background-color: #f9f9f9; /* Example background color */
-  border: 1px solid #ccc; /* Example border */
-  color: #555; /* Example text color */
-  border-radius: 5px; /* Optional rounded corners */
-  font-size: 16px; /* Example font size */
+.remitos-form .tracking-field {
+  margin-top: 10px;
+}
+
+.flex-row.compact-row {
+  margin: 4px;
+}
+
+.flex-column.compact-column {
+  padding: 0px;
+  margin-top: -10px; 
 }

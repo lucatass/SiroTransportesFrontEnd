@@ -280,47 +280,40 @@ const RemitosForm: React.FC<RemitosFormProps> = ({ initialData, onSubmit }) => {
 
         {/* Fila 3: Remito, CartaPorte, Valor Declarado y Descripción */}
         <FormRow>
-          <div className="form-column">
             <TextField
               label="Remito"
               variant="outlined"
-              fullWidth
+              
               {...register("remito")}
               error={!!errors.remito}
               helperText={errors.remito?.message}
             />
-          </div>
-          <div className="form-column">
+          
             <TextField
               label="Carta Porte"
               variant="outlined"
-              fullWidth
+              
               {...register("cartaPorte")}
               error={!!errors.cartaPorte}
               helperText={errors.cartaPorte?.message}
             />
-          </div>
-          <div className="form-column">
             <TextField
               type="number"
               label="Valor declarado"
               variant="outlined"
-              fullWidth
+              sx={{ width: "10px" }}
               {...register("valorDeclarado")}
               error={!!errors.valorDeclarado}
               helperText={errors.valorDeclarado?.message}
             />
-          </div>
-          <div className="form-column">
             <TextField
               label="Descripción"
               variant="outlined"
-              fullWidth
+              
               {...register("descripcion")}
               error={!!errors.descripcion}
               helperText={errors.descripcion?.message}
             />
-          </div>
         </FormRow>
 
         {/* Fila 4: Pago En y Tracking */}

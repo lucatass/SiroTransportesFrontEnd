@@ -1,13 +1,13 @@
 // App.tsx
 import React from "react";
-import TestForm from "./form/TestForm";
+import RemitoFormMock from "./remito-maqueta/RemitoFormMock";
 import "./theme/App.css";
 
 const App: React.FC = () => {
   return (
     <div className="app">
       <div className="content">
-        <TestForm />
+        <RemitoFormMock />
       </div>
     </div>
   );

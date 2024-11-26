@@ -80,4 +80,3 @@ input:hover, button:hover, select:hover {
 .sidebar.open ~ .content {
   margin-left: 220px; /* Match the sidebar's width */
 }
-
