@@ -29,10 +29,11 @@ const TotalsSection: React.FC<TotalsSectionProps> = ({ totals }) => {
           slotProps={{
             input: {
               readOnly: true,
+              style: { width: 100 },
             },
           }}
-          fullWidth
-          margin="normal"
+          margin="none"
+          size="small"
         />
         <TextField
           label="Valor Declarado"
@@ -40,10 +41,11 @@ const TotalsSection: React.FC<TotalsSectionProps> = ({ totals }) => {
           slotProps={{
             input: {
               readOnly: true,
+              style: { width: 100 },
             },
           }}
-          fullWidth
-          margin="normal"
+          margin="none"
+          size="small"
         />
         <TextField
           label="Contrareembolso"
@@ -51,21 +53,23 @@ const TotalsSection: React.FC<TotalsSectionProps> = ({ totals }) => {
           slotProps={{
             input: {
               readOnly: true,
+              style: { width: 100 },
             },
           }}
-          fullWidth
-          margin="normal"
-        />
+          margin="none"
+          size="small"
+          />
         <TextField
           label="Seguro"
           value={totals.seguro}
           slotProps={{
             input: {
               readOnly: true,
+              style: { width: 100 },
             },
           }}
-          fullWidth
-          margin="normal"
+          margin="none"
+          size="small"
         />
         <TextField
           label="Total Origen"
@@ -73,10 +77,12 @@ const TotalsSection: React.FC<TotalsSectionProps> = ({ totals }) => {
           slotProps={{
             input: {
               readOnly: true,
+              style: { width: 200 },
             },
           }}
-          fullWidth
-          margin="normal"
+          
+          margin="none"
+          size="small"
         />
         <TextField
           label="Total Destino"
@@ -84,10 +90,12 @@ const TotalsSection: React.FC<TotalsSectionProps> = ({ totals }) => {
           slotProps={{
             input: {
               readOnly: true,
+              style: { width: 200 },
             },
           }}
-          fullWidth
-          margin="normal"
+          
+          margin="none"
+          size="small"
         />
       </FormRow>
     </div>

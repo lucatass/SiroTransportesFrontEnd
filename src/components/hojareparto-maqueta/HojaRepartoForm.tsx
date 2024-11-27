@@ -116,12 +116,15 @@ const HojaRepartoForm: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
+
       <form
         onSubmit={() => console.log("submit")}
         className="hoja-reparto-form"
       >
         {/* Header Top */}
         <div className="section">
+        <h2>Hoja de reparto</h2>
+
           <FormRow className="form-header">
             <FormDatePicker name="fecha" label="Fecha" />
             <FormTimePicker name="salida" label="Hora Salida" />
@@ -136,61 +139,53 @@ const HojaRepartoForm: React.FC = () => {
         </div>
 
         {/* Sucursal */}
-        <div className="section">
-          <FormRow>
-            <AutoCompleteSelector
-              name="sucursal"
-              label="Sucursal"
-              control={control}
-              options={Sucursales}
-            />
-          </FormRow>
-        </div>
-
-        {/* Checkbox para Flete Tercero */}
-        <div className="section">
-          <FormRow>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={fleteTercero}
-                  onChange={(e) => setFleteTercero(e.target.checked)}
-                  color="primary"
-                />
-              }
-              label="Flete Tercero"
-            />
-          </FormRow>
-
-          {/* Transporte Opcional */}
-          {fleteTercero && ( // Muestra solo si el checkbox está activado
+        <div className="sucursal">
             <FormRow>
               <AutoCompleteSelector
-                name="transporteId"
-                label="Transporte"
+                name="sucursal"
+                label="Sucursal"
                 control={control}
-                options={transporteOptions}
+                options={Sucursales}
               />
-            </FormRow>
-          )}
+          <div className="vertical-section"/>
+          {/* Checkbox para Flete Tercero */}
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={fleteTercero}
+                    onChange={(e) => setFleteTercero(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label="Flete Tercero"
+              />
 
-          {/* Personal y Camión */}
-          <FormRow>
-            <AutoCompleteSelector
-              name="personalId"
-              label="Personal"
-              control={control}
-              options={personalOptions}
-            />
-            <AutoCompleteSelector
-              name="maquinariaId"
-              label="Camión"
-              control={control}
-              options={camionOptions}
-            />
+            {/* Transporte Opcional */}
+            {fleteTercero && ( // Muestra solo si el checkbox está activado
+                <AutoCompleteSelector
+                  name="transporteId"
+                  label="Transporte"
+                  control={control}
+                  options={transporteOptions}
+                />
+            )}
+
+            {/* Personal y Camión */}
+              <AutoCompleteSelector
+                name="personalId"
+                label="Personal"
+                control={control}
+                options={personalOptions}
+              />
+              <AutoCompleteSelector
+                name="maquinariaId"
+                label="Camión"
+                control={control}
+                options={camionOptions}
+              />
           </FormRow>
         </div>
-
+          <div className="section"/>
         {/* Tabla de Remitos */}
         <SelectedRemitosTable
           remitos={remitos}
@@ -201,14 +196,14 @@ const HojaRepartoForm: React.FC = () => {
         {/* Sección de Totales */}
         <TotalsSection totals={totals} />
 
-        {/* Botones de acción */}
-        <Button variant="contained" color="primary" onClick={handleAddRemitos}>
-          Agregar Remitos
-        </Button>
+        {/* Botones */}
         <div className="form-actions">
-          <Button type="submit" variant="contained" color="primary">
-            Guardar
+          <Button variant="contained" color="primary" onClick={handleAddRemitos}>
+            Agregar Remitos
           </Button>
+            <Button type="submit" variant="contained" color="primary">
+              Guardar
+            </Button>
         </div>
       </form>
 

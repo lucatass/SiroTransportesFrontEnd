@@ -13,7 +13,8 @@ interface AutoCompleteSelectorProps {
   label: string;
   control: any;
   options: Option[];
-  errors?: Record<string, { message: string }>; // Maneja los errores
+  errors?: Record<string, { message: string }>; // Handle errors
+  width?: string; // Add width prop
 }
 
 const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
@@ -22,6 +23,7 @@ const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
   control,
   options,
   errors,
+  width,
 }) => {
   return (
     <Controller
@@ -36,8 +38,9 @@ const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
             <TextField
               {...params}
               label={label}
-              error={!!errors?.[name]} // Marca como error si existe
-              helperText={errors?.[name]?.message} // Muestra el mensaje de error
+              error={!!errors?.[name]} // Mark as error if exists
+              helperText={errors?.[name]?.message} // Show error message
+              style={{ width: width || "224px" }} 
             />
           )}
         />
@@ -47,3 +50,4 @@ const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
 };
 
 export default AutoCompleteSelector;
+
