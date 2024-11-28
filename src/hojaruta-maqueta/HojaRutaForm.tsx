@@ -84,6 +84,7 @@ const HojaRutaForm: React.FC = () => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="hoja-ruta-form">
         {/* Header Top */}
+        <h2>Hoja de Ruta</h2>
         <div className="section">
           <FormRow className="form-header">
             <FormDatePicker name="fecha" label="Fecha" />
@@ -124,12 +125,7 @@ const HojaRutaForm: React.FC = () => {
                 },
               }} // Simula un error para diseño
             />
-          </FormRow>
-        </div>
 
-        {/* Checkbox para Flete Tercero */}
-        <div className="section">
-          <FormRow>
             <FormControlLabel
               control={
                 <Checkbox
@@ -139,10 +135,8 @@ const HojaRutaForm: React.FC = () => {
               }
               label="Flete Tercero"
             />
-          </FormRow>
 
           {fleteTercero && (
-            <FormRow>
               <AutoCompleteSelector
                 name="transporteId"
                 label="Transporte"
@@ -157,11 +151,9 @@ const HojaRutaForm: React.FC = () => {
                   },
                 }}
               />
-            </FormRow>
           )}
 
           {/* Personal y Camión */}
-          <FormRow>
             <AutoCompleteSelector
               name="personalId"
               label="Personal"
