@@ -153,7 +153,6 @@ const RemitoFormMock: React.FC = () => {
 
         {/* Fila de Remitente y Destinatario */}
         <FormRow>
-          <div className="form-column">
             <ClientSelector
               name="remitenteId"
               label="Remitente"
@@ -165,8 +164,6 @@ const RemitoFormMock: React.FC = () => {
               errors={methods.formState.errors}
               data={clientes}
             />
-          </div>
-          <div className="form-column">
             <ClientSelector
               name="destinatarioId"
               label="Destinatario"
@@ -178,10 +175,11 @@ const RemitoFormMock: React.FC = () => {
               errors={methods.formState.errors}
               data={clientes}
             />
-          </div>
         </FormRow>
 
         {/* Fila de Pago en */}
+        <FormRow className="flex-row">
+
         <div className="payment-field">
           <label>Pago en</label>
           <Select
@@ -194,19 +192,21 @@ const RemitoFormMock: React.FC = () => {
         </div>
 
         {/* Fila de Remito, Carta Porte, Bultos y Descripción */}
-        <FormRow className="flex-row">
+        <div className="datos-remito">
           <div className="flex-column">
-            <TextField label="Remito" variant="outlined" fullWidth />
+            <TextField label="Remito" variant="outlined" size="small" sx={{ width: 130 }}/>
           </div>
           <div className="flex-column">
-            <TextField label="Carta Porte" variant="outlined" fullWidth />
+            <TextField label="Carta Porte" variant="outlined" size="small" sx={{ width: 130 }} />
           </div>
           <div className="flex-column">
-            <TextField label="Bultos" variant="outlined" fullWidth />
+            <TextField label="Bultos" variant="outlined" size="small" sx={{ width: 130 }}/>
           </div>
           <div className="flex-column">
-            <TextField label="Descripción" variant="outlined" fullWidth />
+            <TextField label="Descripción" variant="outlined" size="small" sx={{ width: 130 }}/>
           </div>
+
+        </div>
         </FormRow>
 
         {/* Grupo de Seguro y ContraReembolso */}
@@ -216,13 +216,13 @@ const RemitoFormMock: React.FC = () => {
             <h3>Seguro</h3>
             <FormRow className="flex-row compact-row">
               <div className="flex-column compact-column">
-                <TextField label="Valor Declarado" type="number" />
+                <TextField label="Valor Declarado" type="number" size="small"  />
               </div>
               <div className="flex-column compact-column">
-                <TextField label="Coeficiente (%)" type="number" />
+                <TextField label="Coeficiente (%)" type="number" size="small"/>
               </div>
               <div className="flex-column compact-column">
-                <TextField label="Seguro Total" type="number" />
+                <TextField label="Seguro Total" type="number" size="small"/>
               </div>
             </FormRow>
           </div>
@@ -232,13 +232,13 @@ const RemitoFormMock: React.FC = () => {
             <h3>ContraReembolso</h3>
             <FormRow className="flex-row compact-row">
               <div className="flex-column compact-column">
-                <TextField label="Importe" type="number" />
+                <TextField label="Importe" type="number" size="small" />
               </div>
               <div className="flex-column compact-column">
-                <TextField label="Coeficiente (%)" type="number" />
+                <TextField label="Coeficiente (%)" type="number" size="small"/>
               </div>
               <div className="flex-column compact-column">
-                <TextField label="Comisión" type="number" />
+                <TextField label="Comisión" type="number" size="small"/>
               </div>
             </FormRow>
           </div>

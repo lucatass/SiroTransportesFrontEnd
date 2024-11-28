@@ -58,6 +58,7 @@ h2 {
   padding:0;
   border-radius: 8px;
   background-color: var(--background-color);
+  
 }
 
 .form-row {
@@ -128,11 +129,10 @@ h2 {
   margin-top: 0;
 }
 
-.product-table-container {
-  border-top: 1px solid var(--divider-color);
-  padding-top: 1rem;
-  margin-top: 1rem;
+.payment-field{
+  width: fit-content;
 }
+
 
 /* Estilo de las leyendas de error y mensajes informativos */
 .status-message {
@@ -275,7 +275,16 @@ body {
   border-radius: 6px;
 }
 
+.datos-remito {
+  display: flex;
+  flex-direction: row;
+  margin-top: 23px;
+  pad	
+}
 
+.flex-column{
+  padding-left: 10px;
+}
 /* size of DateTimePicker */
 
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-sizeSmall {
@@ -300,25 +309,6 @@ body {
   padding-right: 8px;
 }
 
-/*ORIGINALMENETE ARCHIVO REMITO.CSS*/
-
-.remitos-form label {
-  display: block;
-  font-weight: bold;
-  font-size: 0.95em;
-  color: #555;
-}
-
-.remitos-form input,
-.remitos-form select,
-.remitos-form button {
-  margin-top: 8px;
-  padding: 12px;
-  border-radius: 5px;
-  width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1em;
-}
 
 .ReactModal__Content.ReactModal__Content--after-open.custom-modal::-webkit-scrollbar {
   width: 6px;
