@@ -138,8 +138,8 @@ const RemitoFormMock: React.FC = () => {
         ) : null}
 
         {/* Fila superior con Fecha de Registro y Tracking */}
-        <FormRow className="top-row">
-          <div className="small-field">
+        <FormRow className="form-header">
+          <div className="fecha-field">
             <FormDatePicker
               name="fecha"
               label="Fecha de Registro"
