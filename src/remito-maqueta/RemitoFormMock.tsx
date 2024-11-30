@@ -155,7 +155,7 @@ const RemitoFormMock: React.FC = () => {
         <FormRow>
             <ClientSelector
               name="remitenteId"
-              label="Remitente"
+              label="Remitente&nbsp;"
               control={methods.control}
               options={[
                 { value: 3, label: "Daiberman Social" },
@@ -166,7 +166,7 @@ const RemitoFormMock: React.FC = () => {
             />
             <ClientSelector
               name="destinatarioId"
-              label="Destinatario"
+              label="Destinatario&nbsp;"
               control={methods.control} // Lo mismo aquí
               options={[
                 { value: 3, label: "Cliente C" },
@@ -245,10 +245,15 @@ const RemitoFormMock: React.FC = () => {
         </div>
 
         {/* Botón para agregar productos */}
-        <FormRow>
+        <FormRow className="button-row">
           <Button variant="contained" onClick={productDialog.openDialog}>
             Agregar Producto
           </Button>
+          {/* Botón de guardar */}
+          <Button type="submit" variant="contained" color="primary">
+            Guardar Remito
+          </Button>
+        
         </FormRow>
 
         {/* Tabla de productos */}
@@ -264,12 +269,7 @@ const RemitoFormMock: React.FC = () => {
           addProduct={() => {}}
         />
 
-        {/* Botón de guardar */}
-        <FormRow>
-          <Button type="submit" variant="contained" color="primary">
-            Guardar Remito
-          </Button>
-        </FormRow>
+
       </form>
     </FormProvider>
   );

@@ -40,7 +40,7 @@ const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
               label={label}
               error={!!errors?.[name]} // Mark as error if exists
               helperText={errors?.[name]?.message} // Show error message
-              style={{ width: width || "224px" }} 
+              style={{ width: width || "130px" }} 
             />
           )}
         />

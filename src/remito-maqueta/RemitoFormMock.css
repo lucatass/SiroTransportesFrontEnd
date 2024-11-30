@@ -19,7 +19,7 @@ h2 {
     
   display: flex;
   align-items: center;
-  width: 1000px;
+  width: 935px;
   background-color: #01439b;
   color: rgb(255, 255, 255)!important;
   font-size: 1.4rem!important;
@@ -53,7 +53,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 1000px;
+  max-width: 950px;
   margin: auto;
   padding:0;
   border-radius: 8px;
@@ -157,6 +157,7 @@ h2 {
 .action-buttons {
   display: flex;
   justify-content: center;
+  
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -187,6 +188,11 @@ h2 {
   background-color: #3a78c9;
 }
 
+.button-row {
+  display: flex;
+  justify-content: center; /* Align buttons to the center */
+}
+}
 /* Inputs */
 .MuiOutlinedInput-notchedOutline {
   border-color: var(--divider-color);
