@@ -4,8 +4,6 @@
     gap: 1rem;
     max-width: 900px;
     margin: auto;
-    padding: 0rem;
-    padding-top: 0;
     background-color: #fafbfc;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -19,7 +17,7 @@
     width: 884px;
     background-color: #01439b;
     color: rgb(255, 255, 255)!important;
-    font-size: 1.4rem!important;
+    font-size: 1.5rem!important;
     padding: 0.5rem!important;
     border-radius: 8px 8px 0 0;
     text-align: center;
@@ -31,6 +29,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem; 
+    margin-top: 5px;
   }
   
   .form-header .MuiTextField-root {
@@ -61,10 +60,13 @@
     margin-top: 0rem;
     border-bottom: 1px solid #c3c4c5;
   }
-  .sucursal{
+  .envio-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
     margin-left: 10px;
   }
-  
+
   .form-totals{
     margin: auto;
     margin: 10px;

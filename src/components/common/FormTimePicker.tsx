@@ -8,12 +8,14 @@ interface FormTimePickerProps {
   name: string;
   label: string;
   format?: string;
+  size?: "small" | "medium";
 }
 
 const FormTimePicker: React.FC<FormTimePickerProps> = ({
   name,
   label,
   format = "HH:mm:ss",
+  size = "small",
 }) => {
   const { control } = useFormContext();
 
@@ -34,6 +36,7 @@ const FormTimePicker: React.FC<FormTimePickerProps> = ({
               fullWidth: true,
               error: !!fieldState.error,
               helperText: fieldState.error ? fieldState.error.message : null,
+              size,
             },
           }}
         />
@@ -43,3 +46,4 @@ const FormTimePicker: React.FC<FormTimePickerProps> = ({
 };
 
 export default FormTimePicker;
+

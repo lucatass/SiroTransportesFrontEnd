@@ -127,148 +127,156 @@ const RemitoFormMock: React.FC = () => {
     <FormProvider {...methods}>
       <form className="remitos-form">
         <h2>Crear Remito</h2>
+          <div className="form-container">
+          {/* Mostrar un mensaje de carga si los datos se están obteniendo */}
+          {isLoadingRemitentes || isLoadingDestinatarios ? (
+            <p>Cargando datos...</p>
+          ) : isErrorRemitentes ? (
+            <p className="error-message">{errorRemitentes.message}</p>
+          ) : isErrorDestinatarios ? (
+            <p className="error-message">{errorDestinatarios.message}</p>
+          ) : null}
 
-        {/* Mostrar un mensaje de carga si los datos se están obteniendo */}
-        {isLoadingRemitentes || isLoadingDestinatarios ? (
-          <p>Cargando datos...</p>
-        ) : isErrorRemitentes ? (
-          <p className="error-message">{errorRemitentes.message}</p>
-        ) : isErrorDestinatarios ? (
-          <p className="error-message">{errorDestinatarios.message}</p>
-        ) : null}
+          {/* Fila superior con Fecha de Registro y Tracking */}
+          <FormRow className="form-header">
+            <div className="fecha-field">
+              <FormDatePicker
+                name="fecha"
+                label="Fecha de Registro"
+                format="DD-MM-YYYY"
+                
+              />
+            </div>
+            <div className="tracking-field">
+              <TextField label="Tracking" variant="outlined" fullWidth disabled size="small"/>
+            </div>
+          </FormRow>
 
-        {/* Fila superior con Fecha de Registro y Tracking */}
-        <FormRow className="form-header">
-          <div className="fecha-field">
-            <FormDatePicker
-              name="fecha"
-              label="Fecha de Registro"
-              format="DD-MM-YYYY"
+          {/* Fila de Remitente y Destinatario */}
+          <FormRow className="clientes-row">
+              <ClientSelector
+                name="remitenteId"
+                label="Remitente&nbsp;"
+                control={methods.control}
+                options={[
+                  { value: 3, label: "Daiberman Social" },
+                  { value: 4, label: "Mormand" },
+                ]}
+                errors={methods.formState.errors}
+                data={clientes}
+              />
+              <ClientSelector
+                name="destinatarioId"
+                label="Destinatario&nbsp;"
+                control={methods.control} // Lo mismo aquí
+                options={[
+                  { value: 3, label: "Cliente C" },
+                  { value: 4, label: "Cliente D" },
+                ]}
+                errors={methods.formState.errors}
+                data={clientes}
+              />
+          </FormRow>
+
+          <div className="divider"/>
+          {/* Fila de Pago en */}
+          <FormRow className="flex-row">
+
+          <div className="payment-field">
+            <label>Pago en</label>
+            <Select
+              options={[
+                { value: "ORIGEN", label: "ORIGEN" },
+                { value: "DESTINO", label: "DESTINO" },
+              ]}
+              placeholder="tipo de pago"
             />
           </div>
-          <div className="tracking-field">
-            <TextField label="Tracking" variant="outlined" fullWidth disabled />
+
+          {/* Fila de Remito, Carta Porte, Bultos y Descripción */}
+          <div className="datos-remito">
+            <div className="flex-column">
+              <TextField label="Remito" variant="outlined" size="small" sx={{ width: 130 }}/>
+            </div>
+            <div className="flex-column">
+              <TextField label="Carta Porte" variant="outlined" size="small" sx={{ width: 130 }} />
+            </div>
+            <div className="flex-column">
+              <TextField label="Bultos" variant="outlined" size="small" sx={{ width: 130 }}/>
+            </div>
+            <div className="flex-column">
+              <TextField label="Descripción" variant="outlined" size="small" sx={{ width: 130 }}/>
+            </div>
+
           </div>
-        </FormRow>
+          </FormRow>
 
-        {/* Fila de Remitente y Destinatario */}
-        <FormRow>
-            <ClientSelector
-              name="remitenteId"
-              label="Remitente&nbsp;"
-              control={methods.control}
-              options={[
-                { value: 3, label: "Daiberman Social" },
-                { value: 4, label: "Mormand" },
-              ]}
-              errors={methods.formState.errors}
-              data={clientes}
-            />
-            <ClientSelector
-              name="destinatarioId"
-              label="Destinatario&nbsp;"
-              control={methods.control} // Lo mismo aquí
-              options={[
-                { value: 3, label: "Cliente C" },
-                { value: 4, label: "Cliente D" },
-              ]}
-              errors={methods.formState.errors}
-              data={clientes}
-            />
-        </FormRow>
+          {/* Grupo de Seguro y ContraReembolso */}
+          <div className="field-group-container compact">
+            {/* Fila de Seguro */}
+            <div className="field-group compact">
+              <div className="importes-header">
+                <h3>Seguro</h3> <h3>ContraReembolso</h3>
+              </div>
+              
+              <FormRow className="gastos-fields">
+                <div className="field">
+                  <p>Valor Declarado</p>
+                  <TextField  type="number" size="small" sx={{ width: 100 }} defaultValue={0.00}  />
+                </div>
+                <div className="field">
+                  <p>Coeficiente (%)</p>
+                  <TextField  type="number" size="small" sx={{ width: 100 }} defaultValue={0.00}  />
+                </div>
+                <div className="field">
+                  <p>Comisión</p>
+                  <TextField  type="number" size="small" sx={{ width: 100 }} defaultValue={0.00}  />
+                </div>
 
-        {/* Fila de Pago en */}
-        <FormRow className="flex-row">
+            {/* Fila de ContraReembolso */}
+                <div className="vertical-line"></div>
+                <div className="importe-field">
+                  <p>Importe</p>
+                  <TextField  type="number" size="small" sx={{ width: 100 }} defaultValue={0.00}   />
+                </div>
+                <div className="field">
+                  <p>Coeficiente (%)</p>
+                  <TextField  type="number" size="small" sx={{ width: 100 }} defaultValue={0.00}   />
+                </div>
+                <div className="field">
+                  <p>Comisión</p>
+                  <TextField  type="number" size="small" sx={{ width: 100 }} defaultValue={0.00}   />
+                </div>
+              </FormRow>
+            </div>
+          </div>
 
-        <div className="payment-field">
-          <label>Pago en</label>
-          <Select
-            options={[
-              { value: "ORIGEN", label: "ORIGEN" },
-              { value: "DESTINO", label: "DESTINO" },
-            ]}
-            placeholder="Seleccione un tipo de pago"
+         
+
+          {/* Tabla de productos */}
+          <ProductTable
+            productos={initialData.detalleProductos}
+            removeProduct={() => {}}
+          />
+
+          {/* Dialogo de Producto */}
+          <ProductDialog
+            isOpen={productDialog.isOpen}
+            onRequestClose={productDialog.closeDialog}
+            addProduct={() => {}}
           />
         </div>
-
-        {/* Fila de Remito, Carta Porte, Bultos y Descripción */}
-        <div className="datos-remito">
-          <div className="flex-column">
-            <TextField label="Remito" variant="outlined" size="small" sx={{ width: 130 }}/>
-          </div>
-          <div className="flex-column">
-            <TextField label="Carta Porte" variant="outlined" size="small" sx={{ width: 130 }} />
-          </div>
-          <div className="flex-column">
-            <TextField label="Bultos" variant="outlined" size="small" sx={{ width: 130 }}/>
-          </div>
-          <div className="flex-column">
-            <TextField label="Descripción" variant="outlined" size="small" sx={{ width: 130 }}/>
-          </div>
-
-        </div>
-        </FormRow>
-
-        {/* Grupo de Seguro y ContraReembolso */}
-        <div className="field-group-container compact">
-          {/* Fila de Seguro */}
-          <div className="field-group compact">
-            <h3>Seguro</h3>
-            <FormRow className="flex-row compact-row">
-              <div className="flex-column compact-column">
-                <TextField label="Valor Declarado" type="number" size="small"  />
-              </div>
-              <div className="flex-column compact-column">
-                <TextField label="Coeficiente (%)" type="number" size="small"/>
-              </div>
-              <div className="flex-column compact-column">
-                <TextField label="Seguro Total" type="number" size="small"/>
-              </div>
-            </FormRow>
-          </div>
-
-          {/* Fila de ContraReembolso */}
-          <div className="field-group compact">
-            <h3>ContraReembolso</h3>
-            <FormRow className="flex-row compact-row">
-              <div className="flex-column compact-column">
-                <TextField label="Importe" type="number" size="small" />
-              </div>
-              <div className="flex-column compact-column">
-                <TextField label="Coeficiente (%)" type="number" size="small"/>
-              </div>
-              <div className="flex-column compact-column">
-                <TextField label="Comisión" type="number" size="small"/>
-              </div>
-            </FormRow>
-          </div>
-        </div>
-
-        {/* Botón para agregar productos */}
-        <FormRow className="button-row">
-          <Button variant="contained" onClick={productDialog.openDialog}>
-            Agregar Producto
-          </Button>
-          {/* Botón de guardar */}
-          <Button type="submit" variant="contained" color="primary">
-            Guardar Remito
-          </Button>
-        
-        </FormRow>
-
-        {/* Tabla de productos */}
-        <ProductTable
-          productos={initialData.detalleProductos}
-          removeProduct={() => {}}
-        />
-
-        {/* Dialogo de Producto */}
-        <ProductDialog
-          isOpen={productDialog.isOpen}
-          onRequestClose={productDialog.closeDialog}
-          addProduct={() => {}}
-        />
-
+         {/* Botón para agregar productos */}
+         <FormRow className="button-row">
+            <Button variant="contained" onClick={productDialog.openDialog}>
+              Agregar Producto
+            </Button>
+            {/* Botón de guardar */}
+            <Button type="submit" variant="contained" color="primary">
+              Guardar Remito
+            </Button>
+          
+          </FormRow>
 
       </form>
     </FormProvider>

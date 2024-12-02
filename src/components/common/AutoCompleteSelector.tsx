@@ -2,6 +2,7 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import { TextField, Autocomplete } from "@mui/material";
+import { Box } from "@mui/material";
 
 interface Option {
   value: string | number;
@@ -15,6 +16,7 @@ interface AutoCompleteSelectorProps {
   options: Option[];
   errors?: Record<string, { message: string }>; // Handle errors
   width?: string; // Add width prop
+  size?: "small" | "medium";
 }
 
 const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
@@ -23,24 +25,32 @@ const AutoCompleteSelector: React.FC<AutoCompleteSelectorProps> = ({
   control,
   options,
   errors,
-  width,
+  width = "160px", // Default width value
+  size = "small",
 }) => {
   return (
+
     <Controller
       name={name}
       control={control}
       render={({ field }) => (
         <Autocomplete
           {...field}
+          size={size}
           options={options}
           getOptionLabel={(option) => option.label}
+          sx={{
+            width, // Set width for the main Autocomplete container
+            "  .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth.MuiInputBase-formControl.MuiInputBase-sizeSmall.MuiInputBase-adornedEnd.MuiAutocomplete-inputRoot": {
+              width, // Ensure the input and dropdown match
+            },
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
               label={label}
               error={!!errors?.[name]} // Mark as error if exists
               helperText={errors?.[name]?.message} // Show error message
-              style={{ width: width || "130px" }} 
             />
           )}
         />

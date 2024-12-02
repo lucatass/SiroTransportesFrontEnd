@@ -8,12 +8,14 @@ interface FormDatePickerProps {
   name: string;
   label: string;
   format?: string;
+  size?: "small" | "medium"; // Optional size prop
 }
 
 const FormDatePicker: React.FC<FormDatePickerProps> = ({
   name,
   label,
   format = "DD-MM-YYYY",
+  size = "small", // Default size
 }) => {
   const { control } = useFormContext();
 
@@ -31,6 +33,7 @@ const FormDatePicker: React.FC<FormDatePickerProps> = ({
           slotProps={{
             textField: {
               variant: "outlined",
+              size: size, // Apply size to the text field
             },
           }}
         />
@@ -40,3 +43,4 @@ const FormDatePicker: React.FC<FormDatePickerProps> = ({
 };
 
 export default FormDatePicker;
+

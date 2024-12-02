@@ -126,7 +126,7 @@ const HojaRepartoForm: React.FC = () => {
         <h2>Hoja de reparto</h2>
 
           <FormRow className="form-header">
-            <FormDatePicker name="fecha" label="Fecha" />
+            <FormDatePicker name="fecha" label="Fecha" size="small"/> 
             <FormTimePicker name="salida" label="Hora Salida" />
             <FormTimePicker name="llegada" label="Hora Llegada" />
             <TextField
@@ -139,13 +139,13 @@ const HojaRepartoForm: React.FC = () => {
         </div>
 
         {/* Sucursal */}
-        <div className="sucursal">
-            <FormRow>
+        <div className="envio-row">
               <AutoCompleteSelector
                 name="sucursal"
                 label="Sucursal"
                 control={control}
                 options={Sucursales}
+                size="small"
               />
           <div className="vertical-section"/>
           {/* Checkbox para Flete Tercero */}
@@ -183,7 +183,6 @@ const HojaRepartoForm: React.FC = () => {
                 control={control}
                 options={camionOptions}
               />
-          </FormRow>
         </div>
           <div className="section"/>
         {/* Tabla de Remitos */}

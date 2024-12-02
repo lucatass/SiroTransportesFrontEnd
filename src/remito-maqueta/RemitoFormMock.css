@@ -19,7 +19,7 @@ h2 {
     
   display: flex;
   align-items: center;
-  width: 935px;
+  width: 745px;
   background-color: #01439b;
   color: rgb(255, 255, 255)!important;
   font-size: 1.4rem!important;
@@ -28,18 +28,36 @@ h2 {
   text-align: center;
   margin: 0;    
 }
-/* Header dentro del formulario con altura compacta */
+/* Estilos para  */	
+p{
+  padding: 0;
+  margin: 0;
+}
+
+.vertical-line {
+  border-left: 1px solid var(--divider-color);
+  margin-left: 10px;
+}
+
+.divider{
+  border-bottom: 1px solid var(--divider-color);
+  margin-top: 6px;
+
+}
+
 .form-header { 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0rem; /* Reducción del padding */
-  margin: 0rem!;
+  padding-bottom: 10px; /* Reducción del padding */
   background-color: var(--background-color);
   border-bottom: 1px solid var(--divider-color);
-  margin-bottom: 0.75rem; /* Ajuste de separación inferior */
+  margin-top: -15px;
 }
 
+.form-container{
+  margin-left: 10px;
+}
 .fecha-field {
   text-align: right;
   margin-left: 1rem;
@@ -53,7 +71,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 950px;
+  max-width: 760px;
   margin: auto;
   padding:0;
   border-radius: 8px;
@@ -61,6 +79,13 @@ h2 {
   
 }
 
+.clientes-row{
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px!important;
+}
 .form-row {
   display: flex;
   flex-wrap: wrap;
@@ -116,24 +141,29 @@ h2 {
   padding-left: 0.25rem;
   padding-bottom: 0.5rem;
 }
-
-/* Organización de Seguro y ContraReembolso en dos columnas */
-.two-column-group {
-  display: flex;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
-.two-column-group .form-group {
-  flex: 1;
-  margin-top: 0;
-}
-
 .payment-field{
   width: fit-content;
 }
 
+.importes-header{
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  column-gap: 340px;
+}
 
+.field {
+  margin-top: -10px; ;
+}
+.importe-field {
+
+  margin-left: 10px;
+  margin-top: -10px;
+}
+
+.button-row {
+  margin-bottom: 1rem;
+}
 /* Estilo de las leyendas de error y mensajes informativos */
 .status-message {
   font-size: 0.9rem;
@@ -157,9 +187,7 @@ h2 {
 .action-buttons {
   display: flex;
   justify-content: center;
-  
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
 .action-buttons .MuiButton-root {
@@ -192,7 +220,7 @@ h2 {
   display: flex;
   justify-content: center; /* Align buttons to the center */
 }
-}
+
 /* Inputs */
 .MuiOutlinedInput-notchedOutline {
   border-color: var(--divider-color);
@@ -212,6 +240,7 @@ h2 {
 
 .remitos-form .client-selector {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   margin-top: -20px;
 }
@@ -233,7 +262,7 @@ h2 {
   border-radius: 15px;
   background-color: #e6f4ff;
   font-size: 0.9rem;
-  max-width: 220px;
+  max-width: 340px;
 }
 
 .cliente-detalles p {
