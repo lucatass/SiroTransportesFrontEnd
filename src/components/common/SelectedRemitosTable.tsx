@@ -7,6 +7,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TableContainer,
+  Paper,
 } from "@mui/material";
 import { FaEye, FaTrash } from "react-icons/fa";
 import "./css/SelectedRemitosTable.css";
@@ -27,34 +29,34 @@ const SelectedRemitosTable: React.FC<SelectedRemitosTableProps> = ({
   }
 
   return (
-    <div className="selected-remitos-table-container">
-      <Table className="selected-remitos-table">
+    <TableContainer component={Paper}>
+      <Table className="selected-remitos-table" size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Carta Porte</TableCell>
-            <TableCell>Remitente</TableCell>
-            <TableCell>Destinatario</TableCell>
-            <TableCell>Tipo Pago</TableCell>
-            <TableCell>Bultos</TableCell>
-            <TableCell>Valor Declarado</TableCell>
-            <TableCell>ContraReembolso</TableCell>
-            <TableCell>Seguro</TableCell>
-            <TableCell>Tracking</TableCell>
-            <TableCell>Acciones</TableCell>
+            <TableCell align="left">Carta Porte</TableCell>
+            <TableCell align="left">Remitente</TableCell>
+            <TableCell align="left">Destinatario</TableCell>
+            <TableCell align="left">Tipo Pago</TableCell>
+            <TableCell align="left">Bultos</TableCell>
+            <TableCell align="left">Valor Declarado</TableCell>
+            <TableCell align="left">ContraReembolso</TableCell>
+            <TableCell align="left">Seguro</TableCell>
+            <TableCell align="left">Tracking</TableCell>
+            <TableCell align="left">Acciones</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {remitos.map((remito) => (
             <TableRow key={remito.id}>
-              <TableCell>{remito.cartaPorte}</TableCell>
-              <TableCell>{remito.remitente}</TableCell>
-              <TableCell>{remito.destinatario}</TableCell>
-              <TableCell>{remito.tipoPago}</TableCell>
-              <TableCell>{remito.bultos}</TableCell>
-              <TableCell>{remito.seguro.valorDeclarado}</TableCell>
-              <TableCell>{remito.contraReembolso.comision}</TableCell>
-              <TableCell>{remito.seguro.seguro}</TableCell>
-              <TableCell>{remito.tracking}</TableCell>
+              <TableCell align="left">{remito.cartaPorte}</TableCell>
+              <TableCell align="left">{remito.remitente}</TableCell>
+              <TableCell align="left">{remito.destinatario}</TableCell>
+              <TableCell align="left">{remito.tipoPago}</TableCell>
+              <TableCell align="left">{remito.bultos}</TableCell>
+              <TableCell align="left">{remito.seguro.valorDeclarado}</TableCell>
+              <TableCell align="left">{remito.contraReembolso.comision}</TableCell>
+              <TableCell align="left">{remito.seguro.seguro}</TableCell>
+              <TableCell align="left">{remito.tracking}</TableCell>
               <TableCell className="selected-remitos-table-actions">
                 <IconButton
                   onClick={() => onView(remito)}
@@ -75,8 +77,9 @@ const SelectedRemitosTable: React.FC<SelectedRemitosTableProps> = ({
           ))}
         </TableBody>
       </Table>
-    </div>
+    </TableContainer>
   );
 };
 
 export default SelectedRemitosTable;
+

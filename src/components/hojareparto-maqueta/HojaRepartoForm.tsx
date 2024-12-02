@@ -186,7 +186,7 @@ const HojaRepartoForm: React.FC = () => {
         </div>
           <div className="section"/>
         {/* Tabla de Remitos */}
-        <SelectedRemitosTable
+        <SelectedRemitosTable 
           remitos={remitos}
           onView={handleViewRemito}
           onDelete={() => console.log("Removiendo remito")}
@@ -196,7 +196,7 @@ const HojaRepartoForm: React.FC = () => {
         <TotalsSection totals={totals} />
 
         {/* Botones */}
-        <div className="form-actions">
+        <div className="form-buttons">
           <Button variant="contained" color="primary" onClick={handleAddRemitos}>
             Agregar Remitos
           </Button>

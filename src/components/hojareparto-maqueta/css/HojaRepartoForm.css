@@ -48,12 +48,11 @@
     gap: 1rem
   }
   
-  .form-actions {
+  .form-buttons {
     display: flex;
     justify-content: flex-end;
     margin-top: 0rem;
     justify-content: center;
-    
   }
   
   .section {
