@@ -71,7 +71,7 @@ const camionOptions = [
 ]
 
 const HojaRutaForm: React.FC = () => {
-  const methods = useForm();
+  const methods = useForm(); 
   const { control, handleSubmit } = methods;
   const [fleteTercero, setFleteTercero] = useState(false);
   const totals = useRemitosTotal(remitos);
@@ -87,9 +87,8 @@ const HojaRutaForm: React.FC = () => {
         <h2>Hoja de Ruta</h2>
         <div className="section">
           <FormRow className="form-header">
-            <FormDatePicker name="fecha" label="Fecha" />
-            <FormDatePicker name="salida" label="Fecha de Salida" />
-            <FormDatePicker name="llegada" label="Fecha de Llegada" />
+            <FormDatePicker name="fecha" label="Fecha" width="100px" />
+
             <TextField label="Estado" value="ABIERTA" disabled fullWidth />
           </FormRow>
         </div>
@@ -97,6 +96,8 @@ const HojaRutaForm: React.FC = () => {
         {/* Origen y Destino */}
         <div className="section">
           <FormRow>
+          <FormDatePicker name="salida" label="Fecha de Salida"  />
+          <FormDatePicker name="llegada" label="Fecha de Llegada" />
             <AutoCompleteSelector
               name="origen"
               label="Origen"
@@ -125,7 +126,8 @@ const HojaRutaForm: React.FC = () => {
                 },
               }} // Simula un error para diseño
             />
-
+          </FormRow>
+          <FormRow>
             <FormControlLabel
               control={
                 <Checkbox
@@ -190,7 +192,7 @@ const HojaRutaForm: React.FC = () => {
         <TotalsSection totals={totals} />
         
         {/* Botones de acción */}
-        <div className="form-actions">
+        <div className="form-buttons">
           <Button type="submit" variant="contained" color="primary">
             Guardar
           </Button>

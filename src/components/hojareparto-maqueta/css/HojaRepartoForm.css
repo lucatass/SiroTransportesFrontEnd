@@ -8,8 +8,12 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', sans-serif; /* Para garantizar uniformidad */
-    
-  }
+
+}
+
+:root {
+  --secondary-color: red;
+}
   h2 {
     
     display: flex;
@@ -60,7 +64,7 @@
     border-bottom: 1px solid #c3c4c5;
   }
   .envio-row {
-    display: flex;
+    display: flex; 
     flex-direction: row;
     gap: 1rem;
     margin-left: 10px;
@@ -90,11 +94,7 @@
     margin: auto!important;
     margin-bottom: 10px!important;
   }
-  
-  button:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.02);
-  }
+
   
   /* Responsive */
   @media (max-width: 768px) {
@@ -142,5 +142,4 @@
   
   .vertical-section{
     border-left: 1px solid rgba(128, 128, 128, 0.466);
-    
   }

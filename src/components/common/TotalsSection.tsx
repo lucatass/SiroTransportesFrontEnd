@@ -77,7 +77,7 @@ const TotalsSection: React.FC<TotalsSectionProps> = ({ totals }) => {
           slotProps={{
             input: {
               readOnly: true,
-              style: { width: 200 },
+              style: { width: 100 },
             },
           }}
           
@@ -90,7 +90,7 @@ const TotalsSection: React.FC<TotalsSectionProps> = ({ totals }) => {
           slotProps={{
             input: {
               readOnly: true,
-              style: { width: 200 },
+              style: { width: 100 },
             },
           }}
           

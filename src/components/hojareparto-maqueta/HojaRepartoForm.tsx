@@ -28,7 +28,7 @@ const remitos = [
     id: "4",
     fecha: "22-05-2024",
     tracking: "PLANTA",
-    remitente: "Pablo Moringo",
+    remitente: "Pablo Moringo", 
     destinatario: "Mormand",
     tipoPago: "DESTINO",
     remito: "1",

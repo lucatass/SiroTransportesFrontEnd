@@ -29,7 +29,17 @@ const RemitosHojaRepartoDialog: React.FC<RemitosHojaRepartoDialogProps> = ({
   remitos,
 }) => {
   return (
-    <Dialog open={open} onClose={() => console.log("close dialog")} fullWidth maxWidth="md">
+    <Dialog
+      open={open}
+      onClose={() => console.log("close dialog")}
+      fullWidth
+      maxWidth="md"
+      sx={{
+        "& .MuiDialog-paper": {
+          borderRadius: "10px",
+        },
+      }}
+    >
       <DialogTitle>Seleccionar Remitos</DialogTitle>
       <DialogContent className="dialog-content">
           <Table>
@@ -67,7 +77,7 @@ const RemitosHojaRepartoDialog: React.FC<RemitosHojaRepartoDialogProps> = ({
           </Table>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => console.log("close dialog")} color="secondary">
+        <Button onClick={() => console.log("close dialog")} style={{ backgroundColor: '#ff8e31', color:"white" }}>
           Cancelar
         </Button>
         <Button variant="contained" color="primary" onClick={() => console.log("close dialog")}>
@@ -79,3 +89,4 @@ const RemitosHojaRepartoDialog: React.FC<RemitosHojaRepartoDialogProps> = ({
 };
 
 export default RemitosHojaRepartoDialog;
+
