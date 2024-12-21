@@ -23,8 +23,8 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
   label,
   control,
   options,
-  errors,
   data,
+  errors,
 }) => {
   const selectedOption = useWatch({
     control,
@@ -33,7 +33,9 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
 
   const selectedClient = useMemo(() => {
     if (selectedOption && selectedOption.value) {
-      return data.find((cliente) => cliente.id === selectedOption.value) || null;
+      return (
+        data.find((cliente) => cliente.id === selectedOption.value) || null
+      );
     }
     return null;
   }, [selectedOption, data]);
@@ -50,38 +52,40 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
             inputId={name}
             options={options}
             placeholder={`Seleccione un ${label.toLowerCase()}`}
-            onChange={(selectedOption) => field.onChange(selectedOption)}
-            value={field.value}
+            onChange={(selectedOption) => {
+              field.onChange(selectedOption);
+            }}
+            value={
+              options.find((option) => option.value === field.value?.value) ||
+              null
+            }
             classNamePrefix="react-select"
             aria-label={label}
+            menuPortalTarget={document.body} // Renderiza el menú en el body
+            styles={{
+              menuPortal: (base) => ({ ...base, zIndex: 9999 }), // Ajusta el z-index
+            }}
+            menuPosition="fixed"
           />
         )}
       />
       {errors[name]?.message && (
-        <p className="error-message">{errors[name]?.message}</p>
+        <p className="error-message">{errors[name]?.message as string}</p>
       )}
-      {selectedClient && (
+      {selectedClient && selectedClient.direcciones?.length > 0 && (
         <div className="cliente-detalles">
           <p>
-            <strong>Razón Social:</strong> {selectedClient.razonSocial}
+            <strong>Domicilio:</strong>{" "}
+            {selectedClient.direcciones[0].domicilio}
           </p>
           <p>
-            <strong>CUIT:</strong> {selectedClient.nroDoc}
+            <strong>Localidad:</strong>{" "}
+            {selectedClient.direcciones[0].localidad}
           </p>
-          {selectedClient.direcciones?.length > 0 && (
-            <>
-              <p>
-                <strong>Domicilio:</strong> {selectedClient.direcciones[0].domicilio}
-              </p>
-              <p>
-                <strong>Localidad:</strong> {selectedClient.direcciones[0].localidad}
-              </p>
-            </>
-          )}
         </div>
       )}
     </div>
   );
 };
 
-export default ClientSelector
+export default ClientSelector;

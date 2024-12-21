@@ -6,3 +6,4 @@ export { default as DataTable } from './DataTable';
 export type { DataTableRef } from './DataTable';
 export { default as FormDatePicker } from './FormDatePicker'
 export { default as FormRow } from './FormRow'
+export { default as CustomButton } from './CustomButton';

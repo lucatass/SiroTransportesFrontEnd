@@ -78,7 +78,7 @@ export interface RemitoFormData {
   descripcion: string;
   bultos: number;
   seguro: Seguro;
-  contrareembolso: ContraReembolso;
+  contraReembolso: ContraReembolso;
   detalleProductos: Producto[];
 }
 

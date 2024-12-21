@@ -1,15 +1,9 @@
 import React, { useReducer, useEffect } from "react";
 import Select from "react-select";
-import {
-  Button,
-  TextField,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
-import { Producto } from "../types/types";
+import { TextField, Dialog, DialogContent, DialogActions, Box, Grid } from "@mui/material";
 import { TipoProducto, UNIDADES } from "./remitoConstants";
+import { Producto } from "../types/types";
+import { CustomButton } from "../components/common";
 
 interface ProductDialogProps {
   isOpen: boolean;
@@ -37,72 +31,123 @@ const ProductDialog: React.FC<ProductDialogProps> = ({
   );
 
   useEffect(() => {
+    if (isOpen) {
+      setState(initialState);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
     setState({ total: state.cantidad * state.precio });
   }, [state.cantidad, state.precio]);
 
   const handleAddProduct = () => {
     addProduct(state);
-    setState(initialState); 
+    setState(initialState);
     onRequestClose();
   };
 
   return (
     <Dialog open={isOpen} onClose={onRequestClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Agregar Producto</DialogTitle>
       <DialogContent>
-        {/* Contenido del modal */}
-        <Select
-          options={Object.values(TipoProducto).map((tp) => ({
-            value: tp,
-            label: tp,
-          }))}
-          onChange={(option) =>
-            setState({ producto: option?.value as TipoProducto })
-          }
-        />
+        <Box sx={{ mb: 2 }}>
+          <Grid container spacing={2}>
+            {/* Primera fila: Producto y Unidad */}
+            <Grid item xs={12}>
+              <Select
+                options={Object.values(TipoProducto).map((tp) => ({
+                  value: tp,
+                  label: tp,
+                }))}
+                onChange={(option) =>
+                  setState({ producto: option?.value as TipoProducto })
+                }
+                menuPortalTarget={document.body}
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  control: (base) => ({ ...base, minHeight: 56 }),
+                }}
+                menuPosition="fixed"
+                placeholder="Producto"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Select
+                options={UNIDADES}
+                onChange={(option) => setState({ unidad: option?.value || "" })}
+                menuPortalTarget={document.body}
+                styles={{
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  control: (base) => ({ ...base, minHeight: 56 }),
+                }}
+                menuPosition="fixed"
+                placeholder="Unidad"
+              />
+            </Grid>
 
-        <Select
-          options={UNIDADES}
-          onChange={(option) => setState({ unidad: option?.value || "" })}
-        />
+            {/* Inputs alineados uno debajo del otro */}
+            <Grid item xs={12}>
+              <TextField
+                label="Cantidad"
+                type="number"
+                value={state.cantidad === 0 ? "" : state.cantidad}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setState({ cantidad: value === "" ? 0 : parseFloat(value) });
+                }}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Precio"
+                type="number"
+                value={state.precio === 0 ? "" : state.precio}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setState({ precio: value === "" ? 0 : parseFloat(value) });
+                }}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Total"
+                value={state.total.toFixed(2)}
+                slotProps={{
+                  input: { readOnly: true },
+                }}
+                fullWidth
+              />
+            </Grid>
 
-        <TextField
-          label="Cantidad"
-          type="number"
-          value={state.cantidad}
-          onChange={(e) =>
-            setState({ cantidad: parseFloat(e.target.value) || 0 })
-          }
-        />
-
-        <TextField
-          label="Precio"
-          type="number"
-          value={state.precio}
-          onChange={(e) =>
-            setState({ precio: parseFloat(e.target.value) || 0 })
-          }
-        />
-
-        <TextField
-          label="Total"
-          value={state.total.toFixed(2)}
-          InputProps={{ readOnly: true }}
-        />
-
-        <TextField
-          label="Descripción"
-          value={state.descripcion}
-          onChange={(e) => setState({ descripcion: e.target.value })}
-        />
+            {/* Descripción */}
+            <Grid item xs={12}>
+              <TextField
+                label="Descripción"
+                value={state.descripcion}
+                onChange={(e) => setState({ descripcion: e.target.value })}
+                fullWidth
+                multiline
+                rows={2} // Achicamos el tamaño
+              />
+            </Grid>
+          </Grid>
+        </Box>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleAddProduct} variant="contained" color="primary">
+      <DialogActions sx={{ justifyContent: "center" }}> {/* Centramos botones */}
+        <CustomButton onClick={handleAddProduct} variant="contained">
           Añadir Producto
-        </Button>
-        <Button onClick={onRequestClose} variant="outlined" color="secondary">
+        </CustomButton>
+        <CustomButton
+          onClick={onRequestClose}
+          sx={{
+            backgroundColor: "red",
+            "&:hover": { backgroundColor: "darkred" },
+            color: "white",
+          }}
+        >
           Cancelar
-        </Button>
+        </CustomButton>
       </DialogActions>
     </Dialog>
   );
