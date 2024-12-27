@@ -14,6 +14,8 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import "dayjs/locale/es";
 import "./RemitoFormMock.css";
 import { TipoProducto } from "./remitoConstants";
+import { FaPlus } from "react-icons/fa";
+
 
 dayjs.extend(customParseFormat);
 
@@ -129,22 +131,23 @@ const RemitoFormMock: React.FC = () => {
       <form className="remitos-form">
 
         {/* Fila superior con Fecha de Registro y Tracking */}
-        <Box className="section">
-          <Box className="form-header">
-            <FormDatePicker name="fecha" label="Fecha de Registro" />
-            <TextField
-              label="Tracking"
-              variant="outlined"
-              value={initialData?.tracking}
-              fullWidth
-              disabled
-            />
+          <Box className="form-header" sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 2 }}>
+            <Box sx={{ width: "150px"}}>
+              <FormDatePicker name="fecha" label="Fecha de Registro" />
+            </Box>
+            <Box sx={{ width: "150px"}}>
+              <TextField
+                label="Tracking"
+                variant="outlined"
+                value={initialData?.tracking}
+                disabled
+              />
+            </Box>
           </Box>
-        </Box>
         
         {/* Fila de Remitente y Destinatario */}
         <Box>
-          <Box className="form-column">
+          <Box className="form-column" sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
             <ClientSelector
               name="remitenteId"
               label="Remitente"
@@ -155,9 +158,9 @@ const RemitoFormMock: React.FC = () => {
               ]}
               errors={methods.formState.errors}
               data={clientes}
+              
             />
-          </Box>
-          <Box className="form-column">
+
             <ClientSelector
               name="destinatarioId"
               label="Destinatario"
@@ -173,7 +176,7 @@ const RemitoFormMock: React.FC = () => {
         </Box>
 
         {/* Fila de Pago en */}
-        <Box className="payment-field">
+        <Box className="payment-field" sx={{marginBottom: 2}}>
           <label>Pago en</label>
           <Controller
             name="tipoPago"
@@ -204,8 +207,8 @@ const RemitoFormMock: React.FC = () => {
         </Box>
 
         {/* Fila de Remito, CartaPorte, Bultos y Descripción */}
-        <FormRow className="flex-row">
-          <Box className="flex-column">
+        <Box className="datos-pago" sx={{ display: "flex", gap: 2 }}>
+          <Box className="datos-pago-item" sx={{ width: "200px" }}>
             <TextField
               label="Remito"
               variant="outlined"
@@ -216,7 +219,7 @@ const RemitoFormMock: React.FC = () => {
               helperText={errors.remito?.message}
             />
           </Box>
-          <Box className="flex-column">
+          <Box className="datos-pago-item" sx={{ width: "200px" }}>
             <TextField
               label="Carta Porte"
               variant="outlined"
@@ -227,7 +230,7 @@ const RemitoFormMock: React.FC = () => {
               helperText={errors.cartaPorte?.message}
             />
           </Box>
-          <Box className="flex-column">
+          <Box className="datos-pago-item" sx={{ width: "200px" }}>
             <TextField
               label="Bultos"
               variant="outlined"
@@ -238,7 +241,7 @@ const RemitoFormMock: React.FC = () => {
               helperText={errors.bultos?.message}
             />
           </Box>
-          <Box className="flex-column">
+          <Box className="datos-pago-item" sx={{ width: "200px" }}>
             <TextField
               label="Descripción"
               variant="outlined"
@@ -249,15 +252,15 @@ const RemitoFormMock: React.FC = () => {
               helperText={errors.descripcion?.message}
             />
           </Box>
-        </FormRow>
+        </Box>
 
         {/* Grupo de Seguro y ContraReembolso en dos filas */}
-        <Box className="field-group-container compact">
+        <Box className="seguro-reembolso-container" sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* Fila de Seguro */}
-          <Box className="field-group compact">
+          <Box className="seguro">
             <h3>Seguro</h3>
-            <FormRow className="flex-row compact-row">
-              <Box className="flex-column compact-column">
+            <FormRow className="seguro-row">
+              <Box className="seguro-item">
                 <TextField
                   label="Valor Declarado"
                   type="number"
@@ -267,8 +270,9 @@ const RemitoFormMock: React.FC = () => {
                   helperText={errors.seguro?.valorDeclarado?.message}
                 />
               </Box>
-              <Box className="flex-column compact-column">
+              <Box className="seguro-item">
                 <TextField
+                  sx={{ width: "226px" }} 
                   label="Coeficiente (%)"
                   type="number"
                   {...register("seguro.coeficiente")}
@@ -287,7 +291,7 @@ const RemitoFormMock: React.FC = () => {
                   }}
                 />
               </Box>
-              <Box className="flex-column compact-column">
+              <Box className="seguro-item">
                 <TextField
                   label="Seguro Total"
                   type="number"
@@ -295,18 +299,22 @@ const RemitoFormMock: React.FC = () => {
                   className="styled-input compact-input"
                   error={!!errors.seguro?.seguro}
                   helperText={errors.seguro?.seguro?.message}
+                  value={                  
+                    (methods.watch("seguro.valorDeclarado") || 0) *
+                    (methods.watch("seguro.coeficiente") || 0)
+                    }
                 />
               </Box>
             </FormRow>
           </Box>
 
           {/* Fila de ContraReembolso */}
-          <Box className="field-group compact">
+          <Box className="reembolso" >
             <h3>ContraReembolso</h3>
-            <Box className="flex-row compact-row">
-              <Box className="flex-column compact-column">
+            <Box className="reembolso-row">
+              <Box className="reembolso-item">
                 <TextField
-                  label="Importe"
+                  label="Importe" 
                   type="number"
                   {...register("contraReembolso.importe")}
                   className="styled-input compact-input"
@@ -314,8 +322,9 @@ const RemitoFormMock: React.FC = () => {
                   helperText={errors.contraReembolso?.importe?.message}
                 />
               </Box>
-              <Box className="flex-column compact-column">
+              <Box className="reembolso-item">
                 <TextField
+                  sx={{ width: "226px" }} 
                   label="Coeficiente (%)"
                   type="number"
                   {...register("contraReembolso.coeficiente")}
@@ -334,7 +343,7 @@ const RemitoFormMock: React.FC = () => {
                   }}
                 />
               </Box>
-              <Box className="flex-column compact-column">
+              <Box className="reembolso-item">
                 <TextField
                   label="Comision"
                   type="number"
@@ -342,6 +351,10 @@ const RemitoFormMock: React.FC = () => {
                   className="styled-input compact-input"
                   error={!!errors.contraReembolso?.comision}
                   helperText={errors.contraReembolso?.comision?.message}
+                  value={                  
+                  (methods.watch("contraReembolso.importe") || 0) *
+                  (methods.watch("contraReembolso.coeficiente") || 0)
+                  }
                 />
               </Box>
             </Box>
@@ -349,9 +362,10 @@ const RemitoFormMock: React.FC = () => {
         </Box>
 
         {/* Botón para Agregar Producto */}
-        <Box>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2, margin: "20px 0 5px" , height: "40px" }}>
+          <h3>Productos</h3>
           <CustomButton onClick={productDialog.openDialog}>
-            Agregar Producto
+            {<FaPlus />}
           </CustomButton>
         </Box>
 
@@ -369,13 +383,13 @@ const RemitoFormMock: React.FC = () => {
         />
 
         {/* Botón de Guardar */}
-        <Box>
+        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 2 }}>
           <CustomButton
             type="submit"
             aria-label={"Guardar Remito"}
           >
             {"Guardar Remito"}
-          </CustomButton>
+          </CustomButton> 
         </Box>
       </form>
     </FormProvider>

@@ -6,6 +6,14 @@
   --text-color: rgba(3, 57, 78, 0.87);
   --sidebar-bg-color: #333;
   --sidebar-hover-bg-color: #444;
+  --primary-color: #4a90e2;
+  --secondary-color: #50c878;
+  --background-color: #fafbfc;
+  --divider-color: #e0e4e8;
+  --text-color: #333333;
+  --subheader-color: #4a4a4a;
+  --error-color: #e74c3c;
+  --info-color: #4a90e2;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
