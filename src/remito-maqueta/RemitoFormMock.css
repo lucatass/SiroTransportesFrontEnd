@@ -22,6 +22,9 @@ input, select {
   margin-bottom: 15px;
 }
 
+.react-select__menu {
+  z-index: 999
+;}
 
 /* Estilos para el input de coeficiente porque sino no está todo en blanco */
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
