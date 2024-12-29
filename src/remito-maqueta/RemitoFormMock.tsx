@@ -2,7 +2,7 @@
 import React from "react";
 import { TextField, Box } from "@mui/material";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { CustomButton, FormDatePicker, FormRow } from "../components/common";
+import { CustomButton, FormDatePicker } from "../components/common";
 import { useDialog } from "../hooks";
 import { RemitoFormData } from "../types/types";
 import Select from "react-select";
@@ -11,11 +11,10 @@ import ProductDialog from "./ProductDialog";
 import ProductTable from "./ProductTable";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import "dayjs/locale/es";
-import "./RemitoFormMock.css";
 import { TipoProducto } from "./remitoConstants";
 import { FaPlus } from "react-icons/fa";
-
+import "dayjs/locale/es";
+import "./RemitoFormMock.css";
 
 dayjs.extend(customParseFormat);
 
@@ -98,7 +97,7 @@ const clientes = [
       },
     ],
   },
-]
+];
 
 const RemitoFormMock: React.FC = () => {
   const productDialog = useDialog();
@@ -125,142 +124,173 @@ const RemitoFormMock: React.FC = () => {
     formState: { errors },
   } = methods;
 
-
   return (
     <FormProvider {...methods}>
       <form className="remitos-form">
-
         {/* Fila superior con Fecha de Registro y Tracking */}
-          <Box className="form-header" sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 2 }}>
-            <Box sx={{ width: "150px"}}>
-              <FormDatePicker name="fecha" label="Fecha de Registro" />
-            </Box>
-            <Box sx={{ width: "150px"}}>
-              <TextField
-                label="Tracking"
-                variant="outlined"
-                value={initialData?.tracking}
-                disabled
-              />
-            </Box>
+        <Box className="form-header">
+          <Box sx={{ width: "150px" }}>
+            <FormDatePicker name="fecha" label="Fecha de Registro" />
           </Box>
-        
-        {/* Fila de Remitente y Destinatario */}
-        <Box>
-          <Box className="form-column" sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-            <ClientSelector
-              name="remitenteId"
-              label="Remitente"
-              control={methods.control}
-              options={[
-                { value: 3, label: "Daiberman Social" },
-                { value: 4, label: "Mormand" },
-              ]}
-              errors={methods.formState.errors}
-              data={clientes}
-              
-            />
 
-            <ClientSelector
-              name="destinatarioId"
-              label="Destinatario"
-              control={methods.control}
-              options={[
-                { value: 3, label: "Cliente C" },
-                { value: 4, label: "Cliente D" },
-              ]}
-              errors={methods.formState.errors}
-              data={clientes}
+          <Box sx={{ width: "150px" }}>
+            <TextField
+              label="Tracking"
+              variant="outlined"
+              value={initialData?.tracking}
+              disabled
             />
           </Box>
         </Box>
 
-        {/* Fila de Pago en */}
-        <Box className="payment-field" sx={{marginBottom: 2}}>
-          <label>Pago en</label>
-          <Controller
-            name="tipoPago"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                options={[
-                  { value: "ORIGEN", label: "ORIGEN" },
-                  { value: "DESTINO", label: "DESTINO" },
-                ]}
-                placeholder="Seleccione un tipo de pago"
-                onChange={(selectedOption) => {
-                  field.onChange(selectedOption?.value);
-                }}
-                value={
-                  field.value
-                    ? { value: field.value, label: field.value }
-                    : null
-                }
-                classNamePrefix="react-select"
-              />
-            )}
+        {/* Fila de Remitente y Destinatario */}
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 15,
+            margin: 2,
+            paddingTop: 2,
+          }}
+        >
+          <ClientSelector
+            name="remitenteId"
+            label="Remitente"
+            control={methods.control}
+            options={[
+              { value: 3, label: "Daiberman Social" },
+              { value: 4, label: "Mormand" },
+            ]}
+            errors={methods.formState.errors}
+            data={clientes}
           />
-          {errors.tipoPago && (
-            <p className="error-message">{errors.tipoPago.message}</p>
-          )}
+
+          <ClientSelector
+            name="destinatarioId"
+            label="Destinatario"
+            control={methods.control}
+            options={[
+              { value: 3, label: "Cliente C" },
+              { value: 4, label: "Cliente D" },
+            ]}
+            errors={methods.formState.errors}
+            data={clientes}
+          />
         </Box>
 
         {/* Fila de Remito, CartaPorte, Bultos y Descripción */}
-        <Box className="datos-pago" sx={{ display: "flex", gap: 2 }}>
-          <Box className="datos-pago-item" sx={{ width: "200px" }}>
-            <TextField
-              label="Remito"
-              variant="outlined"
-              fullWidth
-              {...register("remito")}
-              className="styled-input"
-              error={!!errors.remito}
-              helperText={errors.remito?.message}
-            />
-          </Box>
-          <Box className="datos-pago-item" sx={{ width: "200px" }}>
-            <TextField
-              label="Carta Porte"
-              variant="outlined"
-              fullWidth
-              {...register("cartaPorte")}
-              className="styled-input"
-              error={!!errors.cartaPorte}
-              helperText={errors.cartaPorte?.message}
-            />
-          </Box>
-          <Box className="datos-pago-item" sx={{ width: "200px" }}>
-            <TextField
-              label="Bultos"
-              variant="outlined"
-              fullWidth
-              {...register("bultos")}
-              className="styled-input"
-              error={!!errors.bultos}
-              helperText={errors.bultos?.message}
-            />
-          </Box>
-          <Box className="datos-pago-item" sx={{ width: "200px" }}>
-            <TextField
-              label="Descripción"
-              variant="outlined"
-              fullWidth
-              {...register("descripcion")}
-              className="styled-input"
-              error={!!errors.descripcion}
-              helperText={errors.descripcion?.message}
-            />
-          </Box>
+        <Box sx={{ display: "flex", gap: 2, margin: 2 }}>
+          <TextField
+            label="Remito"
+            variant="outlined"
+            fullWidth
+            {...register("remito")}
+            className="styled-input"
+            error={!!errors.remito}
+            helperText={errors.remito?.message}
+            sx={{ width: "220px" }}
+          />
+          <TextField
+            label="Carta Porte"
+            variant="outlined"
+            fullWidth
+            {...register("cartaPorte")}
+            className="styled-input"
+            error={!!errors.cartaPorte}
+            helperText={errors.cartaPorte?.message}
+            sx={{ width: "220px" }}
+          />
+          <TextField
+            label="Bultos"
+            variant="outlined"
+            fullWidth
+            {...register("bultos")}
+            className="styled-input"
+            error={!!errors.bultos}
+            helperText={errors.bultos?.message}
+            sx={{ width: "220px" }}
+          />
+          <TextField
+            label="Descripción"
+            variant="outlined"
+            fullWidth
+            {...register("descripcion")}
+            className="styled-input"
+            error={!!errors.descripcion}
+            helperText={errors.descripcion?.message}
+          />
         </Box>
 
-        {/* Grupo de Seguro y ContraReembolso en dos filas */}
-        <Box className="seguro-reembolso-container" sx={{ display: "flex", justifyContent: "space-between" }}>
-          {/* Fila de Seguro */}
-          <Box className="seguro">
-            <h3>Seguro</h3>
-            <FormRow className="seguro-row">
-              <Box className="seguro-item">
+        {/* Sección: Pago, Seguro y ContraReembolso */}
+        <Box
+          sx={{
+            display: "flex",
+            gap: 4,
+            margin: 2,
+            paddingTop: 2,
+          }}
+        >
+          {/* Columna: Pago */}
+          <Box
+            sx={{
+              flex: 1, // Ocupa 1/3 del espacio
+              maxWidth: "33%",
+            }}
+          >
+            <label htmlFor="tipoPago" className="form-label">
+              Pago:
+            </label>
+            <Controller
+              name="tipoPago"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  options={[
+                    { value: "ORIGEN", label: "ORIGEN" },
+                    { value: "DESTINO", label: "DESTINO" },
+                  ]}
+                  placeholder="Seleccione"
+                  onChange={(selectedOption) => {
+                    field.onChange(selectedOption?.value);
+                  }}
+                  value={
+                    field.value
+                      ? { value: field.value, label: field.value }
+                      : null
+                  }
+                  classNamePrefix="custom-react-select"
+                  styles={{
+                    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  }}
+                  menuPosition="fixed"
+                />
+              )}
+            />
+          </Box>
+
+          {/* Columna: Seguro y ContraReembolso */}
+          <Box
+            sx={{
+              flex: 2, // Ocupa 2/3 del espacio
+              maxWidth: "66%", // Garantiza que no exceda 2/3
+              marginLeft: 10
+            }}
+          >
+            {/* Grupo Seguro */}
+            <Box>
+              <label htmlFor="seguro" className="form-label">
+                Seguro
+              </label>
+              <Box
+                id="seguro"
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  flexWrap: "wrap",
+                  marginTop: 2,
+                }}
+              >
                 <TextField
                   label="Valor Declarado"
                   type="number"
@@ -268,11 +298,9 @@ const RemitoFormMock: React.FC = () => {
                   className="styled-input compact-input"
                   error={!!errors.seguro?.valorDeclarado}
                   helperText={errors.seguro?.valorDeclarado?.message}
+                  sx={{ width: "120px" }}
                 />
-              </Box>
-              <Box className="seguro-item">
                 <TextField
-                  sx={{ width: "226px" }} 
                   label="Coeficiente (%)"
                   type="number"
                   {...register("seguro.coeficiente")}
@@ -281,7 +309,6 @@ const RemitoFormMock: React.FC = () => {
                   helperText={errors.seguro?.coeficiente?.message}
                   slotProps={{
                     input: {
-                      endAdornment: <span>%</span>,
                       inputProps: {
                         step: 0.01,
                         min: 0,
@@ -290,41 +317,52 @@ const RemitoFormMock: React.FC = () => {
                     },
                   }}
                 />
-              </Box>
-              <Box className="seguro-item">
                 <TextField
                   label="Seguro Total"
                   type="number"
-                  {...register("seguro.seguro")}
-                  className="styled-input compact-input"
-                  error={!!errors.seguro?.seguro}
-                  helperText={errors.seguro?.seguro?.message}
-                  value={                  
+                  value={(
                     (methods.watch("seguro.valorDeclarado") || 0) *
                     (methods.watch("seguro.coeficiente") || 0)
-                    }
+                  ).toFixed(2)}
+                  {...register("seguro.seguro")}
+                  className="styled-input compact-input"
+                  onChange={(e) =>
+                    methods.setValue(
+                      "seguro.seguro",
+                      parseFloat(e.target.value)
+                    )
+                  }
+                  error={!!errors.seguro?.seguro}
+                  helperText={errors.seguro?.seguro?.message}
+                  sx={{ width: "120px" }}
                 />
               </Box>
-            </FormRow>
-          </Box>
+            </Box>
 
-          {/* Fila de ContraReembolso */}
-          <Box className="reembolso" >
-            <h3>ContraReembolso</h3>
-            <Box className="reembolso-row">
-              <Box className="reembolso-item">
+            {/* Grupo ContraReembolso */}
+            <Box sx={{ marginTop: 4 }}>
+              <label htmlFor="contrareembolso" className="form-label">
+                ContraReembolso
+              </label>
+              <Box
+                id="contrareembolso"
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  flexWrap: "wrap",
+                  marginTop: 2,
+                }}
+              >
                 <TextField
-                  label="Importe" 
+                  label="Importe"
                   type="number"
                   {...register("contraReembolso.importe")}
                   className="styled-input compact-input"
                   error={!!errors.contraReembolso?.importe}
                   helperText={errors.contraReembolso?.importe?.message}
+                  sx={{ width: "120px" }}
                 />
-              </Box>
-              <Box className="reembolso-item">
                 <TextField
-                  sx={{ width: "226px" }} 
                   label="Coeficiente (%)"
                   type="number"
                   {...register("contraReembolso.coeficiente")}
@@ -333,7 +371,6 @@ const RemitoFormMock: React.FC = () => {
                   helperText={errors.contraReembolso?.coeficiente?.message}
                   slotProps={{
                     input: {
-                      endAdornment: <span>%</span>,
                       inputProps: {
                         step: 0.01,
                         min: 0,
@@ -342,19 +379,24 @@ const RemitoFormMock: React.FC = () => {
                     },
                   }}
                 />
-              </Box>
-              <Box className="reembolso-item">
                 <TextField
                   label="Comision"
                   type="number"
+                  value={(
+                    (methods.watch("contraReembolso.importe") || 0) *
+                    (methods.watch("contraReembolso.coeficiente") || 0)
+                  ).toFixed(2)}
                   {...register("contraReembolso.comision")}
                   className="styled-input compact-input"
+                  onChange={(e) =>
+                    methods.setValue(
+                      "contraReembolso.comision",
+                      parseFloat(e.target.value)
+                    )
+                  }
                   error={!!errors.contraReembolso?.comision}
                   helperText={errors.contraReembolso?.comision?.message}
-                  value={                  
-                  (methods.watch("contraReembolso.importe") || 0) *
-                  (methods.watch("contraReembolso.coeficiente") || 0)
-                  }
+                  sx={{ width: "120px" }}
                 />
               </Box>
             </Box>
@@ -362,10 +404,27 @@ const RemitoFormMock: React.FC = () => {
         </Box>
 
         {/* Botón para Agregar Producto */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, margin: "20px 0 5px" , height: "40px" }}>
-          <h3>Productos</h3>
-          <CustomButton onClick={productDialog.openDialog}>
-            {<FaPlus />}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            margin: 2,
+            paddingTop: 2,
+          }}
+        >
+          <label
+            htmlFor="add-product"
+            style={{
+              fontWeight: "bold",
+              fontSize: "20px",
+              display: "block",
+            }}
+          >
+            Productos
+          </label>
+          <CustomButton id="add-product" onClick={productDialog.openDialog}>
+            <FaPlus />
           </CustomButton>
         </Box>
 
@@ -383,13 +442,17 @@ const RemitoFormMock: React.FC = () => {
         />
 
         {/* Botón de Guardar */}
-        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 2 }}>
-          <CustomButton
-            type="submit"
-            aria-label={"Guardar Remito"}
-          >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 2,
+          }}
+        >
+          <CustomButton type="submit" aria-label={"Guardar Remito"}>
             {"Guardar Remito"}
-          </CustomButton> 
+          </CustomButton>
         </Box>
       </form>
     </FormProvider>
