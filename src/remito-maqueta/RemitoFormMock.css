@@ -1,32 +1,32 @@
-
-body {
+.remitos-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
   font-family: Arial, sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
 }
 
-.remitos-form {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: aliceblue;
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px;
 }
 
-input, select {
+.custom-react-select__control {
+  height: 50px;
+  min-height: 50px;
+  padding: 1px;
+}
+
+.form-label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+input, select, textarea, .MuiInputBase-formControl{
   background-color: white!important;
 }
-.seguro-item{
-  margin-bottom: 15px;
-}
-.reembolso-item {
-  margin-bottom: 15px;
-}
 
-.react-select__menu {
-  z-index: 999
-;}
-
-/* Estilos para el input de coeficiente porque sino no está todo en blanco */
-.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
-  background-color: white!important;
-}

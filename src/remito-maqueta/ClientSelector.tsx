@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import Select from "react-select";
 import { Controller, useWatch } from "react-hook-form";
 import { Cliente } from "../types/types";
+import { Box } from "@mui/material";
 
 interface Option {
   value: number;
@@ -15,7 +16,7 @@ interface ClientSelectorProps {
   control: any;
   options: Option[];
   errors: any;
-  data: Cliente[]; // Lista de clientes para mostrar información adicional
+  data: Cliente[];
 }
 
 const ClientSelector: React.FC<ClientSelectorProps> = ({
@@ -41,8 +42,8 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
   }, [selectedOption, data]);
 
   return (
-    <div className="client-selector">
-      <label htmlFor={name}>{label}</label>
+    <Box className="client-selector">
+      <label htmlFor={name} className="form-label">{label}</label>
       <Controller
         name={name}
         control={control}
@@ -51,7 +52,7 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
             {...field}
             inputId={name}
             options={options}
-            placeholder={`Seleccione un ${label.toLowerCase()}`}
+            placeholder={`Seleccione ${label}`}
             onChange={(selectedOption) => {
               field.onChange(selectedOption);
             }}
@@ -59,11 +60,11 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
               options.find((option) => option.value === field.value?.value) ||
               null
             }
-            classNamePrefix="react-select"
+            classNamePrefix="custom-react-select"
             aria-label={label}
-            menuPortalTarget={document.body} // Renderiza el menú en el body
+            menuPortalTarget={document.body}
             styles={{
-              menuPortal: (base) => ({ ...base, zIndex: 9999 }), // Ajusta el z-index
+              menuPortal: (base) => ({ ...base, zIndex: 9999 }),
             }}
             menuPosition="fixed"
           />
@@ -72,8 +73,20 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
       {errors[name]?.message && (
         <p className="error-message">{errors[name]?.message as string}</p>
       )}
-      {selectedClient && selectedClient.direcciones?.length > 0 && (
-        <div className="cliente-detalles">
+      {selectedClient ? (
+        <Box
+          className="cliente-detalles"
+          sx={{
+            minHeight: "60px", // Altura mínima fija
+            marginTop: "8px",
+            padding: "8px",
+            backgroundColor: "#f9f9f9",
+            borderRadius: "4px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
           <p>
             <strong>Domicilio:</strong>{" "}
             {selectedClient.direcciones[0].domicilio}
@@ -82,9 +95,26 @@ const ClientSelector: React.FC<ClientSelectorProps> = ({
             <strong>Localidad:</strong>{" "}
             {selectedClient.direcciones[0].localidad}
           </p>
-        </div>
+        </Box>
+      ) : (
+        <Box
+          className="cliente-detalles"
+          sx={{
+            minHeight: "60px",
+            marginTop: "8px",
+            padding: "8px",
+            backgroundColor: "#f9f9f9",
+            borderRadius: "4px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            color: "#aaa",
+          }}
+        >
+          <p>No hay detalles seleccionados</p>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

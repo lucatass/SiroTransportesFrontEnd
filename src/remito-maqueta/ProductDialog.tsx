@@ -5,6 +5,7 @@ import { TipoProducto, UNIDADES } from "./remitoConstants";
 import { Producto } from "../types/types";
 import { CustomButton } from "../components/common";
 
+
 interface ProductDialogProps {
   isOpen: boolean;
   onRequestClose: () => void;
@@ -47,8 +48,8 @@ const ProductDialog: React.FC<ProductDialogProps> = ({
   };
 
   return (
-    <Dialog open={isOpen} onClose={onRequestClose} maxWidth="sm" fullWidth>
-      <DialogContent>
+    <Dialog open={isOpen} onClose={onRequestClose} maxWidth="md" >
+      <DialogContent sx={{ width: 260, background: "aliceblue" }}>
         <Box sx={{ mb: 2 }}>
           <Grid container spacing={2}>
             {/* Primera fila: Producto y Unidad */}
@@ -154,3 +155,4 @@ const ProductDialog: React.FC<ProductDialogProps> = ({
 };
 
 export default ProductDialog;
+
