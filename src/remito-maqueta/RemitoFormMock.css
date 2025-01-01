@@ -18,6 +18,7 @@
   min-height: 50px;
   padding: 1px;
 }
+<<<<<<< HEAD
 
 .form-label {
   font-weight: bold;
@@ -30,3 +31,12 @@ input, select, textarea, .MuiInputBase-formControl{
   background-color: white!important;
 }
 
+=======
+
+.form-label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+>>>>>>> 61b27b75e2a7d2c6c324d6b1d1b2abda4f8e509a
