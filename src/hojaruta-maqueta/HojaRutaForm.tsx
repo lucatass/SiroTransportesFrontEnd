@@ -3,12 +3,17 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDatePicker, FormRow, AutoCompleteSelector } from "../components";
-import { Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+  Box,
+} from "@mui/material";
 import SelectedRemitosTable from "./SelectedRemitosTable";
 import "./css/HojaRutaForm.css";
 import { TipoProducto } from "../remito-maqueta/remitoConstants";
 import "./css/HojaRutaForm.css";
-
 
 const remitos = [
   {
@@ -64,17 +69,22 @@ const remitos = [
 const personalOptions = [
   { value: "1", label: "Domingo" },
   { value: "2", label: "Peron" },
-]
+];
 
 const camionOptions = [
   { value: "1", label: "SCANIA" },
   { value: "2", label: "VOLVO" },
-]
+];
 
 const HojaRutaForm: React.FC = () => {
   const methods = useForm();
-  const { control, handleSubmit } = methods;
   const [fleteTercero, setFleteTercero] = useState(false);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
 
   const onSubmit = (data: any) => {
     console.log("Submit:", data);
@@ -84,102 +94,102 @@ const HojaRutaForm: React.FC = () => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="hoja-ruta-form">
         {/* Header Top */}
-        <div className="section">
+        <Box className="section">
           <FormRow className="form-header">
-            <FormDatePicker name="fecha" label="Fecha" />
             <FormDatePicker name="salida" label="Fecha de Salida" />
-            <h2>Hoja de Ruta</h2>
             <FormDatePicker name="llegada" label="Fecha de Llegada" />
-            <TextField label="Estado" value="ABIERTA" disabled fullWidth />
+            <TextField label="Estado" value={"ABIERTA"} disabled fullWidth />
           </FormRow>
-        </div>
+        </Box>
 
         {/* Origen y Destino */}
-        <div className="section">
-          <FormRow>
-            <AutoCompleteSelector
-              name="origen"
-              label="Origen"
-              control={control}
-              options={[
-                { value: "BAS", label: "Buenos Aires" },
-                { value: "SNZ", label: "Santa Cruz" },
-              ]}
-              errors={{
-                origen: {
-                  message: "El origen es obligatorio.",
-                },
-              }}
-            />
-            <AutoCompleteSelector
-              name="destino"
-              label="Destino"
-              control={control}
-              options={[
-                { value: "BAS", label: "Buenos Aires" },
-                { value: "SNZ", label: "Santa Cruz" },
-              ]}
-              errors={{
-                destino: {
-                  message: "El destino es obligatorio.",
-                },
-              }} // Simula un error para diseño
-            />
+        <Box className="section">
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ flex: 1 }}>
+              <AutoCompleteSelector
+                name="origen"
+                label="Origen"
+                control={control}
+                options={[
+                  { value: "BAS", label: "Buenos Aires" },
+                  { value: "SNZ", label: "Santa Cruz" },
+                ]}
+              />
+            </Box>
+            <Box sx={{ flex: 1 }}>
+              <AutoCompleteSelector
+                name="destino"
+                label="Destino"
+                control={control}
+                options={[
+                  { value: "BAS", label: "Buenos Aires" },
+                  { value: "SNZ", label: "Santa Cruz" },
+                ]}
+              />
+            </Box>
+          </Box>
+        </Box>
 
+        {/* Checkbox para Flete Tercero */}
+        <Box
+          className="section"
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        >
+          <Box>
             <FormControlLabel
               control={
                 <Checkbox
                   checked={fleteTercero}
                   onChange={(e) => setFleteTercero(e.target.checked)}
+                  color="primary"
                 />
               }
               label="Flete Tercero"
             />
+          </Box>
 
+          {/* Transporte Opcional */}
           {fleteTercero && (
+            <Box sx={{ display: "flex", gap: 2 }}>
               <AutoCompleteSelector
                 name="transporteId"
                 label="Transporte"
                 control={control}
-                options={[
-                  { value: "1", label: "Transporte A" },
-                  { value: "2", label: "Transporte B" },
-                ]}
-                errors={{
-                  origen: {
-                    message: "El origen es obligatorio.",
-                  },
-                }}
+                options={transporteOptions}
               />
+            </Box>
           )}
+        </Box>
 
-          {/* Personal y Camión */}
+        {/* Personal y Camión */}
+        <Box
+          className="section"
+          sx={{
+            display: "flex",
+            gap: 2,
+            "& > div": {
+              flex: 1,
+              maxWidth: "200px",
+            },
+          }}
+        >
+          <Box>
             <AutoCompleteSelector
               name="personalId"
               label="Personal"
               control={control}
               options={personalOptions}
-              errors={{
-                origen: {
-                  message: "El origen es obligatorio.",
-                },
-              }}
-              style={{ width: "300px" }}
             />
+          </Box>
+          <Box>
             <AutoCompleteSelector
               name="maquinariaId"
               label="Camión"
               control={control}
               options={camionOptions}
-              errors={{
-                origen: {
-                  message: "El origen es obligatorio.",
-                },
-              }}
-              style={{ width: "300px" }}
             />
-          </FormRow>
-        </div>
+          </Box>
+        </Box>
 
         {/* Tabla de Remitos */}
         <SelectedRemitosTable
@@ -187,14 +197,63 @@ const HojaRutaForm: React.FC = () => {
           onView={(remito) => console.log("Ver Remito", remito)}
           onDelete={(id) => console.log("Eliminar Remito", id)}
         />
+        {errors.remitosId && <p className="error-message">{"errorMsg"}</p>}
+
+        {/* Sección de Totales */}
+        <TotalsSection totals={totals} />
 
         {/* Botones de acción */}
-        <div className="form-actions">
-          <Button type="submit" variant="contained" color="primary">
-            Guardar
-          </Button>
-        </div>
+        <CustomButton onClick={handleAddRemitos}>Agregar Remitos</CustomButton>
+        <Box className="form-actions">
+          <CustomButton type="submit">
+            {selectedHojaRuta ? "Actualizar" : "Guardar"}
+          </CustomButton>
+        </Box>
       </form>
+
+      {/* Modal para Seleccionar Remitos */}
+      <RemitosSelectionDialog
+        open={remitosModal.isOpen}
+        remitos={remitos}
+        isLoading={isLoading}
+        onClose={handleCancelRemitosModal}
+        setValue={setValue}
+      />
+
+      {/* Modal para Ver Remito */}
+      <RemitoDialog
+        isOpen={remitoDialog.isOpen}
+        onClose={remitoDialog.closeDialog}
+        remito={selectedRemito}
+        onSubmit={(data) => {
+          if (!selectedRemito?.cartaPorte) {
+            logger.error("Error: cartaPorte no disponible.");
+            return;
+          }
+
+          const transformedData = transformRemitoData(data);
+
+          actualizarRemito(
+            {
+              cartaPorte: selectedRemito?.cartaPorte,
+              request: transformedData,
+            },
+            {
+              onSuccess: () => {
+                logger.debug("Remito actualizado exitosamente");
+                remitoDialog.closeDialog();
+              },
+              onError: (error) => {
+                logger.error("Error al actualizar el remito:", error);
+              },
+            }
+          );
+        }}
+        remitentesOptions={remitentesOptions}
+        destinatariosOptions={destinatariosOptions}
+        remitentesData={remitentesData}
+        destinatariosData={destinatariosData}
+      />
     </FormProvider>
   );
 };

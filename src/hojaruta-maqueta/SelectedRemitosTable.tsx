@@ -31,16 +31,15 @@ const SelectedRemitosTable: React.FC<SelectedRemitosTableProps> = ({
       <Table className="selected-remitos-table">
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Fecha</TableCell>
             <TableCell>Carta Porte</TableCell>
             <TableCell>Remitente</TableCell>
             <TableCell>Destinatario</TableCell>
             <TableCell>Tipo Pago</TableCell>
             <TableCell>Bultos</TableCell>
+            <TableCell>Valor Declarado</TableCell>
+            <TableCell>ContraReembolso</TableCell>
+            <TableCell>Seguro</TableCell>
             <TableCell>Tracking</TableCell>
-            <TableCell>Monto Origen</TableCell>
-            <TableCell>Monto Destino</TableCell>
             <TableCell>Acciones</TableCell>
           </TableRow>
         </TableHead>
